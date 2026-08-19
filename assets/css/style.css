@@ -231,7 +231,7 @@ strong{font-weight:600}
 .header.is-stuck{border-color:var(--line);box-shadow:0 12px 30px -24px rgba(10,16,48,.5);background:rgba(255,255,255,.95)}
 .header .container{display:flex;align-items:center;justify-content:space-between;gap:1.25rem;min-height:var(--header-h);flex-wrap:nowrap}
 .brand{display:inline-flex;align-items:center;gap:.72rem;flex:none}
-.brand svg{height:40px;width:auto}
+.brand-mark,.brand svg{height:40px;width:auto;max-width:230px;object-fit:contain}
 .brand-txt{display:flex;flex-direction:column;line-height:1.05}
 .brand-name{font-family:var(--f-display);font-weight:700;font-size:1.02rem;letter-spacing:-.03em;color:var(--navy)}
 .brand-sub{font-size:.6rem;letter-spacing:.19em;text-transform:uppercase;color:var(--muted-2);font-weight:600}
@@ -608,6 +608,22 @@ strong{font-weight:600}
 .map-list li b{font-weight:600}
 .map-list li span{color:var(--muted);font-size:.85rem;text-align:right}
 
+.logo-slot{
+  display:grid;place-items:center;gap:1rem;padding:clamp(1.5rem,3vw,2.5rem);
+  border:1px solid var(--line);border-radius:var(--r-md);background:var(--white);min-height:230px;
+  transition:border-color var(--d-2) var(--e-out),box-shadow var(--d-2) var(--e-out);
+}
+.logo-slot:hover{box-shadow:var(--sh-1)}
+.logo-slot img{max-height:120px;width:auto;max-width:100%}
+.logo-slot--new{background:var(--navy-900);border-color:transparent}
+.logo-slot--new .logo-cap{color:var(--on-dark-muted)}
+.logo-cap{font-size:var(--t-xs);letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--muted-2);text-align:center}
+.logo-lockup{display:flex;align-items:center;gap:.9rem}
+.logo-lockup .brand-name{font-size:1.5rem}
+.logo-lockup .brand-sub{font-size:.7rem}
+.logo-slot--new .brand-name{color:#fff}
+.logo-slot--new .brand-sub{color:var(--on-dark-muted)}
+
 /* ---------- 22. Responsive ------------------------------------------------ */
 @media (max-width:1080px){
   .g-4{grid-template-columns:repeat(2,1fr)}
@@ -630,7 +646,7 @@ strong{font-weight:600}
   .topbar-list li:not(:first-child){display:none}
   .topbar .row>a.small{display:none}
   .header-cta .btn{display:none}
-  .brand svg,.brand img{height:34px;width:34px}
+  .brand-mark,.brand svg{height:32px;max-width:150px}
   .g-4,.stats{grid-template-columns:1fr}
   .field-row{grid-template-columns:1fr}
   .srow{grid-template-columns:1fr auto;gap:.75rem 1rem}

@@ -26,6 +26,7 @@ Las páginas de la raíz **se generan**. No las edite directamente: edite `src/`
 src/partials/     head · header · footer · icons   (compartidos por todas las páginas)
 src/pages/        una plantilla por página, con front-matter <!--meta title/desc/nav-->
 tools/build.py    reemplaza {{> partial}}, {{title}}, {{desc}}, {{cur:nav}}
+tools/set_logo.py coloca un logotipo (nuevo o el actual del cliente) en un solo paso
 ```
 
 ```bash
@@ -44,7 +45,7 @@ python3 tools/make_assets.py    # o: npm run assets  → regenera el kit SVG
 | `providers.html` | Médicos referentes: tiempos, cómo referir, formulario |
 | `about.html` | Historia, valores, equipo médico, calidad y acreditaciones |
 | `contact.html` | Formulario de cita con validación + datos directos |
-| `proposal.html` | **La presentación**: dirección de diseño, marca, alcance y fases |
+| `proposal.html` | **La presentación**: dirección, identidad (actual vs. propuesta), marca, alcance y fases |
 
 ## Sistema
 
@@ -82,16 +83,38 @@ validar con el cliente:
 6. **Testimonios** — reemplazar por reseñas reales con autorización.
 7. **Formularios PDF y portal de resultados** — hoy son enlaces de demostración.
 
+## Logotipo
+
+El sitio usa **un solo bloque de marca** (`src/partials/brand.html` para la cabecera y
+`brand-footer.html` para el pie), así que cambiar el logotipo es un cambio en un solo lugar:
+
+```bash
+python3 tools/set_logo.py ruta/al/logo.svg               # marca nueva: cabecera, pie y favicon
+python3 tools/set_logo.py ruta/al/logo.svg logo-blanco.svg  # con versión clara para el pie
+python3 tools/set_logo.py ruta/al/actual.png --original  # logotipo ACTUAL del cliente
+```
+
+El script copia el archivo a `assets/img/`, ajusta la referencia si la extensión no es `.svg`
+y reconstruye las ocho páginas. Acepta SVG (preferido), PNG, WebP y JPG.
+
+- **`--original`** alimenta el recuadro «Logotipo actual» de la sección *Identity* en
+  `proposal.html`, pensada para mostrarle al cliente su marca actual junto a la propuesta.
+- Sin `--original`, sustituye la marca viva del sitio (cabecera, pie y favicon).
+
+> ⚠️ **El logotipo original no se pudo descargar**: el proxy de red de este entorno bloquea
+> el acceso a `bestamericandiagnostics.com`, y tampoco llegó el archivo adjunto. Por eso el
+> recuadro de la izquierda en *Identity* es un marcador de posición
+> (`assets/img/logo-original.svg`). En cuanto tenga el archivo, el comando de arriba lo
+> coloca en toda la propuesta. La marca del infinito que se ve hoy en la cabecera es la
+> **propuesta nueva**, no la actual.
+
 ## Imágenes
 
-Todas las imágenes son **SVG generados** (`tools/make_assets.py`): duotonos abstractos en la
-paleta de marca, sin licencias de terceros. Están pensados como marcadores de posición —
+El resto de las imágenes son **SVG generados** (`tools/make_assets.py`): duotonos abstractos
+en la paleta de marca, sin licencias de terceros. Están pensados como marcadores de posición —
 reemplácelos por fotografía real del centro respetando las mismas proporciones
 (`scene-*.svg`, `fig--tall` 4:5, `fig--wide` 16:10, `fig--sq` 1:1). Los mapas
 (`map-1.svg`, `map-2.svg`) se sustituyen por Google Maps embebido.
-
-El logotipo (`logo.svg`) es una propuesta con el símbolo del infinito; si existe un
-logotipo definitivo, se sustituye el archivo sin tocar el resto del sistema.
 
 ## Formularios
 
@@ -105,5 +128,6 @@ correspondiente.
 ```bash
 npm install            # solo si va a usar las herramientas de captura (Playwright)
 npm run shot           # capturas de página completa en .screenshots/
+node tools/shot.js index.html --jpeg   # versión comprimida y recortada, fácil de compartir
 npm run audit          # enlaces rotos, iconos faltantes, alt, errores JS, switch EN/ES
 ```

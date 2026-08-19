@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 200" role="img" aria-label="Slot for the client's current logo">
+  <defs>
+    <pattern id="hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="14" stroke="#001C77" stroke-width="1" opacity=".13"/>
+    </pattern>
+  </defs>
+  <rect width="520" height="200" rx="14" fill="#F6F8FC"/>
+  <rect width="520" height="200" rx="14" fill="url(#hatch)"/>
+  <rect x="1" y="1" width="518" height="198" rx="13" fill="none" stroke="#001C77" stroke-width="2" stroke-dasharray="10 8" opacity=".38"/>
+  <g fill="none" stroke="#001C77" stroke-width="2.4" opacity=".5" stroke-linecap="round">
+    <circle cx="150" cy="100" r="30"/>
+    <path d="M138 100h8l5-11 7 22 5-11h9"/>
+  </g>
+  <text x="205" y="86" font-family="Inter Tight, Inter, Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#001C77" letter-spacing="-0.4">Logotipo actual</text>
+  <text x="205" y="112" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14.5" fill="#5B6485">Reemplace este archivo con el logo</text>
+  <text x="205" y="132" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14.5" fill="#5B6485">original del cliente (SVG o PNG).</text>
+  <text x="205" y="158" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#8B93AE" letter-spacing="1.4">ASSETS/IMG/LOGO-ORIGINAL.SVG</text>
+</svg>
