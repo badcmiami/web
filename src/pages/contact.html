@@ -1,0 +1,161 @@
+<!--meta
+title: Contact & Appointments — Best American Diagnostic Center, Hialeah FL
+desc: Request an appointment, send your physician's order or ask a question. Call (305) 681-7555, fax (305) 681-7040, or use the online request form.
+nav: contact
+-->
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+</head>
+<body>
+{{> header}}
+
+<main>
+  <section class="phero">
+    <div class="container phero-inner">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html" data-es="Inicio">Home</a><span>/</span><span data-es="Contacto">Contact</span></nav>
+      <div data-reveal>
+        <span class="eyebrow" data-es="Contacto y citas">Contact &amp; appointments</span>
+        <h1 class="mt-1" data-es="Agende su estudio en menos de un minuto.">Book your exam in under a minute.</h1>
+        <p class="lede" data-es="Llame y hable con una persona, o envíenos su solicitud y nosotros lo llamamos. En español o en inglés, como usted prefiera.">Call and speak with a person, or send us a request and we will call you. In Spanish or English, whichever you prefer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="container split split--wide-left">
+      <div class="form-panel" data-reveal="left">
+        <span class="eyebrow" data-es="Solicitud de cita">Appointment request</span>
+        <h2 class="mt-1" style="font-size:var(--t-h3)" data-es="Cuéntenos qué necesita">Tell us what you need</h2>
+        <p class="small muted mt-1" data-es="Por su privacidad, no incluya detalles médicos en este formulario. Un coordinador se comunicará con usted el mismo día hábil.">For your privacy, please do not include medical details in this form. A coordinator will contact you the same business day.</p>
+
+        <form class="form mt-2" data-validate novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="c-name" data-es="Nombre completo <span class='req'>*</span>">Full name <span class="req">*</span></label>
+              <input id="c-name" name="name" type="text" required placeholder="Maria Rodriguez" data-es-ph="María Rodríguez">
+              <span class="field-err" data-es="Ingrese su nombre">Please enter your name</span>
+            </div>
+            <div class="field">
+              <label for="c-phone" data-es="Teléfono <span class='req'>*</span>">Phone <span class="req">*</span></label>
+              <input id="c-phone" name="phone" type="tel" required placeholder="(305) 000-0000">
+              <span class="field-err" data-es="Ingrese un teléfono válido de 10 dígitos">Please enter a valid 10-digit phone</span>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="c-email" data-es="Correo electrónico">Email</label>
+              <input id="c-email" name="email" type="email" placeholder="you@email.com" data-es-ph="usted@correo.com">
+              <span class="field-err" data-es="Correo no válido">Invalid email</span>
+            </div>
+            <div class="field">
+              <label for="c-lang" data-es="Idioma preferido">Preferred language</label>
+              <select id="c-lang" name="language">
+                <option data-es="Español">Spanish</option>
+                <option data-es="Inglés">English</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="c-study" data-es="Estudio solicitado <span class='req'>*</span>">Requested study <span class="req">*</span></label>
+              <select id="c-study" name="study" required>
+                <option value="" data-es="Seleccione un estudio">Select a study</option>
+                <option>MRI</option>
+                <option data-es="Tomografía (CT)">CT Scan</option>
+                <option data-es="Mamografía 3D">3D Mammography</option>
+                <option data-es="Ultrasonido">Ultrasound</option>
+                <option data-es="Rayos X">X-Ray</option>
+                <option data-es="EKG / Ecocardiograma">EKG / Echocardiogram</option>
+                <option data-es="Densitometría ósea">Bone density (DEXA)</option>
+                <option data-es="No estoy seguro">I am not sure</option>
+              </select>
+              <span class="field-err" data-es="Seleccione un estudio">Please select a study</span>
+            </div>
+            <div class="field">
+              <label for="c-loc" data-es="Sede preferida">Preferred location</label>
+              <select id="c-loc" name="location">
+                <option>637 E 49th St, Hialeah</option>
+                <option>5005 E 8th Ave, Hialeah</option>
+                <option data-es="La que tenga cita antes">Whichever is available sooner</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="c-date" data-es="Fecha preferida">Preferred date</label>
+              <input id="c-date" name="date" type="date">
+            </div>
+            <div class="field">
+              <label for="c-ins" data-es="Seguro médico">Insurance</label>
+              <input id="c-ins" name="insurance" type="text" placeholder="Florida Blue, Medicare…" data-es-ph="Florida Blue, Medicare…">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="c-msg" data-es="Mensaje (opcional)">Message (optional)</label>
+            <textarea id="c-msg" name="message" placeholder="Best time to reach you, questions about preparation…" data-es-ph="Mejor horario para llamarle, dudas sobre la preparación…"></textarea>
+          </div>
+
+          <label class="check">
+            <input type="checkbox" required>
+            <span data-es="Autorizo a Best American Diagnostic Center a comunicarse conmigo por teléfono, mensaje de texto o correo electrónico sobre esta solicitud. <span class='req'>*</span>">I authorize Best American Diagnostic Center to contact me by phone, text or email about this request. <span class="req">*</span></span>
+          </label>
+
+          <button class="btn btn--lg btn--block" type="submit" data-es='Enviar solicitud <svg class="ico"><use href="#i-arrow"/></svg>'>Send request <svg class="ico"><use href="#i-arrow"/></svg></button>
+          <p class="form-note" data-es="Este formulario no es para emergencias médicas. Si tiene una emergencia, llame al 911.">This form is not for medical emergencies. If you have an emergency, call 911.</p>
+        </form>
+
+        <div class="form-ok">
+          <svg><use href="#i-check-c"/></svg>
+          <div>
+            <b data-es="¡Solicitud enviada!">Request sent</b>
+            <p class="small mt-0" data-es="Gracias. Un coordinador lo llamará el mismo día hábil para confirmar su cita y verificar su seguro. (Demostración: este formulario aún no está conectado a un servidor.)">Thank you. A coordinator will call you the same business day to confirm your appointment and verify your insurance. (Demo: this form is not connected to a server yet.)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack-lg" data-reveal="right">
+        <div>
+          <span class="eyebrow" data-es="Hable con nosotros">Talk to us</span>
+          <h2 class="mt-1" style="font-size:var(--t-h3)" data-es="Preferimos el teléfono. Contesta una persona.">We prefer the phone. A person answers.</h2>
+          <dl class="dl mt-2">
+            <dt data-es="Citas">Appointments</dt><dd><a href="tel:+13056817555">(305) 681-7555</a></dd>
+            <dt data-es="Segunda sede">Second location</dt><dd><a href="tel:+13058251535">(305) 825-1535</a></dd>
+            <dt data-es="Órdenes médicas">Physician orders</dt><dd data-es="Fax: (305) 681-7040">Fax: (305) 681-7040</dd>
+            <dt data-es="Horario">Hours</dt><dd data-es="Lunes a viernes, 8:00 am – 6:00 pm">Monday to Friday, 8:00 am – 6:00 pm</dd>
+          </dl>
+        </div>
+
+        <div class="card">
+          <span class="c-ico"><svg><use href="#i-pin"/></svg></span>
+          <h3>637 E 49th Street</h3>
+          <p>Hialeah, FL 33013</p>
+          <a class="tlink" href="https://www.google.com/maps/dir/?api=1&destination=637+E+49th+St+Hialeah+FL+33013" target="_blank" rel="noopener" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+        </div>
+
+        <div class="card">
+          <span class="c-ico"><svg><use href="#i-pin"/></svg></span>
+          <h3>5005 E 8th Avenue</h3>
+          <p>Hialeah, FL 33013</p>
+          <a class="tlink" href="https://www.google.com/maps/dir/?api=1&destination=5005+E+8th+Ave+Hialeah+FL+33013" target="_blank" rel="noopener" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+        </div>
+
+        <div class="card card--dark">
+          <span class="c-ico" style="background:rgba(255,255,255,.08);color:var(--teal)"><svg><use href="#i-doc"/></svg></span>
+          <h3 data-es="¿Es usted médico?">Are you a provider?</h3>
+          <p data-es="Use la línea de consultorios para coordinar estudios urgentes y hablar con el radiólogo.">Use the provider line to coordinate urgent studies and speak with the radiologist.</p>
+          <a class="tlink" href="providers.html" data-es='Portal para médicos <svg class="ico"><use href="#i-arrow"/></svg>'>Provider information <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{{> footer}}
+</body>
+</html>

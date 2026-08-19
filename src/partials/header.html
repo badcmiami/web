@@ -1,0 +1,89 @@
+{{> icons}}
+<div class="progress" aria-hidden="true"></div>
+
+<div class="topbar">
+  <div class="container">
+    <ul class="topbar-list">
+      <li><svg class="ico"><use href="#i-phone"/></svg><a href="tel:+13056817555">(305) 681-7555</a></li>
+      <li><svg class="ico"><use href="#i-clock"/></svg><span data-es="Lun – Vie · 8:00 am – 6:00 pm">Mon – Fri · 8:00 am – 6:00 pm</span></li>
+      <li><svg class="ico"><use href="#i-pin"/></svg><span data-es="Dos sedes en Hialeah, FL">Two locations in Hialeah, FL</span></li>
+    </ul>
+    <div class="row" style="gap:1rem">
+      <a href="contact.html" class="small" data-es="Resultados y portal del paciente">Results &amp; patient portal</a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="container">
+    <a class="brand" href="index.html" aria-label="Best American Diagnostic — home">
+      <img src="assets/img/logo.svg" alt="" width="40" height="40">
+      <span class="brand-txt">
+        <span class="brand-name">Best American</span>
+        <span class="brand-sub">Diagnostic Center</span>
+      </span>
+    </a>
+
+    <nav aria-label="Main">
+      <ul class="nav">
+        <li class="has-mega" data-open="false">
+          <button type="button" aria-expanded="false" data-es="Servicios">Services
+            <svg class="caret"><use href="#i-chevron"/></svg>
+          </button>
+          <div class="mega">
+            <a class="mega-item" href="services.html#mri"><span class="m-ico"><svg><use href="#i-mri"/></svg></span>
+              <span><b>MRI</b><span data-es="Resonancia magnética abierta y de alto campo, con y sin contraste.">High-field and open MRI, with and without contrast.</span></span></a>
+            <a class="mega-item" href="services.html#ct"><span class="m-ico"><svg><use href="#i-ct"/></svg></span>
+              <span><b data-es="Tomografía (CT)">CT Scan</b><span data-es="Cortes multidetector en segundos, con dosis baja.">Multi-detector slices in seconds, low-dose protocols.</span></span></a>
+            <a class="mega-item" href="services.html#mammography"><span class="m-ico"><svg><use href="#i-mammo"/></svg></span>
+              <span><b data-es="Mamografía 3D">3D Mammography</b><span data-es="Tomosíntesis para detección temprana.">Tomosynthesis for earlier detection.</span></span></a>
+            <a class="mega-item" href="services.html#ultrasound"><span class="m-ico"><svg><use href="#i-us"/></svg></span>
+              <span><b data-es="Ultrasonido">Ultrasound</b><span data-es="Estudios abdominales, tiroideos, pélvicos y Doppler.">Abdominal, thyroid, pelvic and Doppler studies.</span></span></a>
+            <a class="mega-item" href="services.html#xray"><span class="m-ico"><svg><use href="#i-xray"/></svg></span>
+              <span><b data-es="Rayos X digitales">Digital X-Ray</b><span data-es="Sin cita previa, imágenes en el momento.">Walk-in friendly, images on the spot.</span></span></a>
+            <a class="mega-item" href="services.html#cardiac"><span class="m-ico"><svg><use href="#i-heart"/></svg></span>
+              <span><b data-es="EKG y estudios cardíacos">EKG &amp; Cardiac</b><span data-es="Electrocardiograma, ecocardiograma y Doppler vascular.">EKG, echocardiogram and vascular Doppler.</span></span></a>
+            <div class="mega-foot">
+              <span class="small muted" data-es="¿No encuentra su estudio? Le ayudamos a ubicarlo.">Not sure which study you need? We will help you find it.</span>
+              <a class="tlink" href="services.html" data-es='Ver todos los servicios <svg class="ico"><use href="#i-arrow"/></svg>'>All services <svg class="ico"><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+        </li>
+        <li><a href="locations.html" {{cur:locations}} data-es="Sedes">Locations</a></li>
+        <li><a href="patients.html" {{cur:patients}} data-es="Pacientes">Patients</a></li>
+        <li><a href="providers.html" {{cur:providers}} data-es="Médicos">Providers</a></li>
+        <li><a href="about.html" {{cur:about}} data-es="Nosotros">About</a></li>
+        <li><a href="contact.html" {{cur:contact}} data-es="Contacto">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-cta">
+      <a class="btn btn--ghost btn--sm" href="tel:+13056817555"><svg class="ico"><use href="#i-phone"/></svg>(305) 681-7555</a>
+      <a class="btn btn--sm" href="contact.html" data-es='Agendar cita <svg class="ico"><use href="#i-arrow"/></svg>'>Book an exam <svg class="ico"><use href="#i-arrow"/></svg></a>
+      <button class="burger" aria-expanded="false" aria-controls="drawer" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <nav aria-label="Mobile">
+    <a href="index.html" data-es="Inicio">Home <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+    <a href="services.html" data-es="Servicios">Services <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+    <a href="locations.html" data-es="Sedes">Locations <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+    <a href="patients.html" data-es="Pacientes">Patients <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+    <a href="providers.html" data-es="Médicos">Providers <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+    <a href="about.html" data-es="Nosotros">About <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+    <a href="contact.html" data-es="Contacto">Contact <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+  </nav>
+  <div class="drawer-foot">
+    <a class="btn btn--block" href="contact.html" data-es='Agendar cita <svg class="ico"><use href="#i-arrow"/></svg>'>Book an exam <svg class="ico"><use href="#i-arrow"/></svg></a>
+    <a class="btn btn--ghost btn--block" href="tel:+13056817555"><svg class="ico"><use href="#i-phone"/></svg>(305) 681-7555</a>
+    <p class="small muted" data-es="Lun – Vie · 8:00 am – 6:00 pm · Hialeah, Florida">Mon – Fri · 8:00 am – 6:00 pm · Hialeah, Florida</p>
+  </div>
+</div>

@@ -1,0 +1,232 @@
+<!--meta
+title: Website Proposal 2026 — Design Direction & Scope | Best American Diagnostic
+desc: The thinking behind this redesign: brand system, page architecture, motion language, bilingual strategy, technical standards and delivery phases.
+nav: proposal
+-->
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+</head>
+<body>
+{{> header}}
+
+<main>
+  <section class="phero">
+    <div class="container phero-inner">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html" data-es="Inicio">Home</a><span>/</span><span data-es="Propuesta de diseño">Design proposal</span></nav>
+      <div data-reveal>
+        <span class="eyebrow" data-es="Propuesta de sitio web · 2026">Website proposal · 2026</span>
+        <h1 class="mt-1" data-es="Una presencia digital a la altura del centro que ya tienen.">A digital presence that matches the center you already run.</h1>
+        <p class="lede" data-es="Todo lo que está navegando es el prototipo real: siete páginas funcionales, bilingües y responsivas, construidas sobre el nuevo sistema de marca. Esta página explica las decisiones detrás de él.">Everything you are browsing is the actual prototype: seven working, bilingual, responsive pages built on the new brand system. This page explains the decisions behind it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OBJECTIVES ============ -->
+  <section class="sec">
+    <div class="container">
+      <div class="sec-head--split sec-head" data-reveal>
+        <div>
+          <span class="eyebrow" data-es="Objetivos">Objectives</span>
+          <h2 class="mt-1" data-es="Qué tiene que lograr el sitio.">What the site has to accomplish.</h2>
+        </div>
+        <p class="lede" data-es="Un centro de diagnóstico no vende un producto: vende confianza y rapidez. El sitio debe demostrar ambas en los primeros cinco segundos.">A diagnostic center does not sell a product: it sells trust and speed. The site has to demonstrate both within the first five seconds.</p>
+      </div>
+      <div class="grid g-4 mt-3" data-stagger>
+        <div class="card"><span class="card-num">01</span><h3 data-es="Convertir llamadas">Drive calls</h3><p data-es="El teléfono es el canal real de conversión. Está visible en la barra superior, en el encabezado, en cada sección y fijo en móvil.">The phone is the real conversion channel. It sits in the top bar, the header, every section and pinned on mobile.</p></div>
+        <div class="card"><span class="card-num">02</span><h3 data-es="Reducir fricción">Remove friction</h3><p data-es="Preparación, seguros, documentos y horarios respondidos antes de que el paciente tenga que preguntar.">Preparation, insurance, documents and hours answered before the patient has to ask.</p></div>
+        <div class="card"><span class="card-num">03</span><h3 data-es="Hablar en dos idiomas">Speak two languages</h3><p data-es="En Hialeah, el 95% de la población habla español en casa. El sitio cambia de idioma con un clic, sin duplicar URLs.">In Hialeah, 95% of residents speak Spanish at home. The site switches language in one click, with no duplicate URLs.</p></div>
+        <div class="card"><span class="card-num">04</span><h3 data-es="Ganar al médico referente">Win the referrer</h3><p data-es="Una sección propia para consultorios: tiempos de entrega, formas de referir y acceso al radiólogo.">A dedicated section for practices: turnaround times, how to refer and access to the radiologist.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DIRECTION ============ -->
+  <section class="sec sec--dark">
+    <div class="container split">
+      <div data-reveal="left">
+        <span class="eyebrow" data-es="Dirección de diseño">Design direction</span>
+        <h2 class="mt-1" data-es="Corporativo, limpio, minimalista — y con carácter.">Corporate, clean, minimal — with a spine.</h2>
+        <p class="lede mt-1" data-es="Tomamos como referencia el lenguaje del sitio industrial europeo que compartieron: mucho aire, tipografía grande y tensa, secciones que alternan claro y oscuro, y movimiento discreto que aparece al hacer scroll. Sobre esa base aplicamos la nueva identidad.">We took the European industrial reference you shared as the starting language: generous air, large tight typography, sections that alternate light and dark, and restrained motion that appears on scroll. On that base we applied the new identity.</p>
+        <dl class="spec mt-3" style="color:var(--on-dark-muted)">
+          <dt style="color:#fff" data-es="Retícula">Grid</dt><dd style="color:var(--on-dark-muted)" data-es="Contenedor de 1280 px, márgenes fluidos, división 50/50 y 60/40 para bloques narrativos.">1280 px container, fluid gutters, 50/50 and 60/40 splits for narrative blocks.</dd>
+          <dt style="color:#fff" data-es="Ritmo">Rhythm</dt><dd style="color:var(--on-dark-muted)" data-es="Secciones de 72–144 px verticales con escala fluida; nunca dos secciones claras seguidas sin contraste.">72–144 px vertical sections on a fluid scale; never two light sections in a row without contrast.</dd>
+          <dt style="color:#fff" data-es="Jerarquía">Hierarchy</dt><dd style="color:var(--on-dark-muted)" data-es="Etiqueta + titular + bajada + acción. Tres niveles, siempre en el mismo orden.">Eyebrow + headline + lede + action. Three levels, always in the same order.</dd>
+          <dt style="color:#fff" data-es="Fotografía">Photography</dt><dd style="color:var(--on-dark-muted)" data-es="Duotono navy/verde sobre imágenes reales del centro; las de esta demo son gráficos vectoriales temporales.">Navy/green duotone over real photography of the center; the ones in this demo are temporary vector graphics.</dd>
+        </dl>
+      </div>
+      <figure class="fig fig--tall" data-reveal="right"><img src="assets/img/hero.svg" alt="Visual direction"></figure>
+    </div>
+  </section>
+
+  <!-- ============ BRAND ============ -->
+  <section class="sec">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow" data-es="Sistema de marca">Brand system</span>
+        <h2 class="mt-1" data-es="Dos colores hacen todo el trabajo.">Two colors do all the work.</h2>
+        <p class="lede mt-1" data-es="Infinity Navy carga la autoridad médica; Tahoe Green aporta el pulso, la energía y la señal de acción. Los neutros están calibrados para que ambos respiren.">Infinity Navy carries the medical authority; Tahoe Green brings the pulse, the energy and the signal to act. The neutrals are calibrated so both can breathe.</p>
+      </div>
+
+      <div class="grid g-4 mt-3" data-stagger>
+        <div class="swatch"><div class="swatch-chip" style="background:#001C77"></div><div class="swatch-meta"><b>Infinity Navy</b><code>#001C77</code><p class="small muted mt-0" data-es="Titulares, botón primario, fondos profundos.">Headlines, primary button, deep backgrounds.</p></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#00C6C1"></div><div class="swatch-meta"><b>Tahoe Green</b><code>#00C6C1</code><p class="small muted mt-0" data-es="Acentos, hover, datos destacados, iconografía.">Accents, hover, highlighted data, iconography.</p></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#000B33"></div><div class="swatch-meta"><b data-es="Navy profundo">Deep Navy</b><code>#000B33</code><p class="small muted mt-0" data-es="Secciones oscuras, pie de página, hero.">Dark sections, footer, hero.</p></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:linear-gradient(120deg,#001C77,#0B3AB0 45%,#00C6C1)"></div><div class="swatch-meta"><b data-es="Degradado de marca">Brand gradient</b><code>120° navy → green</code><p class="small muted mt-0" data-es="Barras de progreso, detalles y arte de imagen.">Progress bars, details and image art.</p></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#F6F8FC"></div><div class="swatch-meta"><b data-es="Papel">Paper</b><code>#F6F8FC</code><p class="small muted mt-0" data-es="Fondo alterno de sección.">Alternating section background.</p></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#E4FAF9"></div><div class="swatch-meta"><b data-es="Verde 50">Green 050</b><code>#E4FAF9</code><p class="small muted mt-0" data-es="Fondo de iconos y etiquetas.">Icon and tag backgrounds.</p></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#0A1030"></div><div class="swatch-meta"><b data-es="Tinta">Ink</b><code>#0A1030</code><p class="small muted mt-0" data-es="Texto principal sobre claro.">Body text on light.</p></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#5B6485"></div><div class="swatch-meta"><b data-es="Texto secundario">Muted</b><code>#5B6485</code><p class="small muted mt-0" data-es="Párrafos de apoyo y metadatos.">Supporting paragraphs and metadata.</p></div></div>
+      </div>
+
+      <div class="split mt-3" style="align-items:start">
+        <div data-reveal="left">
+          <h3 data-es="Tipografía">Typography</h3>
+          <p class="muted mt-1" data-es="Una sola familia neo-grotesca en dos anchos: titulares con tracking negativo para dar densidad y textos en peso regular para máxima legibilidad clínica.">A single neo-grotesque family in two widths: headlines with negative tracking for density, body copy at regular weight for maximum clinical legibility.</p>
+          <dl class="spec mt-2">
+            <dt>Display</dt><dd>Inter Tight · 600 · −3.2% tracking</dd>
+            <dt data-es="Titular hero">Hero</dt><dd>clamp(2.9rem → 5.6rem) · line-height .98</dd>
+            <dt>H2</dt><dd>clamp(1.9rem → 3rem) · line-height 1.04</dd>
+            <dt data-es="Bajada">Lede</dt><dd>clamp(1.02rem → 1.25rem) · 62ch max</dd>
+            <dt data-es="Cuerpo">Body</dt><dd>Inter · 16 px · line-height 1.65</dd>
+            <dt>Eyebrow</dt><dd>12.5 px · 700 · +20% tracking · uppercase</dd>
+          </dl>
+        </div>
+        <div data-reveal="right">
+          <h3 data-es="Marca gráfica">Logo mark</h3>
+          <p class="muted mt-1" data-es="La propuesta de marca usa el símbolo del infinito — continuidad del cuidado y de los dos nombres — en un contenedor cuadrado redondeado que funciona igual en un favicon de 16 px que en una fachada.">The mark proposal uses the infinity symbol — continuity of care and of the two names — inside a rounded square that works equally at 16 px as a favicon and on a building façade.</p>
+          <div class="row mt-2" style="gap:1.25rem;align-items:center">
+            <img src="assets/img/logo.svg" alt="Logo on navy" width="72" height="72">
+            <img src="assets/img/logo-teal.svg" alt="Logo on green" width="56" height="56">
+            <img src="assets/img/favicon.svg" alt="Favicon" width="32" height="32">
+          </div>
+          <p class="small muted mt-2" data-es="Se entrega en SVG, PNG y versión monocromática. Si ya existe un logotipo definitivo, el sistema lo adopta sin cambios estructurales.">Delivered in SVG, PNG and a monochrome version. If a final logo already exists, the system adopts it with no structural changes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ARCHITECTURE ============ -->
+  <section class="sec sec--paper">
+    <div class="container split split--wide-left">
+      <div data-reveal="left">
+        <span class="eyebrow" data-es="Arquitectura">Architecture</span>
+        <h2 class="mt-1" data-es="Siete páginas, cada una con un trabajo claro.">Seven pages, each with one clear job.</h2>
+        <p class="lede mt-1" data-es="Ninguna página existe «porque sí». Cada una responde a una intención de búsqueda concreta y termina en una acción.">No page exists “just because”. Each one answers a specific search intent and ends in an action.</p>
+        <ul class="map-list mt-2" data-stagger>
+          <li><b><a href="index.html">Home</a></b><span data-es="Confianza en 5 segundos + acceso a todo">Trust in 5 seconds + access to everything</span></li>
+          <li><b><a href="services.html">Services</a></b><span data-es="Siete estudios, uso, duración y preparación">Seven studies, use, duration and prep</span></li>
+          <li><b><a href="locations.html">Locations</a></b><span data-es="Direcciones, horarios, acceso y cómo llegar">Addresses, hours, access and directions</span></li>
+          <li><b><a href="patients.html">Patients</a></b><span data-es="Preparación, seguros, formularios y FAQ">Preparation, insurance, forms and FAQ</span></li>
+          <li><b><a href="providers.html">Providers</a></b><span data-es="Cómo referir, tiempos y formulario">How to refer, turnaround and form</span></li>
+          <li><b><a href="about.html">About</a></b><span data-es="Historia, valores, equipo y calidad">Story, values, team and quality</span></li>
+          <li><b><a href="contact.html">Contact</a></b><span data-es="Formulario de cita y datos directos">Appointment form and direct details</span></li>
+        </ul>
+      </div>
+      <div data-reveal="right">
+        <div class="form-panel">
+          <h3 data-es="Estrategia bilingüe">Bilingual strategy</h3>
+          <p class="muted mt-1" data-es="Cada texto del sitio guarda su versión en español junto al original. El botón EN/ES intercambia el contenido al instante, recuerda la preferencia del visitante y actualiza el atributo de idioma para lectores de pantalla.">Every string on the site carries its Spanish version alongside the original. The EN/ES button swaps the content instantly, remembers the visitor's preference and updates the language attribute for screen readers.</p>
+          <ul class="stack-sm mt-2">
+            <li class="row" style="flex-wrap:nowrap;gap:.7rem"><span class="tag"><svg class="ico"><use href="#i-check"/></svg></span><span class="small" data-es="Sin páginas duplicadas ni /es/ que mantener">No duplicate pages or /es/ tree to maintain</span></li>
+            <li class="row" style="flex-wrap:nowrap;gap:.7rem"><span class="tag"><svg class="ico"><use href="#i-check"/></svg></span><span class="small" data-es="Preferencia guardada entre visitas">Preference stored between visits</span></li>
+            <li class="row" style="flex-wrap:nowrap;gap:.7rem"><span class="tag"><svg class="ico"><use href="#i-check"/></svg></span><span class="small" data-es="Para SEO puro se puede migrar a /es/ con hreflang">For maximum SEO it can migrate to /es/ with hreflang</span></li>
+          </ul>
+          <p class="small muted mt-2" data-es="Pruébelo: el botón EN/ES está en la barra superior de esta misma página.">Try it: the EN/ES button is in the top bar of this very page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPONENTS + MOTION ============ -->
+  <section class="sec">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow" data-es="Sistema">System</span>
+        <h2 class="mt-1" data-es="Componentes y movimiento.">Components and motion.</h2>
+        <p class="lede mt-1" data-es="Todo el sitio se arma con estas piezas. Añadir una página nueva no requiere diseño nuevo: se combinan bloques existentes.">The whole site is assembled from these pieces. Adding a new page needs no new design — you combine existing blocks.</p>
+      </div>
+
+      <div class="grid g-3 mt-3" data-stagger>
+        <div class="card"><h3 data-es="Botones">Buttons</h3><p data-es="Primario navy, verde, claro y fantasma. Todos con relleno que sube al pasar el cursor y flecha que se desplaza.">Primary navy, green, light and ghost. All with a fill that rises on hover and an arrow that shifts.</p>
+          <div class="row mt-1"><a class="btn btn--sm" href="#">Primary <svg class="ico"><use href="#i-arrow"/></svg></a><a class="btn btn--teal btn--sm" href="#">Accent</a><a class="btn btn--ghost btn--sm" href="#">Ghost</a></div>
+        </div>
+        <div class="card"><h3 data-es="Tarjetas">Cards</h3><p data-es="Elevación al pasar el cursor, línea de degradado superior e icono que gira. Variantes clara, oscura y plana.">Hover elevation, a top gradient line and an icon that rotates. Light, dark and flat variants.</p></div>
+        <div class="card"><h3 data-es="Filas de índice">Index rows</h3><p data-es="Listado editorial con numeración, fondo que aparece y círculo que rota 45°. Ideal para catálogos de servicios.">Editorial list with numbering, an appearing background and a circle that rotates 45°. Ideal for service catalogs.</p></div>
+        <div class="card"><h3 data-es="Acordeones y pestañas">Accordions &amp; tabs</h3><p data-es="Altura animada, un solo panel abierto, accesibles por teclado. Usados en FAQ y preparación.">Animated height, single open panel, keyboard accessible. Used for FAQ and preparation.</p></div>
+        <div class="card"><h3 data-es="Encabezado inteligente">Smart header</h3><p data-es="Transparente sobre el hero, sólido al hacer scroll, con mega-menú de servicios y menú de pantalla completa en móvil.">Transparent over the hero, solid on scroll, with a services mega-menu and a full-screen mobile menu.</p></div>
+        <div class="card"><h3 data-es="Formularios">Forms</h3><p data-es="Validación en vivo, estados de error, confirmación visual y aviso de no enviar información médica.">Live validation, error states, visual confirmation and a notice not to send medical information.</p></div>
+      </div>
+
+      <div class="grid g-4 mt-3" data-stagger>
+        <div class="card card--flat"><span class="card-num">A</span><h4 data-es="Aparición al scroll">Scroll reveal</h4><p class="small" data-es="Desplazamiento y opacidad con retardo escalonado por grupo.">Translate and opacity with staggered delay per group.</p></div>
+        <div class="card card--flat"><span class="card-num">B</span><h4 data-es="Contadores">Counters</h4><p class="small" data-es="Cifras que suben al entrar en pantalla, con curva de desaceleración.">Figures that count up on entry, with an ease-out curve.</p></div>
+        <div class="card card--flat"><span class="card-num">C</span><h4 data-es="Cinta continua">Marquee</h4><p class="small" data-es="Franja de confianza en movimiento infinito que se detiene al pasar el cursor.">Infinite trust strip that pauses on hover.</p></div>
+        <div class="card card--flat"><span class="card-num">D</span><h4 data-es="Ken Burns + progreso">Ken Burns + progress</h4><p class="small" data-es="Zoom lento en el hero y barra de progreso de lectura en el borde superior.">Slow hero zoom and a reading-progress bar at the top edge.</p></div>
+      </div>
+      <p class="small muted mt-2" data-reveal data-es="Todo el movimiento se desactiva automáticamente si el visitante activó «reducir movimiento» en su sistema operativo.">All motion switches off automatically if the visitor has enabled “reduce motion” in their operating system.</p>
+    </div>
+  </section>
+
+  <!-- ============ TECHNICAL ============ -->
+  <section class="sec sec--dark">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow" data-es="Estándares técnicos">Technical standards</span>
+        <h2 class="mt-1" data-es="Rápido, encontrable y accesible por diseño.">Fast, findable and accessible by design.</h2>
+      </div>
+      <div class="grid g-4 mt-3" data-stagger>
+        <div class="card card--dark"><span class="c-ico"><svg><use href="#i-bolt"/></svg></span><h3 data-es="Rendimiento">Performance</h3><p data-es="HTML, CSS y JavaScript propios, sin librerías externas. Todo el sitio pesa menos que una sola foto sin optimizar.">Hand-written HTML, CSS and JavaScript with no external libraries. The entire site weighs less than one unoptimized photo.</p></div>
+        <div class="card card--dark"><span class="c-ico"><svg><use href="#i-globe"/></svg></span><h3>SEO</h3><p data-es="Títulos y descripciones por página, datos estructurados MedicalBusiness con ambas sedes, horarios y teléfonos para Google.">Per-page titles and descriptions, MedicalBusiness structured data with both locations, hours and phone numbers for Google.</p></div>
+        <div class="card card--dark"><span class="c-ico"><svg><use href="#i-wheel"/></svg></span><h3 data-es="Accesibilidad">Accessibility</h3><p data-es="Contraste AA, navegación por teclado, foco visible, etiquetas ARIA y respeto por «reducir movimiento».">AA contrast, keyboard navigation, visible focus, ARIA labelling and respect for reduced motion.</p></div>
+        <div class="card card--dark"><span class="c-ico"><svg><use href="#i-shield"/></svg></span><h3 data-es="Privacidad">Privacy</h3><p data-es="Los formularios piden datos de contacto, nunca información clínica, con aviso explícito y ruta segura para el envío real.">Forms collect contact details, never clinical information, with an explicit notice and a secure path for real submissions.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT WE NEED / PHASES ============ -->
+  <section class="sec sec--paper">
+    <div class="container split">
+      <div data-reveal="left">
+        <span class="eyebrow" data-es="Lo que necesitamos de ustedes">What we need from you</span>
+        <h2 class="mt-1" data-es="Cinco insumos y el sitio queda listo para producción.">Five inputs and the site is production-ready.</h2>
+        <div class="steps mt-3">
+          <div class="step"><span class="step-n"></span><div><h3 data-es="Fotografía real">Real photography</h3><p data-es="Fachadas, salas de equipo, recepción y equipo humano. Podemos coordinar la sesión.">Façades, equipment rooms, reception and staff. We can coordinate the shoot.</p></div></div>
+          <div class="step"><span class="step-n"></span><div><h3 data-es="Lista de seguros vigente">Current insurance list</h3><p data-es="Los contratos activos exactos, para reemplazar la lista de referencia.">The exact active contracts, to replace the reference list.</p></div></div>
+          <div class="step"><span class="step-n"></span><div><h3 data-es="Credenciales y acreditaciones">Credentials &amp; accreditations</h3><p data-es="Nombres de radiólogos, subespecialidades, números ACR / AHCA / MQSA.">Radiologist names, subspecialties, ACR / AHCA / MQSA numbers.</p></div></div>
+          <div class="step"><span class="step-n"></span><div><h3 data-es="Cifras reales">Real figures</h3><p data-es="Años de operación, estudios anuales y tiempo real de entrega de reportes.">Years in operation, annual study volume and true report turnaround.</p></div></div>
+          <div class="step"><span class="step-n"></span><div><h3 data-es="Formularios y portal">Forms &amp; portal</h3><p data-es="PDFs oficiales y, si existe, el enlace al portal de resultados.">Official PDFs and, if one exists, the link to the results portal.</p></div></div>
+        </div>
+      </div>
+
+      <div data-reveal="right">
+        <span class="eyebrow" data-es="Entrega">Delivery</span>
+        <h2 class="mt-1" data-es="Cuatro fases desde esta demo hasta el lanzamiento.">Four phases from this demo to launch.</h2>
+        <div class="acc mt-3" data-single>
+          <div class="acc-item" data-open="true">
+            <button class="acc-btn" type="button" data-es="Fase 1 · Aprobación de dirección">Phase 1 · Direction sign-off</button>
+            <div class="acc-panel"><div class="acc-panel-in"><p data-es="Revisamos juntos este prototipo, ajustamos tono, colores y estructura. Cerramos el sistema visual definitivo.">We review this prototype together, adjust tone, color and structure, and lock the final visual system.</p></div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" type="button" data-es="Fase 2 · Contenido real y fotografía">Phase 2 · Real content and photography</button>
+            <div class="acc-panel"><div class="acc-panel-in"><p data-es="Sustituimos textos de referencia, incorporamos fotos del centro y validamos cada dato clínico y administrativo con ustedes.">We replace reference copy, bring in photography of the center and validate every clinical and administrative detail with you.</p></div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" type="button" data-es="Fase 3 · Formularios, integración y CMS">Phase 3 · Forms, integration and CMS</button>
+            <div class="acc-panel"><div class="acc-panel-in"><p data-es="Conectamos el formulario de citas a un envío seguro, integramos Google Maps y Analytics, y —si lo desean— montamos un gestor para que su equipo edite textos.">We connect the appointment form to a secure endpoint, integrate Google Maps and Analytics, and — if you want it — set up a CMS so your team can edit copy.</p></div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" type="button" data-es="Fase 4 · Pruebas y lanzamiento">Phase 4 · QA and launch</button>
+            <div class="acc-panel"><div class="acc-panel-in"><p data-es="Pruebas en dispositivos reales, accesibilidad, velocidad, redirecciones desde el sitio actual, Google Business Profile y capacitación de su equipo.">Testing on real devices, accessibility, speed, redirects from the current site, Google Business Profile and training for your team.</p></div></div>
+          </div>
+        </div>
+        <p class="small muted mt-2" data-es="Nota: los textos, cifras, testimonios y listas de esta demo son propuestas de referencia y deben confirmarse antes de publicar.">Note: the copy, figures, testimonials and lists in this demo are reference proposals and must be confirmed before publishing.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+{{> footer}}
+</body>
+</html>

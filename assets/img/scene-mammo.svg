@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="3D mammography placeholder image">
+  <defs>
+    <linearGradient id="g5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#001C77"/><stop offset="0.55" stop-color="#0B3AB0"/><stop offset="1" stop-color="#00C6C1"/>
+    </linearGradient>
+    <radialGradient id="r5" cx="0.7" cy="0.45" r="0.75">
+      <stop offset="0" stop-color="#00C6C1" stop-opacity="0.55"/><stop offset="1" stop-color="#00C6C1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="n5"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3"/>
+      <feColorMatrix type="saturate" values="0"/></filter>
+  </defs>
+  <rect width="1400" height="900" fill="url(#g5)"/>
+  <rect width="1400" height="900" fill="url(#r5)"/>
+  <pattern id="dp3" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="11.0" cy="11.0" r="2.2" fill="#fff"/></pattern><rect width="1400" height="900" fill="url(#dp3)" opacity="0.22"/><circle cx="952.0000000000001" cy="450.0" r="63.6" fill="none" stroke="#fff" stroke-width="1.0" opacity="0.3"/><circle cx="952.0000000000001" cy="450.0" r="127.3" fill="none" stroke="#fff" stroke-width="1.6" opacity="0.273"/><circle cx="952.0000000000001" cy="450.0" r="190.9" fill="none" stroke="#fff" stroke-width="2.2" opacity="0.247"/><circle cx="952.0000000000001" cy="450.0" r="254.5" fill="none" stroke="#fff" stroke-width="1.0" opacity="0.22"/><circle cx="952.0000000000001" cy="450.0" r="318.2" fill="none" stroke="#fff" stroke-width="1.6" opacity="0.193"/><circle cx="952.0000000000001" cy="450.0" r="381.8" fill="none" stroke="#fff" stroke-width="2.2" opacity="0.167"/><circle cx="952.0000000000001" cy="450.0" r="445.5" fill="none" stroke="#fff" stroke-width="1.0" opacity="0.14"/><circle cx="952.0000000000001" cy="450.0" r="509.1" fill="none" stroke="#fff" stroke-width="1.6" opacity="0.113"/><circle cx="952.0000000000001" cy="450.0" r="572.7" fill="none" stroke="#fff" stroke-width="2.2" opacity="0.087"/>
+  <rect width="1400" height="900" filter="url(#n5)" opacity="0.06"/>
+</svg>
