@@ -1,6 +1,7 @@
 <!--meta
 title: Contact & Appointments — Best American Diagnostic Center, Hialeah FL
 desc: Request an appointment, send your physician's order or ask a question. Call (305) 681-7555, fax (305) 681-7040, or use the online request form.
+priority: 0.9
 nav: contact
 -->
 <!doctype html>
@@ -30,7 +31,10 @@ nav: contact
         <h2 class="mt-1" style="font-size:var(--t-h3)" data-es="Cuéntenos qué necesita">Tell us what you need</h2>
         <p class="small muted mt-1" data-es="Por su privacidad, no incluya detalles médicos en este formulario. Un coordinador se comunicará con usted el mismo día hábil.">For your privacy, please do not include medical details in this form. A coordinator will contact you the same business day.</p>
 
-        <form class="form mt-2" data-validate novalidate>
+        <form class="form mt-2" action="send.php" method="post" data-validate novalidate>
+            <input type="hidden" name="form_type" value="appointment">
+            <p class="hp" aria-hidden="true"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label></p>
+
           <div class="field-row">
             <div class="field">
               <label for="c-name" data-es="Nombre completo <span class='req'>*</span>">Full name <span class="req">*</span></label>
@@ -106,6 +110,7 @@ nav: contact
             <span data-es="Autorizo a Best American Diagnostic Center a comunicarse conmigo por teléfono, mensaje de texto o correo electrónico sobre esta solicitud. <span class='req'>*</span>">I authorize Best American Diagnostic Center to contact me by phone, text or email about this request. <span class="req">*</span></span>
           </label>
 
+          <p class="form-err" role="alert"></p>
           <button class="btn btn--lg btn--block" type="submit" data-es='Enviar solicitud <svg class="ico"><use href="#i-arrow"/></svg>'>Send request <svg class="ico"><use href="#i-arrow"/></svg></button>
           <p class="form-note" data-es="Este formulario no es para emergencias médicas. Si tiene una emergencia, llame al 911.">This form is not for medical emergencies. If you have an emergency, call 911.</p>
         </form>

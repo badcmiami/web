@@ -1,6 +1,7 @@
 <!--meta
 title: Website Proposal 2026 — Design Direction & Scope | Best American Diagnostic
 desc: The thinking behind this redesign: brand system, page architecture, motion language, bilingual strategy, technical standards and delivery phases.
+index: no
 nav: proposal
 -->
 <!doctype html>
@@ -95,54 +96,50 @@ nav: proposal
         </div>
         <div data-reveal="right">
           <h3 data-es="Marca gráfica">Logo mark</h3>
-          <p class="muted mt-1" data-es="La propuesta de marca usa el símbolo del infinito — continuidad del cuidado y de los dos nombres — en un contenedor cuadrado redondeado que funciona igual en un favicon de 16 px que en una fachada.">The mark proposal uses the infinity symbol — continuity of care and of the two names — inside a rounded square that works equally at 16 px as a favicon and on a building façade.</p>
+          <p class="muted mt-1" data-es="El logotipo del centro redibujado en vector: la «b» en Infinity Navy cuyo contrapunzón es el disco Tahoe Green, sosteniendo el gantry y la camilla del equipo. Se entrega en SVG, así que es nítido desde un favicon de 16 px hasta una fachada.">The center's logo rebuilt as vector: the Infinity Navy “b” whose counter is the Tahoe Green disc, holding the scanner gantry and patient table. Delivered as SVG, so it stays crisp from a 16 px favicon to a building façade.</p>
           <div class="row mt-2" style="gap:1.25rem;align-items:center">
-            <img src="assets/img/logo.svg" alt="Logo on navy" width="72" height="72">
-            <img src="assets/img/logo-teal.svg" alt="Logo on green" width="56" height="56">
-            <img src="assets/img/favicon.svg" alt="Favicon" width="32" height="32">
+            <img src="assets/img/logo-mark.svg" alt="Logo mark on light" width="66" height="72">
+            <span style="background:var(--navy-900);border-radius:12px;padding:.6rem .8rem;display:inline-flex">
+              <img src="assets/img/logo-mark-inverse.svg" alt="Logo mark on dark" width="52" height="57">
+            </span>
+            <img src="assets/img/favicon.svg" alt="Favicon" width="32" height="35">
           </div>
-          <p class="small muted mt-2" data-es="Se entrega en SVG, PNG y versión monocromática. Si ya existe un logotipo definitivo, el sistema lo adopta sin cambios estructurales.">Delivered in SVG, PNG and a monochrome version. If a final logo already exists, the system adopts it with no structural changes.</p>
+          <p class="small muted mt-2" data-es="Variantes incluidas: marca sobre claro, sobre oscuro, favicon y el bloque completo con el texto. Si nos envían el archivo vectorial original (AI o EPS), lo sustituimos con «tools/set_logo.py» y queda idéntico al manual de marca.">Variants included: mark on light, on dark, favicon and the full lockup with type. Send us the original vector file (AI or EPS) and “tools/set_logo.py” swaps it in for an exact match to the brand manual.</p>
         </div>
       </div>
     </div>
   </section>
 
 
-  <!-- ============ IDENTITY: BEFORE / AFTER ============ -->
+  <!-- ============ IDENTITY ============ -->
   <section class="sec sec--paper" id="identity">
     <div class="container">
       <div class="sec-head--split sec-head" data-reveal>
         <div>
           <span class="eyebrow" data-es="Identidad">Identity</span>
-          <h2 class="mt-1" data-es="El logotipo actual y la propuesta, lado a lado.">The current logo and the proposal, side by side.</h2>
+          <h2 class="mt-1" data-es="El logotipo, funcionando en todos los fondos.">The logo, working on every background.</h2>
         </div>
-        <p class="lede" data-es="La marca no se tira a la basura: se ordena. El sistema funciona con el logotipo definitivo que ustedes elijan — el nuevo o el actual redibujado.">The brand is not thrown away, it is put in order. The system works with whichever final logo you choose — the new one or the current one redrawn.</p>
+        <p class="lede" data-es="El sitio se construyó alrededor de la marca existente, no al revés. Los dos colores del logotipo son literalmente los dos colores del sistema.">The site was built around the existing brand, not the other way round. The logo's two colors are literally the system's two colors.</p>
       </div>
 
       <div class="grid g-2 mt-3" data-stagger>
         <figure class="logo-slot">
-          <img src="assets/img/logo-original.svg" alt="Current logo of Best American Diagnostic Center">
-          <figcaption class="logo-cap" data-es="Actual · a colocar">Current · to be supplied</figcaption>
+          <img src="assets/img/logo-lockup.svg" alt="Best American Diagnostic Center logo">
+          <figcaption class="logo-cap" data-es="Bloque completo · sobre claro">Full lockup · on light</figcaption>
         </figure>
         <figure class="logo-slot logo-slot--new">
-          <span class="logo-lockup">
-            <img src="assets/img/logo-teal.svg" alt="Proposed logo mark" width="64" height="64" style="height:64px">
-            <span class="brand-txt">
-              <span class="brand-name">Best American</span>
-              <span class="brand-sub">Diagnostic Center</span>
-            </span>
-          </span>
-          <figcaption class="logo-cap" data-es="Propuesta · infinito + Infinity Navy / Tahoe Green">Proposal · infinity + Infinity Navy / Tahoe Green</figcaption>
+          <img src="assets/img/logo-lockup-inverse.svg" alt="Best American Diagnostic Center logo on dark">
+          <figcaption class="logo-cap" data-es="Bloque completo · sobre Infinity Navy">Full lockup · on Infinity Navy</figcaption>
         </figure>
       </div>
 
       <div class="grid g-3 mt-3" data-stagger>
-        <div class="card card--flat"><h4 data-es="Símbolo">Symbol</h4><p class="small" data-es="El lazo del infinito une las dos mitades del nombre y sugiere continuidad del cuidado. Legible desde 16 px hasta una fachada.">The infinity loop ties the two halves of the name together and suggests continuity of care. Legible from 16 px to a building façade.</p></div>
-        <div class="card card--flat"><h4 data-es="Bloque tipográfico">Wordmark</h4><p class="small" data-es="«Best American» en peso fuerte y «Diagnostic Center» en versalitas espaciadas: jerarquía clara incluso junto al favicon.">“Best American” in a strong weight over “Diagnostic Center” in spaced small caps: clear hierarchy even next to the favicon.</p></div>
-        <div class="card card--flat"><h4 data-es="Intercambio en un paso">One-step swap</h4><p class="small" data-es="Sustituir el archivo del logo actualiza cabecera, pie, favicon e imagen para redes sociales en las ocho páginas.">Replacing the logo file updates the header, footer, favicon and social image across all eight pages.</p></div>
+        <div class="card card--flat"><h4 data-es="Símbolo">Symbol</h4><p class="small" data-es="La «b» del nombre y la boca del equipo son la misma forma: identidad y servicio en un solo trazo.">The “b” of the name and the scanner bore are the same shape: identity and service in a single stroke.</p></div>
+        <div class="card card--flat"><h4 data-es="Uso en cabecera">Header use</h4><p class="small" data-es="Marca + bloque tipográfico en HTML: pesa 600 bytes, es seleccionable y se traduce con el resto del sitio.">Mark plus an HTML wordmark: 600 bytes, selectable, and it translates along with the rest of the site.</p></div>
+        <div class="card card--flat"><h4 data-es="Intercambio en un paso">One-step swap</h4><p class="small" data-es="«python3 tools/set_logo.py archivo.svg» actualiza cabecera, pie, favicon e imagen social en las ocho páginas.">“python3 tools/set_logo.py file.svg” updates the header, footer, favicon and social image across all eight pages.</p></div>
       </div>
 
-      <p class="small muted mt-2" data-reveal data-es="El recuadro de la izquierda es un espacio reservado: no se pudo descargar el logotipo del sitio actual desde este entorno. Envíe el archivo (SVG preferido, o PNG a 1000 px) y con «python3 tools/set_logo.py archivo --original» queda colocado en toda la propuesta.">The frame on the left is a reserved slot: the current site's logo could not be downloaded from this environment. Send the file (SVG preferred, or PNG at 1000 px) and “python3 tools/set_logo.py file --original” drops it into the whole proposal.</p>
+      <p class="small muted mt-2" data-reveal data-es="El logotipo se reconstruyó en vector a partir del arte suministrado. La tipografía del bloque usa Inter Tight como equivalente; con el archivo vectorial original queda idéntica.">The logo was rebuilt as vector from the supplied artwork. The wordmark uses Inter Tight as a stand-in; with the original vector file it becomes an exact match.</p>
     </div>
   </section>
 

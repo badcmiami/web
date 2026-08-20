@@ -1,0 +1,15 @@
+{
+  "name": "Best American Diagnostic Center",
+  "short_name": "BAD Center",
+  "description": "Diagnostic imaging in Hialeah, Florida — MRI, CT, 3D mammography, ultrasound and cardiac studies.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#001C77",
+  "lang": "en-US",
+  "icons": [
+    { "src": "/assets/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/img/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

@@ -71,7 +71,10 @@ nav: providers
       <div class="form-panel" data-reveal="right" style="background:var(--navy-800);border-color:var(--dark-line)">
         <h3 style="color:#fff" data-es="Solicitud de referencia">Referral request</h3>
         <p class="small" style="color:var(--on-dark-muted)" data-es="No incluya información médica protegida en este formulario. Nos comunicaremos con su oficina por una vía segura.">Do not include protected health information in this form. We will contact your office through a secure channel.</p>
-        <form class="form mt-2" data-validate novalidate>
+        <form class="form mt-2" action="send.php" method="post" data-validate novalidate>
+            <input type="hidden" name="form_type" value="referral">
+            <p class="hp" aria-hidden="true"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label></p>
+
           <div class="field-row">
             <div class="field">
               <label for="p-name" style="color:var(--on-dark-muted)" data-es="Nombre del médico <span class='req'>*</span>">Provider name <span class="req">*</span></label>
@@ -99,6 +102,7 @@ nav: providers
             <label for="p-note" style="color:var(--on-dark-muted)" data-es="¿Cómo podemos ayudar?">How can we help?</label>
             <textarea id="p-note" name="note" placeholder="Studies you order most, volume, urgent turnaround needs…" data-es-ph="Estudios que más solicita, volumen, necesidades de urgencia…"></textarea>
           </div>
+          <p class="form-err" role="alert"></p>
           <button class="btn btn--teal btn--block" type="submit" data-es='Enviar solicitud <svg class="ico"><use href="#i-arrow"/></svg>'>Send request <svg class="ico"><use href="#i-arrow"/></svg></button>
         </form>
         <div class="form-ok">

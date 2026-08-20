@@ -8,9 +8,13 @@ Templating:
   {{cur:home}}    -> aria-current="page" when the page's `nav` value matches
 Run:  python3 tools/build.py
 """
-import os, re, sys
+import datetime, os, re, sys
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
+
+# Absolute origin used for canonical links, og:url and sitemap.xml.
+# Change this one line when the final domain is confirmed.
+SITE = os.environ.get('SITE_URL', 'https://bestamericandiagnostics.com').rstrip('/')
 PAGES = os.path.join(ROOT, 'src', 'pages')
 PARTS = os.path.join(ROOT, 'src', 'partials')
 
@@ -37,10 +41,23 @@ def render(src, meta, depth=0):
     src = re.sub(r'\{\{(\w+)\}\}', lambda m: meta.get(m.group(1), ''), src)
     return src
 
+def write_sitemap(pages):
+    today = datetime.date.today().isoformat()
+    entries = '\n'.join(
+        '  <url><loc>%s</loc><lastmod>%s</lastmod><changefreq>monthly</changefreq>'
+        '<priority>%s</priority></url>' % (url, today, pri)
+        for url, pri in sorted(pages, key=lambda p: -float(p[1])))
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % entries)
+    with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:
+        f.write(xml)
+
+
 def main():
     if not os.path.isdir(PAGES):
         sys.exit('missing ' + PAGES)
     built = 0
+    pages = []
     for name in sorted(os.listdir(PAGES)):
         if not name.endswith('.html'):
             continue
@@ -49,6 +66,13 @@ def main():
         meta.setdefault('title', 'Best American Diagnostic')
         meta.setdefault('desc', '')
         meta['path'] = name
+        meta['site'] = SITE
+        meta['base'] = '<base href="/">' if meta.get('base') == 'root' else ''
+        meta['url'] = SITE + '/' + ('' if name == 'index.html' else name)
+        if meta.get('index', 'yes').lower() != 'no':
+            pages.append((meta['url'], meta.get('priority', '0.8')))
+        meta['robots'] = ('noindex, nofollow' if meta.get('index', 'yes').lower() == 'no'
+                          else 'index, follow, max-image-preview:large')
         out = render(body, meta)
         # collapse the blank lines left behind by stripped conditionals
         out = re.sub(r'[ \t]+\n', '\n', out)
@@ -56,7 +80,8 @@ def main():
             f.write(out)
         built += 1
         print('  ·', name)
-    print('built %d pages' % built)
+    write_sitemap(pages)
+    print('built %d pages + sitemap.xml' % built)
 
 if __name__ == '__main__':
     main()

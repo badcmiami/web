@@ -14,23 +14,7 @@ def w(name, body):
         f.write(body)
     print('  ·', name)
 
-# ---------------------------------------------------------------- logo mark
-def mark(fg_a, fg_b, size=64):
-    """Infinity mark: two interlocking loops = continuity of care + 'Best American'."""
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="{size}" height="{size}" role="img" aria-label="Best American Diagnostic">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="{fg_a}"/><stop offset="1" stop-color="{fg_b}"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="17" fill="url(#bg)"/>
-  <path d="M20.5 32c0-5 3.6-8.6 8-8.6 3.4 0 5.9 2 7.5 4.6l3.4 5.4c1.4 2.2 3 3.6 5.1 3.6 2.6 0 4.6-2.1 4.6-5s-2-5-4.6-5c-1.6 0-2.9.7-4 2l-2.2-3.5c1.7-1.7 3.9-2.7 6.4-2.7 5 0 8.8 3.8 8.8 9.2s-3.8 9.2-8.8 9.2c-3.4 0-5.9-2-7.5-4.6l-3.4-5.4c-1.4-2.2-3-3.6-5.3-3.6-2.4 0-4.2 2.1-4.2 4.4s1.8 4.4 4.2 4.4c1.4 0 2.6-.6 3.6-1.8l2.2 3.5c-1.6 1.6-3.6 2.5-6 2.5-4.6 0-8.3-3.7-8.3-8.6z" fill="#fff" opacity=".97"/>
-  <circle cx="14" cy="32" r="3.4" fill="{TEAL if fg_a!=TEAL else '#fff'}"/>
-</svg>'''
-
-w('logo.svg', mark(NAVY, '#0B3AB0'))
-w('logo-teal.svg', mark(TEAL, '#00A9A5'))
-w('favicon.svg', mark(NAVY, TEAL, 32))
+# The logo kit lives in tools/make_logo.py (vector rebuild of the brand artwork).
 
 # --------------------------------------------------------- photo placeholders
 FRAME = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="{alt}">
@@ -170,8 +154,4 @@ def street_map(seed, W=900, H=700):
 w('map-1.svg', street_map(4))
 w('map-2.svg', street_map(19))
 
-# ------------------------------------------------------------- og / share art
-w('og-cover.svg', FRAME.format(W=1200, H=630, i=99, c1=NAVY9, c2=NAVY, c3='#0B3AB0',
-    gx=.75, gy=.3, glow=TEAL, alt='Best American Diagnostic',
-    motif=concentric(1200, 630, 900, 300, 14, 30, TEAL, .5) + scanlines(1200, 630, 18, '#fff', .05)))
 print('done.')

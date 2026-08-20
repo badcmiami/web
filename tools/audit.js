@@ -1,7 +1,7 @@
 /* Link / a11y / i18n smoke test across all built pages. */
 const { chromium } = require('playwright');
 const fs = require('fs');
-const pages = ['index','services','locations','patients','providers','about','contact','proposal'].map(p => p + '.html');
+const pages = ['index','services','locations','patients','providers','about','contact','proposal','404'].map(p => p + '.html');
 (async () => {
   const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
   const page = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
@@ -9,7 +9,7 @@ const pages = ['index','services','locations','patients','providers','about','co
   page.on('pageerror', e => errs.push(e.message));
   for (const p of pages) {
     errs.length = 0;
-    await page.goto('http://127.0.0.1:8899/' + p, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await page.goto('http://127.0.0.1:8811/' + p, { waitUntil: 'domcontentloaded', timeout: 20000 });
     const info = await page.evaluate(() => {
       const bad = [];
       document.querySelectorAll('a[href]').forEach(a => {

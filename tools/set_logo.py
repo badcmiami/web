@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Drop a logo file into the site in one step.
 
-  python3 tools/set_logo.py path/to/logo.svg              # new brand mark (header, footer, favicon)
-  python3 tools/set_logo.py path/to/current.png --original # the "current logo" slot on proposal.html
+  python3 tools/set_logo.py path/to/logo.svg              # brand mark (header, footer, favicon)
+  python3 tools/set_logo.py path/to/lockup.svg --original  # the lockup shown on proposal.html
 
 Accepts .svg, .png, .webp or .jpg. Copies the file into assets/img/, rewrites the
 reference in the shared brand partials when the extension is not .svg, and rebuilds
@@ -49,24 +49,24 @@ def main():
 
     if original:
         # the comparison slot on proposal.html
-        name = install(src, 'logo-original')
+        name = install(src, 'logo-lockup')
         page = os.path.join(ROOT, 'src', 'pages', 'proposal.html')
         with open(page) as f:
             html = f.read()
-        html = re.sub(r'assets/img/logo-original\.(svg|png|webp|jpe?g)', 'assets/img/' + name, html)
+        html = re.sub(r'assets/img/logo-lockup\.(svg|png|webp|jpe?g)', 'assets/img/' + name, html)
         with open(page, 'w') as f:
             f.write(html)
         print('  · proposal.html now shows', name)
     else:
         # the live brand mark: same file for header and footer unless a teal
         # variant is supplied separately as the second argument
-        name = install(src, 'logo')
-        repoint('brand.html', 'logo', name)
+        name = install(src, 'logo-mark')
+        repoint('brand.html', 'logo-mark', name)
         inverse = args[1] if len(args) > 1 else src
         if not os.path.isfile(inverse):
             sys.exit('file not found: ' + inverse)
-        name_i = install(inverse, 'logo-teal')
-        repoint('brand-footer.html', 'logo-teal', name_i)
+        name_i = install(inverse, 'logo-mark-inverse')
+        repoint('brand-footer.html', 'logo-mark-inverse', name_i)
         if os.path.splitext(src)[1].lower() == '.svg':
             shutil.copyfile(src, os.path.join(IMG, 'favicon.svg'))
             print('  · favicon.svg updated')

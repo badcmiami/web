@@ -17,7 +17,7 @@ fs.mkdirSync(OUT, { recursive: true });
     const errs = [];
     page.on('pageerror', e => errs.push('JS: ' + e.message));
     page.on('console', m => { if (m.type() === 'error') errs.push('CONSOLE: ' + m.text()); });
-    await page.goto('http://127.0.0.1:8899/' + p, { waitUntil: 'networkidle' });
+    await page.goto('http://127.0.0.1:8811/' + p, { waitUntil: 'networkidle' });
     await page.addStyleTag({ content: 'html{scroll-behavior:auto!important}' });
     const h = await page.evaluate(() => document.body.scrollHeight);
     for (let y = 0; y < h; y += 700) {

@@ -26,7 +26,10 @@ Las páginas de la raíz **se generan**. No las edite directamente: edite `src/`
 src/partials/     head · header · footer · icons   (compartidos por todas las páginas)
 src/pages/        una plantilla por página, con front-matter <!--meta title/desc/nav-->
 tools/build.py    reemplaza {{> partial}}, {{title}}, {{desc}}, {{cur:nav}}
-tools/set_logo.py coloca un logotipo (nuevo o el actual del cliente) en un solo paso
+tools/set_logo.py coloca un logotipo en un solo paso
+tools/make_logo.py regenera el kit del logotipo en vector
+tools/png_export.js exporta iconos y tarjeta social a PNG
+tools/bundle.py   empaqueta todo el sitio en dist/preview.html
 ```
 
 ```bash
@@ -45,7 +48,8 @@ python3 tools/make_assets.py    # o: npm run assets  → regenera el kit SVG
 | `providers.html` | Médicos referentes: tiempos, cómo referir, formulario |
 | `about.html` | Historia, valores, equipo médico, calidad y acreditaciones |
 | `contact.html` | Formulario de cita con validación + datos directos |
-| `proposal.html` | **La presentación**: dirección, identidad (actual vs. propuesta), marca, alcance y fases |
+| `proposal.html` | **La presentación**: dirección, identidad, marca, alcance y fases (`noindex`) |
+| `404.html` | Página de error con rutas de rescate |
 
 ## Sistema
 
@@ -85,28 +89,29 @@ validar con el cliente:
 
 ## Logotipo
 
-El sitio usa **un solo bloque de marca** (`src/partials/brand.html` para la cabecera y
-`brand-footer.html` para el pie), así que cambiar el logotipo es un cambio en un solo lugar:
+El logotipo del centro está **reconstruido en vector** a partir del arte suministrado
+(`tools/make_logo.py`): la «b» en Infinity Navy cuyo contrapunzón es el disco Tahoe Green,
+sosteniendo el gantry y la camilla del equipo.
+
+| Archivo | Uso |
+| --- | --- |
+| `logo-mark.svg` | Marca sobre fondo claro — cabecera |
+| `logo-mark-inverse.svg` | Marca sobre Infinity Navy — pie de página |
+| `logo-lockup.svg` / `-inverse.svg` | Bloque completo con tipografía |
+| `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192/512.png` | Iconos de navegador, iOS y Android |
+| `og-cover.png` | Imagen para WhatsApp, Facebook y LinkedIn (1200×630) |
+
+La cabecera combina la marca SVG con el texto en HTML, así pesa ~600 bytes, es seleccionable
+y se traduce junto con el resto del sitio. La tipografía del bloque usa Inter Tight como
+equivalente; **si nos envían el archivo vectorial original (AI o EPS) queda idéntico** al
+manual de marca:
 
 ```bash
-python3 tools/set_logo.py ruta/al/logo.svg               # marca nueva: cabecera, pie y favicon
-python3 tools/set_logo.py ruta/al/logo.svg logo-blanco.svg  # con versión clara para el pie
-python3 tools/set_logo.py ruta/al/actual.png --original  # logotipo ACTUAL del cliente
+python3 tools/set_logo.py ruta/al/logo.svg                 # marca (cabecera, pie, favicon)
+python3 tools/set_logo.py ruta/al/logo.svg blanco.svg      # con versión clara para el pie
+python3 tools/set_logo.py ruta/al/lockup.svg --original    # bloque mostrado en proposal.html
+node tools/png_export.js                                   # regenera PNGs e iconos
 ```
-
-El script copia el archivo a `assets/img/`, ajusta la referencia si la extensión no es `.svg`
-y reconstruye las ocho páginas. Acepta SVG (preferido), PNG, WebP y JPG.
-
-- **`--original`** alimenta el recuadro «Logotipo actual» de la sección *Identity* en
-  `proposal.html`, pensada para mostrarle al cliente su marca actual junto a la propuesta.
-- Sin `--original`, sustituye la marca viva del sitio (cabecera, pie y favicon).
-
-> ⚠️ **El logotipo original no se pudo descargar**: el proxy de red de este entorno bloquea
-> el acceso a `bestamericandiagnostics.com`, y tampoco llegó el archivo adjunto. Por eso el
-> recuadro de la izquierda en *Identity* es un marcador de posición
-> (`assets/img/logo-original.svg`). En cuanto tenga el archivo, el comando de arriba lo
-> coloca en toda la propuesta. La marca del infinito que se ve hoy en la cabecera es la
-> **propuesta nueva**, no la actual.
 
 ## Imágenes
 
@@ -118,10 +123,59 @@ reemplácelos por fotografía real del centro respetando las mismas proporciones
 
 ## Formularios
 
-Los formularios de `contact.html` y `providers.html` validan en el navegador y muestran un
-estado de confirmación, pero **no envían nada**: falta conectar un endpoint seguro. Por
-diseño solo piden datos de contacto, nunca información clínica, e incluyen el aviso
-correspondiente.
+Los formularios de `contact.html` y `providers.html` validan en el navegador y envían por
+`fetch` a **`send.php`**, que valida de nuevo del lado del servidor, filtra bots con un
+campo trampa, limita a 6 envíos por IP cada 10 minutos y manda el correo al mostrador.
+Si el visitante tiene JavaScript desactivado, el envío normal del formulario funciona
+igual y `send.php` lo devuelve a la página con la confirmación.
+
+Por diseño **solo piden datos de contacto, nunca información clínica**, y así lo advierte
+el propio formulario. Si en el futuro se agregan campos clínicos, `send.php` debe
+reemplazarse por un servicio de intake cifrado y conforme a HIPAA, con BAA firmado.
+
+## Subirlo al servidor
+
+El sitio es HTML estático: sirve cualquier hosting. Para cPanel / Apache:
+
+1. **Suba estos archivos** a `public_html/` (o la raíz del dominio):
+   `*.html`, `assets/`, `send.php`, `.htaccess`, `robots.txt`, `sitemap.xml`,
+   `site.webmanifest`.
+   **No suba** `src/`, `tools/`, `dist/`, `node_modules/` ni `README.md` — el `.htaccess`
+   ya los bloquea por si acaso.
+2. **Cambie el dominio** si no es `bestamericandiagnostics.com`: edite la constante `SITE`
+   en `tools/build.py` (o exporte `SITE_URL=https://sudominio.com`), ejecute
+   `python3 tools/build.py` y suba de nuevo. Eso actualiza canonical, Open Graph,
+   datos estructurados y `sitemap.xml`. Ajuste también la línea `Sitemap:` de `robots.txt`.
+3. **Configure el correo del formulario**: abra `send.php` y cambie `MAIL_TO` (dónde llegan
+   las solicitudes) y `MAIL_FROM` (una dirección **de su propio dominio**, o el correo no
+   pasará los filtros de spam).
+4. **Revise el `.htaccess`**: fuerza HTTPS, redirige `www` a dominio pelado, comprime,
+   cachea los estáticos un año, añade cabeceras de seguridad (CSP incluida) y usa
+   `404.html`. Si su hosting ya forza HTTPS, borre ese bloque para no duplicar redirecciones.
+   Para nginx use `nginx.conf.example`.
+5. **Después de publicar**: envíe `sitemap.xml` en Google Search Console, conecte el Google
+   Business Profile y verifique la tarjeta social pegando la URL en WhatsApp.
+
+`proposal.html` lleva `noindex` y está excluido del sitemap y de `robots.txt`: es la
+presentación interna, no una página del sitio público.
+
+### Comprobación previa
+
+```bash
+php -S 127.0.0.1:8000        # sirve el sitio Y prueba send.php de verdad
+npm run audit                # enlaces, iconos, alt, errores JS y el switch EN/ES
+```
+
+## Preview en un solo archivo
+
+```bash
+python3 tools/bundle.py      # -> dist/preview.html
+```
+
+Empaqueta las ocho páginas, el CSS, el JavaScript y todas las imágenes (como data URI)
+en **un único HTML autocontenido**: se abre con doble clic, sin servidor, y sirve para
+mandarle el sitio completo al cliente por correo o por link. Los formularios muestran su
+estado de confirmación sin enviar nada.
 
 ## Utilidades de desarrollo
 

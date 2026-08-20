@@ -1,0 +1,33 @@
+# Nginx equivalent of .htaccess — paste inside your server { } block.
+root /var/www/bestamericandiagnostics;
+index index.html;
+error_page 404 /404.html;
+
+# Pretty URLs: /services -> /services.html
+location / {
+  try_files $uri $uri.html $uri/ /404.html;
+}
+
+# Never serve the sources
+location ~ ^/(src|tools|node_modules|\.git)/ { return 404; }
+location ~ ^/(README\.md|package(-lock)?\.json)$ { return 404; }
+
+# Caching
+location ~* \.(css|js|svg|png|jpe?g|webp|woff2?)$ {
+  expires 1y;
+  add_header Cache-Control "public, immutable";
+}
+location ~* \.(html|xml|json|webmanifest)$ {
+  add_header Cache-Control "public, max-age=0, must-revalidate";
+}
+
+# Security headers
+add_header X-Content-Type-Options "nosniff" always;
+add_header X-Frame-Options "SAMEORIGIN" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+add_header Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'" always;
+
+gzip on;
+gzip_types text/css application/javascript image/svg+xml application/json text/xml;

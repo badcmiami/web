@@ -231,10 +231,14 @@ strong{font-weight:600}
 .header.is-stuck{border-color:var(--line);box-shadow:0 12px 30px -24px rgba(10,16,48,.5);background:rgba(255,255,255,.95)}
 .header .container{display:flex;align-items:center;justify-content:space-between;gap:1.25rem;min-height:var(--header-h);flex-wrap:nowrap}
 .brand{display:inline-flex;align-items:center;gap:.72rem;flex:none}
-.brand-mark,.brand svg{height:40px;width:auto;max-width:230px;object-fit:contain}
+.brand-mark{height:44px;width:auto;max-width:230px;object-fit:contain;flex:none}
 .brand-txt{display:flex;flex-direction:column;line-height:1.05}
-.brand-name{font-family:var(--f-display);font-weight:700;font-size:1.02rem;letter-spacing:-.03em;color:var(--navy)}
-.brand-sub{font-size:.6rem;letter-spacing:.19em;text-transform:uppercase;color:var(--muted-2);font-weight:600}
+.brand-name{font-family:var(--f-display);font-weight:700;font-size:.98rem;letter-spacing:.01em;text-transform:uppercase;color:var(--navy)}
+.brand-sub{font-size:.62rem;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.brand-sub b{color:var(--teal-600);font-weight:700}
+.brand--inverse .brand-name{color:#fff}
+.brand--inverse .brand-sub{color:var(--on-dark-muted)}
+.brand--inverse .brand-sub b{color:var(--teal)}
 
 .nav{display:flex;align-items:center;gap:.15rem}
 .nav>li>a,.nav>li>button{
@@ -505,6 +509,12 @@ strong{font-weight:600}
 
 /* ---------- 18. Forms ---------------------------------------------------- */
 .form{display:grid;gap:1.05rem}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.btn.is-busy{pointer-events:none;opacity:.75}
+.btn.is-busy .ico{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+.form-err{display:none;font-size:.85rem;color:#D6455B;background:rgba(214,69,91,.08);border:1px solid rgba(214,69,91,.25);border-radius:var(--r-sm);padding:.75rem .9rem}
+.form-err.is-on{display:block}
 .field{display:grid;gap:.42rem}
 .field label{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .field .req{color:var(--teal-600)}
@@ -646,7 +656,7 @@ strong{font-weight:600}
   .topbar-list li:not(:first-child){display:none}
   .topbar .row>a.small{display:none}
   .header-cta .btn{display:none}
-  .brand-mark,.brand svg{height:32px;max-width:150px}
+  .brand-mark{height:36px}
   .g-4,.stats{grid-template-columns:1fr}
   .field-row{grid-template-columns:1fr}
   .srow{grid-template-columns:1fr auto;gap:.75rem 1rem}

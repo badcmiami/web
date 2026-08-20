@@ -2,22 +2,40 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>For Referring Providers — Fast Reports & Direct Radiologist Access | Best American Diagnostic</title>
 <meta name="description" content="Refer a patient to our Hialeah imaging center: same-week scheduling, 24-hour report turnaround, critical findings called through and direct access to the reading radiologist.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://bestamericandiagnostics.com/providers.html">
 <meta name="theme-color" content="#001C77">
+<meta name="format-detection" content="telephone=no">
+
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Best American Diagnostic Center">
 <meta property="og:title" content="For Referring Providers — Fast Reports & Direct Radiologist Access | Best American Diagnostic">
 <meta property="og:description" content="Refer a patient to our Hialeah imaging center: same-week scheduling, 24-hour report turnaround, critical findings called through and direct access to the reading radiologist.">
-<meta property="og:image" content="assets/img/og-cover.svg">
+<meta property="og:url" content="https://bestamericandiagnostics.com/providers.html">
+<meta property="og:image" content="https://bestamericandiagnostics.com/assets/img/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="es_US">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="For Referring Providers — Fast Reports & Direct Radiologist Access | Best American Diagnostic">
+<meta name="twitter:description" content="Refer a patient to our Hialeah imaging center: same-week scheduling, 24-hour report turnaround, critical findings called through and direct access to the reading radiologist.">
+<meta name="twitter:image" content="https://bestamericandiagnostics.com/assets/img/og-cover.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -25,12 +43,14 @@
   "@id":"https://bestamericandiagnostics.com/#organization",
   "name":"Best American Diagnostic Center",
   "url":"https://bestamericandiagnostics.com/",
-  "logo":"https://bestamericandiagnostics.com/assets/img/logo.svg",
+  "logo":"https://bestamericandiagnostics.com/assets/img/logo-lockup.svg",
+  "image":"https://bestamericandiagnostics.com/assets/img/og-cover.png",
   "telephone":"+1-305-681-7555",
   "faxNumber":"+1-305-681-7040",
   "priceRange":"$$",
   "availableLanguage":["en","es"],
   "medicalSpecialty":"Radiology",
+  "areaServed":{"@type":"City","name":"Hialeah","addressRegion":"FL"},
   "address":[
     {"@type":"PostalAddress","streetAddress":"637 E 49th St","addressLocality":"Hialeah","addressRegion":"FL","postalCode":"33013","addressCountry":"US"},
     {"@type":"PostalAddress","streetAddress":"5005 E 8th Ave","addressLocality":"Hialeah","addressRegion":"FL","postalCode":"33013","addressCountry":"US"}
@@ -103,10 +123,10 @@
 <header class="header">
   <div class="container">
     <a class="brand" href="index.html" aria-label="Best American Diagnostic Center — home">
-  <img class="brand-mark" src="assets/img/logo.svg" alt="" width="40" height="40">
+  <img class="brand-mark" src="assets/img/logo-mark.svg" alt="" width="44" height="48">
   <span class="brand-txt">
     <span class="brand-name">Best American</span>
-    <span class="brand-sub">Diagnostic Center</span>
+    <span class="brand-sub">Diagnostic <b>Center</b></span>
   </span>
 </a>
 
@@ -232,7 +252,10 @@
       <div class="form-panel" data-reveal="right" style="background:var(--navy-800);border-color:var(--dark-line)">
         <h3 style="color:#fff" data-es="Solicitud de referencia">Referral request</h3>
         <p class="small" style="color:var(--on-dark-muted)" data-es="No incluya información médica protegida en este formulario. Nos comunicaremos con su oficina por una vía segura.">Do not include protected health information in this form. We will contact your office through a secure channel.</p>
-        <form class="form mt-2" data-validate novalidate>
+        <form class="form mt-2" action="send.php" method="post" data-validate novalidate>
+            <input type="hidden" name="form_type" value="referral">
+            <p class="hp" aria-hidden="true"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label></p>
+
           <div class="field-row">
             <div class="field">
               <label for="p-name" style="color:var(--on-dark-muted)" data-es="Nombre del médico <span class='req'>*</span>">Provider name <span class="req">*</span></label>
@@ -260,6 +283,7 @@
             <label for="p-note" style="color:var(--on-dark-muted)" data-es="¿Cómo podemos ayudar?">How can we help?</label>
             <textarea id="p-note" name="note" placeholder="Studies you order most, volume, urgent turnaround needs…" data-es-ph="Estudios que más solicita, volumen, necesidades de urgencia…"></textarea>
           </div>
+          <p class="form-err" role="alert"></p>
           <button class="btn btn--teal btn--block" type="submit" data-es='Enviar solicitud <svg class="ico"><use href="#i-arrow"/></svg>'>Send request <svg class="ico"><use href="#i-arrow"/></svg></button>
         </form>
         <div class="form-ok">
@@ -312,11 +336,11 @@
   <div class="container">
     <div class="footer-top">
       <div>
-        <a class="brand" href="index.html" aria-label="Best American Diagnostic Center — home">
-  <img class="brand-mark" src="assets/img/logo-teal.svg" alt="" width="40" height="40">
+        <a class="brand brand--inverse" href="index.html" aria-label="Best American Diagnostic Center — home">
+  <img class="brand-mark" src="assets/img/logo-mark-inverse.svg" alt="" width="44" height="48">
   <span class="brand-txt">
     <span class="brand-name">Best American</span>
-    <span class="brand-sub">Diagnostic Center</span>
+    <span class="brand-sub">Diagnostic <b>Center</b></span>
   </span>
 </a>
 

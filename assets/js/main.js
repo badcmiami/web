@@ -179,10 +179,25 @@
     if (days.indexOf(String(new Date().getDay())) !== -1) el.classList.add('is-today');
   });
 
-  /* ---------------- Form validation (demo, no backend) --------------------- */
+  /* ---------------- Forms: validate, then POST to send.php ----------------- */
   $$('form[data-validate]').forEach(function (form) {
+    var ack = $('.form-ok', form.parentNode) || $('.form-ok', form);
+    var errBox = $('.form-err', form);
+    var submit = $('button[type="submit"]', form);
+
+    function succeed() {
+      form.style.display = 'none';
+      if (ack) {
+        ack.classList.add('is-on');
+        ack.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' });
+      }
+    }
+    function fail(msg) {
+      if (errBox) { errBox.textContent = msg; errBox.classList.add('is-on'); }
+      if (submit) { submit.classList.remove('is-busy'); submit.disabled = false; }
+    }
+
     form.addEventListener('submit', function (e) {
-      e.preventDefault();
       var ok = true;
       $$('[required]', form).forEach(function (input) {
         var field = input.closest('.field') || input.closest('.check');
@@ -193,17 +208,41 @@
         if (!valid && ok) { input.focus(); ok = false; }
         if (!valid) ok = false;
       });
-      if (!ok) return;
-      var ack = $('.form-ok', form.parentNode) || $('.form-ok', form);
-      form.style.display = 'none';
-      if (ack) { ack.classList.add('is-on'); ack.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' }); }
+      if (!ok) { e.preventDefault(); return; }
+
+      // No action attribute = design preview, nothing to post.
+      if (!form.getAttribute('action')) { e.preventDefault(); succeed(); return; }
+
+      // Post in the background so the visitor never leaves the page. If fetch
+      // is unavailable or the request fails, let the browser submit normally.
+      if (!window.fetch) return;
+      e.preventDefault();
+      if (errBox) errBox.classList.remove('is-on');
+      if (submit) { submit.classList.add('is-busy'); submit.disabled = true; }
+
+      fetch(form.getAttribute('action'), {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+      }).then(function (r) {
+        return r.json().catch(function () { return { ok: r.ok }; });
+      }).then(function (data) {
+        if (data && data.ok) succeed();
+        else fail((data && data.message) || 'We could not send your request. Please call (305) 681-7555.');
+      }).catch(function () {
+        fail('Connection problem. Please call us at (305) 681-7555.');
+      });
     });
+
     $$('input,select,textarea', form).forEach(function (input) {
       input.addEventListener('input', function () {
         var field = input.closest('.field') || input.closest('.check');
         if (field) field.classList.remove('is-invalid');
       });
     });
+
+    // Fallback path: send.php redirected back with ?sent=1 (no-JS submit).
+    if (/[?&]sent=1/.test(window.location.search)) succeed();
   });
 
   /* ---------------- Bilingual switch (EN / ES) ----------------------------- */
