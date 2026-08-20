@@ -236,6 +236,23 @@ con esos nombres en `assets/photos/`.
 > máster sintético de 3840×2400: recorte, cinco tamaños, WebP, `srcset` y selección correcta
 > del navegador. Solo falta ejecutarlo desde su máquina.
 
+## Cambiar las fotos desde el hosting, sin herramientas
+
+`img.php` permite reemplazar la fotografía del sitio **desde el Administrador de
+archivos de Hostinger**, sin build, sin GitHub y sin nada instalado:
+
+1. Suba las fotos a `assets/photos/_src/` con el nombre de su hueco
+   (`hero.jpg`, `mri.jpg`, `ct.jpg`, `team.jpg`…). Cualquier tamaño, JPG/PNG/WebP.
+2. Abra una vez `https://bestamerican.center/img.php?rebuild=all`
+3. Listo.
+
+El servidor recorta cada foto al centro en la proporción exacta que pide su hueco,
+genera los cinco anchos en JPEG y WebP la primera vez que un navegador los pide, y
+los guarda en disco. A partir de ahí Apache los sirve directo, sin pasar por PHP.
+
+Necesita la extensión GD de PHP, presente en todos los planes de Hostinger. Si
+faltara, `img.php` lo dice en texto claro en vez de romper el sitio.
+
 ## Reseñas de Google
 
 La sección de reseñas de la home se genera desde **`reviews.json`**: calificación, número de

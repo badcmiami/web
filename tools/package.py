@@ -16,10 +16,12 @@ NAME = 'best-american-diagnostic-web.zip'
 
 PAGES = ['index.html', 'services.html', 'patients.html', 'providers.html', 'about.html',
          'contact.html', 'proposal.html', 'legal.html', '404.html']
-ROOT_FILES = PAGES + ['send.php', '.htaccess', 'robots.txt', 'sitemap.xml', 'site.webmanifest']
+ROOT_FILES = PAGES + ['send.php', 'img.php', '.htaccess', 'robots.txt', 'sitemap.xml',
+               'site.webmanifest']
 DIRS = ['assets/css', 'assets/js', 'assets/img', 'assets/photos']
-SKIP_DIRS = {'_masters', '__pycache__'}
-SKIP_FILES = {'README.md', 'credits.json'}       # credits.json is data, not served
+SKIP_DIRS = {'_masters', '_incoming', '__pycache__'}
+SKIP_FILES = {'README.md', 'credits.json', 'manifest.json'}   # data, not served
+KEEP_FILES = {'LEEME.txt'}                                    # instructions that ship
 
 
 def deployable():
@@ -72,7 +74,7 @@ def main():
             for dirpath, dirnames, filenames in os.walk(base):
                 dirnames[:] = [x for x in dirnames if x not in SKIP_DIRS]
                 for fn in filenames:
-                    if fn in SKIP_FILES or fn.startswith('.'):
+                    if (fn in SKIP_FILES or fn.startswith('.')) and fn not in KEEP_FILES:
                         continue
                     full = os.path.join(dirpath, fn)
                     z.write(full, os.path.relpath(full, ROOT))

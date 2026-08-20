@@ -27,6 +27,11 @@ ErrorDocument 404 /404.html
   # Note: internal links keep the .html extension on purpose, so no request is
   # ever answered with a redirect. The rule above only makes the extensionless
   # form work too, for anyone who types or links to it.
+
+  # A photo size that does not exist yet is generated on demand from
+  # assets/photos/_src/. Once written, Apache serves the file directly.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^assets/photos/([a-z][a-z0-9-]*)-(\d+)\.(webp|jpg)$ img.php?slot=$1&w=$2&f=$3 [L,QSA]
 </IfModule>
 
 # --- Compression -------------------------------------------------------------
@@ -83,3 +88,5 @@ ErrorDocument 404 /404.html
 </FilesMatch>
 RedirectMatch 404 ^/(src|tools|node_modules|dist|\.git|\.github)(/|$)
 RedirectMatch 404 ^/assets/photos/_(masters|incoming)/
+# _src holds the originals the visitor never needs to download
+RedirectMatch 404 ^/assets/photos/_src/

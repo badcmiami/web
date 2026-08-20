@@ -1,0 +1,13 @@
+Deje aquí las fotos originales, una por hueco, con estos nombres:
+
+  hero.jpg   lobby.jpg   tech.jpg   mri.jpg   ct.jpg
+  mammography.jpg   ultrasound.jpg   xray.jpg   cardiac.jpg   team.jpg
+
+Acepta JPG, PNG o WebP, en cualquier tamaño (idealmente 2000 px o más de ancho).
+
+Después de subirlas, abra UNA VEZ en el navegador:
+
+  https://bestamerican.center/img.php?rebuild=all
+
+El servidor recorta cada foto a la proporción de su hueco y genera los
+tamaños que necesita cada dispositivo. No hay que hacer nada más.
