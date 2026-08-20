@@ -151,26 +151,46 @@ def srcset_for(slot, ext):
     return ', '.join(parts)
 
 
+PHOTOS = load('assets/photos/manifest.json', {}) or {}
+DEFAULT_SIZES = '(max-width:900px) 100vw, 46vw'
+
+
+def srcset(slot, widths, ext):
+    return ', '.join('assets/photos/%s-%d.%s %dw' % (slot, w, ext, w) for w in widths)
+
+
 def swap_photos(html):
-    """<img data-photo="hero"> becomes a <picture> with WebP, JPEG and a srcset
-    once real photography exists for that slot; otherwise the vector stays."""
+    """<img data-photo="hero"> becomes a <picture> with every size the layout
+    needs — plus an art-directed portrait cut for phones when the slot has one,
+    so a tall screen never gets a landscape frame cropped to ribbons."""
     def sub(m):
         tag, slot = m.group(0), m.group(1)
-        real = photo_for(slot)
-        if not real:
+        entry = PHOTOS.get(slot)
+        if not entry or 'default' not in entry:
             return tag
-        tag = re.sub(r'src="[^"]*"', 'src="%s"' % real, tag)
-        if 'loading=' not in tag:
-            eager = slot in EAGER
-            tag = tag.replace('<img ', '<img %s decoding="async" ' % (
-                'fetchpriority="high"' if eager else 'loading="lazy"'), 1)
-        jpg, webp = srcset_for(slot, 'jpg'), srcset_for(slot, 'webp')
-        if not jpg:
-            return tag
-        sizes = PHOTO_SIZES.get(slot, '(max-width:900px) 100vw, 50vw')
-        tag = tag.replace('<img ', '<img sizes="%s" srcset="%s" ' % (sizes, jpg), 1)
-        source = ('<source type="image/webp" sizes="%s" srcset="%s">' % (sizes, webp)) if webp else ''
-        return '<picture>%s%s</picture>' % (source, tag)
+        d = entry['default']
+        alt = re.search(r'alt="([^"]*)"', tag)
+        alt = alt.group(1) if alt else ''
+        eager = 'data-eager' in tag
+        sizes = re.search(r'data-sizes="([^"]*)"', tag)
+        sizes = sizes.group(1) if sizes else DEFAULT_SIZES
+
+        sources = []
+        if 'portrait' in entry:
+            p = entry['portrait']
+            sources.append('<source media="(max-width:640px)" type="image/webp" '
+                           'sizes="100vw" srcset="%s">' % srcset(slot + '-portrait', p['widths'], 'webp'))
+            sources.append('<source media="(max-width:640px)" '
+                           'sizes="100vw" srcset="%s">' % srcset(slot + '-portrait', p['widths'], 'jpg'))
+        sources.append('<source type="image/webp" sizes="%s" srcset="%s">'
+                       % (sizes, srcset(slot, d['widths'], 'webp')))
+
+        img = ('<img src="assets/photos/%s.jpg" srcset="%s" sizes="%s" width="%d" height="%d" '
+               'alt="%s" %s decoding="async">'
+               % (slot, srcset(slot, d['widths'], 'jpg'), sizes, d['w'], d['h'], alt,
+                  'fetchpriority="high"' if eager else 'loading="lazy"'))
+        return '<picture>' + ''.join(sources) + img + '</picture>'
+
     return re.sub(r'<img[^>]*data-photo="([\w-]+)"[^>]*>', sub, html)
 
 

@@ -15,7 +15,9 @@
     "check:responsive": "node tools/check_responsive.js",
     "photos": "python3 tools/fetch_photos.py",
     "logo": "python3 tools/make_logo.py && node tools/png_export.js",
-    "test": "npm run audit && npm run check && npm run check:buttons && npm run check:responsive"
+    "test": "npm run audit && npm run check && npm run check:buttons && npm run check:images && npm run check:responsive",
+    "check:images": "node tools/check_images.js",
+    "photos:art": "python3 tools/make_photos.py && node tools/render_photos.js && python3 tools/fetch_photos.py --local && python3 tools/build.py"
   },
   "devDependencies": {
     "playwright": "^1.58.0"

@@ -71,8 +71,11 @@ def stroke(d, w_, op=1.0, cap='round', col=None):
 
 # ------------------------------------------------------------------- scenes
 def sc_hero(w, h, i):
-    """The bore, seen slightly from the side — the signature image."""
-    cx, cy, r = w * 0.66, h * 0.52, h * 0.62
+    """The bore, seen slightly from the side — the signature image.
+    On a tall canvas it recentres and lifts, so a phone gets a frame that was
+    composed for it instead of a landscape crop."""
+    tall = h > w
+    cx, cy, r = (w * 0.50, h * 0.38, w * 0.62) if tall else (w * 0.66, h * 0.52, h * 0.62)
     lw = w * 0.005
     rings = ''.join(
         f'<ellipse cx="{cx - k*r*0.085:.0f}" cy="{cy:.0f}" rx="{r*(0.98-0.055*k):.0f}" '
@@ -266,8 +269,9 @@ def sc_team(w, h, i):
 
 
 SCENES = [
-    ('hero',        3840, 2400, sc_hero,        0.04),
-    ('lobby',       3840, 2400, sc_lobby,       0.02),
+    ('hero',          3840, 2400, sc_hero,        0.04),
+    ('hero-portrait', 1600, 3200, sc_hero,        0.04),
+    ('lobby',         3840, 2400, sc_lobby,       0.02),
     ('tech',        2600, 2600, sc_tech,        0.06),
     ('mri',         2600, 3250, sc_mri,         0.05),
     ('ct',          3840, 2400, sc_ct,          0.04),

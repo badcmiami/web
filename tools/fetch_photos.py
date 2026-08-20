@@ -108,6 +108,15 @@ PROVIDERS = {'openverse': from_openverse, 'pexels': from_pexels,
 
 
 # ------------------------------------------------------------- image derivation
+MANIFEST = os.path.join(OUT, 'manifest.json')
+
+
+def record(slot, key, data):
+    man = json.load(open(MANIFEST)) if os.path.exists(MANIFEST) else {}
+    man.setdefault(slot, {})[key] = data
+    json.dump(man, open(MANIFEST, 'w'), indent=2)
+
+
 def derive(master_path, slot, aspect):
     """Centre-crop the master, then write every size the site serves."""
     try:
@@ -142,6 +151,10 @@ def derive(master_path, slot, aspect):
                          optimize=True, progressive=True)
     if not os.path.exists(os.path.join(OUT, slot + '.jpg')):
         im.save(os.path.join(OUT, slot + '.jpg'), 'JPEG', quality=82, optimize=True)
+    fallback = Image.open(os.path.join(OUT, slot + '.jpg'))
+    base, kind = ((slot[:-9], 'portrait') if slot.endswith('-portrait') else (slot, 'default'))
+    record(base, kind, {'widths': written, 'aspect': aspect,
+                        'w': fallback.width, 'h': fallback.height})
     return {'widths': written, 'master': '%dx%d' % (im.width, im.height)}
 
 
@@ -173,22 +186,32 @@ def run_local(cfg, wanted):
         return {}
 
     credits = {}
+    from PIL import Image, ImageOps
+
+    def process(name, aspect, src):
+        master = os.path.join(MASTERS, name + '.jpg')
+        ImageOps.exif_transpose(Image.open(src)).convert('RGB').save(
+            master, 'JPEG', quality=95, optimize=True)
+        shrink_master(master)
+        info = derive(master, name, aspect)
+        print('· %-16s %s from %-22s -> %s'
+              % (name, info['master'], os.path.basename(src), info['widths']))
+        return info
+
     for slot in cfg['slots']:
         name = slot['slot']
         if (wanted and name not in wanted) or name not in by_slot:
             continue
-        src = by_slot[name]
-        master = os.path.join(MASTERS, name + '.jpg')
-        from PIL import Image, ImageOps
-        ImageOps.exif_transpose(Image.open(src)).convert('RGB').save(
-            master, 'JPEG', quality=95, optimize=True)
-        shrink_master(master)
-        info = derive(master, name, slot['aspect'])
+        info = process(name, slot['aspect'], by_slot[name])
         credits[name] = {'author': '', 'page': '', 'license': 'licensed by the client',
                          'source': 'supplied', 'master': info['master']}
-        print('· %-12s %s from %s -> sizes %s'
-              % (name, info['master'], os.path.basename(src), info['widths']))
-    unused = sorted(set(by_slot) - {s['slot'] for s in cfg['slots']})
+        # an art-directed cut for narrow screens, when the slot asks for one
+        if slot.get('portrait') and (name + '-portrait') in by_slot:
+            process(name + '-portrait', slot['portrait'], by_slot[name + '-portrait'])
+
+    expected = {s['slot'] for s in cfg['slots']} | {
+        s['slot'] + '-portrait' for s in cfg['slots'] if s.get('portrait')}
+    unused = sorted(set(by_slot) - expected)
     if unused:
         print('\nIgnored (no slot with that name): ' + ', '.join(unused))
     return credits
