@@ -5,3 +5,5 @@ package-lock.json
 
 # photo masters are re-downloadable; only the web sizes are published
 assets/photos/_masters/
+__pycache__/
+*.pyc
