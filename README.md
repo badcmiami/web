@@ -136,30 +136,83 @@ node tools/png_export.js                                   # regenera PNGs e ico
 
 ## Imágenes y fotografía
 
-Cada imagen del sitio es un **SVG generado** (`tools/make_assets.py`): duotonos abstractos
-en la paleta de marca, sin licencias de terceros. Son marcadores de posición y se
-reemplazan **sin tocar el HTML**.
+### De dónde sacar fotos gratis con derechos comerciales
+
+| Fuente | Clave | Atribución | Notas |
+| --- | --- | --- | --- |
+| **Openverse** (openverse.org) | ninguna | según la licencia (CC0 o CC-BY) | Agrega museos y bibliotecas. Filtra por «uso comercial + modificación». Es la opción por defecto del script porque funciona sin registrarse |
+| **Pexels** | gratuita | no exigida | La mejor biblioteca moderna de temática médica. Licencia Pexels: uso comercial libre, sin atribución |
+| **Unsplash** | gratuita | no exigida (agradecida) | Muy buena calidad, muchas 4K+ |
+| **Pixabay** | gratuita | no exigida | Contenido más variado, calidad desigual |
+| **Wikimedia Commons** | ninguna | sí, CC-BY casi siempre | Útil para equipos médicos concretos y anatomía |
+
+Evite: Google Imágenes (la mayoría tiene copyright), «free stock» de sitios sin licencia
+declarada, y cualquier foto con logotipos de fabricantes o rostros reconocibles sin
+autorización.
+
+### ⚠️ Lo específico de un centro médico
+
+Esto **no** es teoría legal genérica; son las reglas que rompen los sitios de salud:
+
+1. **Uso sensible.** Las licencias de Pexels, Unsplash y Pixabay prohíben expresamente usar
+   una foto de una persona identificable de forma que insinúe que padece una condición
+   médica, que recibe tratamiento o que aprueba un producto. Una foto de archivo bajo el
+   titular «Nuestros pacientes» puede violar la licencia y exponerle a una demanda por
+   derecho de imagen — aunque la foto sea «gratis».
+2. **Regla práctica:** para las secciones de servicios y equipos use fotos **sin rostros
+   identificables** (equipos, manos, salas, detalle técnico). Reserve los rostros para
+   imágenes claramente ilustrativas, nunca junto a un testimonio o un diagnóstico.
+3. **El equipo humano y las instalaciones deben ser fotos reales del centro.** Un paciente
+   que reconoce una foto de archivo en la página «Nosotros» pierde exactamente la confianza
+   que el sitio intenta construir. Vale más una sesión de dos horas con un fotógrafo local
+   que diez fotos de banco.
+4. **HIPAA:** ninguna imagen puede mostrar pantallas con datos de pacientes, pizarras de
+   agenda, expedientes ni etiquetas. Revise el fondo de cada foto propia antes de publicar.
+5. Guarde el comprobante de licencia de cada imagen. El script lo hace por usted en
+   `assets/photos/credits.json`, y esos créditos se publican en `legal.html`.
+
+### Cómo llenar el sitio, en un comando
 
 ```bash
-export PEXELS_API_KEY=xxxxxxxx        # clave gratuita en pexels.com/api
-python3 tools/fetch_photos.py         # descarga y recorta todas las fotos
-python3 tools/fetch_photos.py hero mri  # solo algunas
-python3 tools/build.py                # el build cambia el placeholder por la foto
+python3 tools/fetch_photos.py                      # Openverse, sin clave, todos los huecos
+python3 tools/fetch_photos.py --source pexels      # con PEXELS_API_KEY exportada
+python3 tools/fetch_photos.py hero mri --source unsplash
+python3 tools/fetch_photos.py --url hero=https://…/foto.jpg   # una foto concreta
+python3 tools/build.py
 ```
 
-`photos.json` define los diez huecos de foto (`hero`, `lobby`, `mri`, `ct`, `mammography`,
-`ultrasound`, `xray`, `cardiac`, `tech`, `team`) con su búsqueda y su proporción. Para fijar
-una foto concreta, pegue su URL de Pexels en el campo `url` de ese hueco. Los créditos del
-fotógrafo quedan en `assets/photos/credits.json`.
+Para cada hueco el script:
 
-El mecanismo es automático: `<img data-photo="mri">` usa el SVG mientras no exista
-`assets/photos/mri.jpg`, y cambia a la foto —con `loading="lazy"`— en cuanto el archivo
-aparece. También sirve para la fotografía propia del centro: basta copiar los archivos con
-esos nombres en `assets/photos/`.
+1. descarga la versión más grande que ofrezca el proveedor (4K cuando existe);
+2. guarda ese máster en `assets/photos/_masters/` — fuera de git y bloqueado en el servidor;
+3. lo recorta al centro en la proporción que pide el diseño;
+4. escribe **JPEG y WebP en 480, 960, 1440, 1920 y 2560 px**;
+5. anota autor, licencia y URL de origen en `credits.json`.
 
-> Las fotos **no se descargaron desde aquí**: el proxy de red de este entorno bloquea
-> `pexels.com`. El script está listo y probado en su lógica; corre en cuanto lo ejecute
-> desde su máquina con la clave.
+El build convierte entonces cada `<img data-photo="…">` en un `<picture>` con `srcset`
+completo. Medido en Chromium con el máster de 4K:
+
+| Dispositivo | Archivo servido | Peso |
+| --- | --- | --- |
+| Teléfono @2x | `hero-960.webp` | 9 KB |
+| Tablet @2x | `hero-1920.webp` | 21 KB |
+| Portátil @1x | `hero-1440.webp` | 15 KB |
+| Escritorio 4K @2x | `hero-2560.webp` | 31 KB |
+
+Esa es la respuesta correcta a «4K»: se **origina** en 4K y se **sirve** el tamaño que cada
+pantalla necesita. Publicar el 4K tal cual costaría medio megabyte por imagen en un teléfono.
+
+`photos.json` define los diez huecos (`hero`, `lobby`, `mri`, `ct`, `mammography`,
+`ultrasound`, `xray`, `cardiac`, `tech`, `team`) con su búsqueda, su proporción y su
+atributo `sizes`. Mientras un hueco no tenga foto, se queda el SVG de marca — el sitio nunca
+muestra una imagen rota. Sirve igual para la fotografía propia del centro: copie los archivos
+con esos nombres en `assets/photos/`.
+
+> **No se descargaron desde aquí.** El proxy de red de este entorno solo permite npm y PyPI;
+> `pexels.com`, `unsplash.com` y `openverse.org` están bloqueados, igual que lo estuvo el
+> sitio del cliente. El pipeline está construido y **probado de extremo a extremo** con un
+> máster sintético de 3840×2400: recorte, cinco tamaños, WebP, `srcset` y selección correcta
+> del navegador. Solo falta ejecutarlo desde su máquina.
 
 ## Reseñas de Google
 

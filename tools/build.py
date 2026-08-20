@@ -86,6 +86,23 @@ def reviews_html():
     return '\n          '.join(cards)
 
 
+def photo_credits_html():
+    """Attribution for whatever photography is actually installed."""
+    credits = load(os.path.join('assets', 'photos', 'credits.json'), {}) or {}
+    rows = []
+    for slot, c in sorted(credits.items()):
+        who = c.get('author') or c.get('source', '')
+        link = c.get('page') or ''
+        label = '%s — %s' % (who, c.get('license', '')) if who else c.get('license', '')
+        rows.append('<li><b>%s</b><span>%s</span></li>' % (
+            ('<a href="%s" target="_blank" rel="noopener">%s</a>' % (link, slot)) if link else slot,
+            label))
+    if not rows:
+        return ''
+    return ('<h3 class="mt-3" data-es="Créditos fotográficos">Photo credits</h3>'
+            '<ul class="map-list mt-1">%s</ul>' % ''.join(rows))
+
+
 def reviews_meta():
     rs = REVIEWS.get('reviews', [])
     placeholder = any(r.get('placeholder') for r in rs)
@@ -103,10 +120,17 @@ def reviews_meta():
         'review_link': ('https://search.google.com/local/writereview?placeid=' + SITE_CFG['google_place_id'])
                        if SITE_CFG.get('google_place_id') else SITE_CFG.get('maps', '#'),
         'social': social_html(),
+        'photo_credits': photo_credits_html(),
     }
 
 
 PHOTO_EXT = ('.jpg', '.jpeg', '.webp', '.png')
+
+
+PHOTO_WIDTHS = [480, 960, 1440, 1920, 2560]
+PHOTO_SIZES = {s['slot']: s.get('sizes', '(max-width:900px) 100vw, 50vw')
+               for s in (load('photos.json', {}) or {}).get('slots', [])}
+EAGER = {'hero'}
 
 
 def photo_for(slot):
@@ -118,8 +142,18 @@ def photo_for(slot):
     return None
 
 
+def srcset_for(slot, ext):
+    parts = []
+    for w in PHOTO_WIDTHS:
+        rel = 'assets/photos/%s-%d.%s' % (slot, w, ext)
+        if os.path.exists(os.path.join(ROOT, rel)):
+            parts.append('%s %dw' % (rel, w))
+    return ', '.join(parts)
+
+
 def swap_photos(html):
-    """<img data-photo="hero" src="assets/img/scene-x.svg"> -> the real photo."""
+    """<img data-photo="hero"> becomes a <picture> with WebP, JPEG and a srcset
+    once real photography exists for that slot; otherwise the vector stays."""
     def sub(m):
         tag, slot = m.group(0), m.group(1)
         real = photo_for(slot)
@@ -127,8 +161,16 @@ def swap_photos(html):
             return tag
         tag = re.sub(r'src="[^"]*"', 'src="%s"' % real, tag)
         if 'loading=' not in tag:
-            tag = tag.replace('<img ', '<img loading="lazy" decoding="async" ', 1)
-        return tag
+            eager = slot in EAGER
+            tag = tag.replace('<img ', '<img %s decoding="async" ' % (
+                'fetchpriority="high"' if eager else 'loading="lazy"'), 1)
+        jpg, webp = srcset_for(slot, 'jpg'), srcset_for(slot, 'webp')
+        if not jpg:
+            return tag
+        sizes = PHOTO_SIZES.get(slot, '(max-width:900px) 100vw, 50vw')
+        tag = tag.replace('<img ', '<img sizes="%s" srcset="%s" ' % (sizes, jpg), 1)
+        source = ('<source type="image/webp" sizes="%s" srcset="%s">' % (sizes, webp)) if webp else ''
+        return '<picture>%s%s</picture>' % (source, tag)
     return re.sub(r'<img[^>]*data-photo="([\w-]+)"[^>]*>', sub, html)
 
 

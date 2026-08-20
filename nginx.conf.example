@@ -10,6 +10,7 @@ location / {
 
 # Never serve the sources
 location ~ ^/(src|tools|node_modules|\.git)/ { return 404; }
+location ^~ /assets/photos/_masters/ { return 404; }
 location ~ ^/(README\.md|package(-lock)?\.json)$ { return 404; }
 
 # Caching

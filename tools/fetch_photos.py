@@ -1,93 +1,177 @@
 #!/usr/bin/env python3
-"""Fills assets/photos/ with royalty-free photography from Pexels.
+"""Fills the site with royalty-free photography and derives every size it needs.
 
-Every image on the site is a vector placeholder until a real photo exists for
-its slot. This script fetches those photos, centre-crops them to the aspect the
-layout expects and records the photographer credits.
+Sources, in order of how little setup they need:
 
-  export PEXELS_API_KEY=xxxxxxxx          # free key: pexels.com/api
-  python3 tools/fetch_photos.py           # every slot in photos.json
-  python3 tools/fetch_photos.py hero mri  # only these slots
-  python3 tools/build.py                  # swap the placeholders for the photos
+  openverse   no key at all — CC0 / CC-BY images aggregated from many museums
+              and libraries. Works out of the box.
+  pexels      free key, huge modern library, no attribution required
+  unsplash    free key, same idea
+  pixabay     free key
 
-To pin one specific photo instead of the search result, paste its page or image
-URL into the slot's "url" field in photos.json and run the script again.
+    python3 tools/fetch_photos.py                       # openverse, every slot
+    python3 tools/fetch_photos.py --source pexels       # needs PEXELS_API_KEY
+    python3 tools/fetch_photos.py hero mri --source unsplash
+    python3 tools/fetch_photos.py --url hero=https://…/photo.jpg
 
-Pexels does not require attribution, but credits are saved to
-assets/photos/credits.json so you can display or archive them.
+What it does with each photo:
+  1. downloads the largest version the provider offers (4K when available)
+  2. keeps that master in assets/photos/_masters/ (git-ignored, not published)
+  3. centre-crops it to the aspect the layout expects
+  4. writes web-ready JPEG + WebP at 480 / 960 / 1440 / 1920 / 2560 px
+  5. records the photographer, licence and source URL in credits.json
+
+Then `python3 tools/build.py` swaps the vector placeholders for <picture>
+elements with a full srcset, so phones download a 480px file and 4K screens get
+the big one.
 """
-import json, os, re, sys, urllib.request, urllib.parse
+import json, os, re, sys, urllib.parse, urllib.request
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
 OUT = os.path.join(ROOT, 'assets', 'photos')
-API = 'https://api.pexels.com/v1/search'
-KEY = os.environ.get('PEXELS_API_KEY', '')
-UA = {'User-Agent': 'best-american-diagnostic-site/1.0'}
+MASTERS = os.path.join(OUT, '_masters')
+WIDTHS = [480, 960, 1440, 1920, 2560]
+DEFAULT_WIDTH = 1440          # what plain src= points at
+MASTER_CAP = 3840             # 4K wide is plenty for a master
+UA = {'User-Agent': 'best-american-diagnostic-site/1.0 (+https://bestamericandiagnostics.com)'}
 
 
-def get(url, headers=None):
+def fetch(url, headers=None):
     req = urllib.request.Request(url, headers={**UA, **(headers or {})})
-    with urllib.request.urlopen(req, timeout=45) as r:
+    with urllib.request.urlopen(req, timeout=60) as r:
         return r.read()
 
 
-def search(query, aspect):
-    if not KEY:
-        sys.exit('Set PEXELS_API_KEY first (free key at https://www.pexels.com/api/).')
-    orientation = 'portrait' if aspect in ('4:5', '3:4') else 'landscape'
-    url = '%s?%s' % (API, urllib.parse.urlencode(
-        {'query': query, 'per_page': 5, 'orientation': orientation, 'size': 'large'}))
-    data = json.loads(get(url, {'Authorization': KEY}))
-    photos = data.get('photos') or []
-    if not photos:
-        return None
-    p = photos[0]
-    return {'id': p['id'], 'src': p['src']['original'],
-            'photographer': p.get('photographer', ''), 'page': p.get('url', '')}
+def key(name):
+    value = os.environ.get(name, '')
+    if not value:
+        sys.exit('%s is not set. Get a free key, export it, and run again — or drop\n'
+                 '--source and use openverse, which needs no key at all.' % name)
+    return value
 
 
-def pinned(url):
-    """Accept either a direct image URL or a pexels.com photo page URL."""
-    if re.search(r'\.(jpe?g|png|webp)(\?|$)', url, re.I):
-        return {'id': '', 'src': url, 'photographer': '', 'page': url}
-    m = re.search(r'-(\d+)/?$', url.rstrip('/'))
-    if not m:
-        sys.exit('Cannot read a photo id from: ' + url)
-    pid = m.group(1)
-    if not KEY:
-        sys.exit('Set PEXELS_API_KEY to resolve a Pexels page URL.')
-    p = json.loads(get('https://api.pexels.com/v1/photos/' + pid, {'Authorization': KEY}))
-    return {'id': p['id'], 'src': p['src']['original'],
-            'photographer': p.get('photographer', ''), 'page': p.get('url', '')}
+# ----------------------------------------------------------------- providers
+def from_openverse(query, aspect):
+    url = 'https://api.openverse.org/v1/images/?' + urllib.parse.urlencode({
+        'q': query, 'license_type': 'commercial,modification',
+        'aspect_ratio': 'tall' if aspect in ('4:5', '3:4') else 'wide',
+        'size': 'large', 'page_size': 5, 'mature': 'false'})
+    for p in json.loads(fetch(url)).get('results', []):
+        if p.get('url'):
+            return {'src': p['url'], 'author': p.get('creator') or '',
+                    'page': p.get('foreign_landing_url') or p.get('url'),
+                    'license': (p.get('license') or 'cc').upper(), 'source': 'Openverse'}
+    return None
 
 
-def crop_to(path, aspect):
-    """Centre-crop in place. Needs Pillow; without it the photo is kept as is and
-    the CSS object-fit still covers the frame."""
+def from_pexels(query, aspect):
+    url = 'https://api.pexels.com/v1/search?' + urllib.parse.urlencode({
+        'query': query, 'per_page': 5, 'size': 'large',
+        'orientation': 'portrait' if aspect in ('4:5', '3:4') else 'landscape'})
+    data = json.loads(fetch(url, {'Authorization': key('PEXELS_API_KEY')}))
+    for p in data.get('photos', []):
+        return {'src': p['src']['original'], 'author': p.get('photographer', ''),
+                'page': p.get('url', ''), 'license': 'Pexels License', 'source': 'Pexels'}
+    return None
+
+
+def from_unsplash(query, aspect):
+    url = 'https://api.unsplash.com/search/photos?' + urllib.parse.urlencode({
+        'query': query, 'per_page': 5,
+        'orientation': 'portrait' if aspect in ('4:5', '3:4') else 'landscape'})
+    data = json.loads(fetch(url, {'Authorization': 'Client-ID ' + key('UNSPLASH_ACCESS_KEY')}))
+    for p in data.get('results', []):
+        return {'src': p['urls']['raw'] + '&w=3840&q=85', 'author': p['user'].get('name', ''),
+                'page': p['links'].get('html', ''), 'license': 'Unsplash License', 'source': 'Unsplash'}
+    return None
+
+
+def from_pixabay(query, aspect):
+    url = 'https://pixabay.com/api/?' + urllib.parse.urlencode({
+        'key': key('PIXABAY_API_KEY'), 'q': query, 'image_type': 'photo',
+        'orientation': 'vertical' if aspect in ('4:5', '3:4') else 'horizontal',
+        'per_page': 5, 'safesearch': 'true'})
+    for p in json.loads(fetch(url)).get('hits', []):
+        return {'src': p.get('fullHDURL') or p['largeImageURL'], 'author': p.get('user', ''),
+                'page': p.get('pageURL', ''), 'license': 'Pixabay Content License', 'source': 'Pixabay'}
+    return None
+
+
+PROVIDERS = {'openverse': from_openverse, 'pexels': from_pexels,
+             'unsplash': from_unsplash, 'pixabay': from_pixabay}
+
+
+# ------------------------------------------------------------- image derivation
+def derive(master_path, slot, aspect):
+    """Centre-crop the master, then write every size the site serves."""
     try:
-        from PIL import Image
+        from PIL import Image, ImageOps
     except ImportError:
-        print('    (Pillow not installed — skipping crop; object-fit will cover)')
-        return
+        sys.exit('Pillow is required to resize the photos:  pip install Pillow')
+
+    im = Image.open(master_path)
+    im = ImageOps.exif_transpose(im).convert('RGB')
     w_r, h_r = (int(x) for x in aspect.split(':'))
-    im = Image.open(path).convert('RGB')
     target = w_r / h_r
     w, h = im.size
-    if w / h > target:
-        new_w = int(h * target)
-        box = ((w - new_w) // 2, 0, (w - new_w) // 2 + new_w, h)
-    else:
-        new_h = int(w / target)
-        box = (0, (h - new_h) // 2, w, (h - new_h) // 2 + new_h)
-    im = im.crop(box)
-    im.thumbnail((2000, 2000), Image.LANCZOS)
-    im.save(path, 'JPEG', quality=82, optimize=True, progressive=True)
+    if w / h > target:                        # too wide -> trim the sides
+        nw = round(h * target)
+        im = im.crop(((w - nw) // 2, 0, (w - nw) // 2 + nw, h))
+    else:                                     # too tall -> trim top and bottom
+        nh = round(w / target)
+        im = im.crop((0, (h - nh) // 2, w, (h - nh) // 2 + nh))
+
+    written = []
+    for width in WIDTHS:
+        if width > im.width and written:      # never upscale past the source
+            break
+        wide = min(width, im.width)
+        resized = im.resize((wide, round(wide / target)), Image.LANCZOS)
+        jpg = os.path.join(OUT, '%s-%d.jpg' % (slot, width))
+        resized.save(jpg, 'JPEG', quality=82, optimize=True, progressive=True)
+        resized.save(os.path.join(OUT, '%s-%d.webp' % (slot, width)), 'WEBP', quality=80, method=5)
+        written.append(width)
+        if width == DEFAULT_WIDTH or (written and width == max(written) and DEFAULT_WIDTH > im.width):
+            resized.save(os.path.join(OUT, slot + '.jpg'), 'JPEG', quality=82,
+                         optimize=True, progressive=True)
+    if not os.path.exists(os.path.join(OUT, slot + '.jpg')):
+        im.save(os.path.join(OUT, slot + '.jpg'), 'JPEG', quality=82, optimize=True)
+    return {'widths': written, 'master': '%dx%d' % (im.width, im.height)}
+
+
+def shrink_master(path):
+    """A 6000px original helps nobody; cap the stored master at 4K."""
+    from PIL import Image, ImageOps
+    im = ImageOps.exif_transpose(Image.open(path)).convert('RGB')
+    if im.width > MASTER_CAP:
+        im = im.resize((MASTER_CAP, round(im.height * MASTER_CAP / im.width)), Image.LANCZOS)
+        im.save(path, 'JPEG', quality=90, optimize=True)
 
 
 def main():
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    flags = [a for a in sys.argv[1:] if a.startswith('--')]
+    source = 'openverse'
+    for f in flags:
+        if f.startswith('--source='):
+            source = f.split('=', 1)[1]
+    if '--source' in flags:
+        source = sys.argv[sys.argv.index('--source') + 1]
+        args = [a for a in args if a != source]
+    if source not in PROVIDERS:
+        sys.exit('Unknown source %r. Choose from: %s' % (source, ', '.join(PROVIDERS)))
+
+    pinned = {}
+    for f in flags:
+        if f.startswith('--url'):
+            spec = f.split('=', 1)[1] if '=' in f else sys.argv[sys.argv.index(f) + 1]
+            slot, _, url = spec.partition('=')
+            pinned[slot] = url
+
     os.makedirs(OUT, exist_ok=True)
+    os.makedirs(MASTERS, exist_ok=True)
     cfg = json.load(open(os.path.join(ROOT, 'photos.json')))
-    wanted = set(sys.argv[1:])
+    wanted = set(args)
     credits_path = os.path.join(OUT, 'credits.json')
     credits = json.load(open(credits_path)) if os.path.exists(credits_path) else {}
 
@@ -95,21 +179,35 @@ def main():
         name = slot['slot']
         if wanted and name not in wanted:
             continue
-        print('·', name, '—', slot['url'] or slot['query'])
-        photo = pinned(slot['url']) if slot['url'] else search(slot['query'], slot['aspect'])
-        if not photo:
-            print('    no result, leaving the placeholder in place')
+        query = slot['query']
+        print('·', name, '—', query)
+        try:
+            if name in pinned:
+                photo = {'src': pinned[name], 'author': '', 'page': pinned[name],
+                         'license': 'supplied', 'source': 'manual'}
+            elif slot.get('url'):
+                photo = {'src': slot['url'], 'author': '', 'page': slot['url'],
+                         'license': 'supplied', 'source': 'manual'}
+            else:
+                photo = PROVIDERS[source](query, slot['aspect'])
+        except Exception as exc:                      # network, quota, bad key…
+            print('    could not reach %s: %s' % (source, exc))
             continue
-        dest = os.path.join(OUT, name + '.jpg')
-        with open(dest, 'wb') as f:
-            f.write(get(photo['src']))
-        crop_to(dest, slot['aspect'])
-        credits[name] = {'photographer': photo['photographer'], 'page': photo['page'],
-                         'source': 'Pexels', 'id': photo['id']}
-        print('    saved %s (%.0f KB)' % (os.path.relpath(dest, ROOT), os.path.getsize(dest) / 1024))
+        if not photo:
+            print('    no result — the placeholder stays')
+            continue
+
+        master = os.path.join(MASTERS, name + '.jpg')
+        with open(master, 'wb') as f:
+            f.write(fetch(photo['src']))
+        shrink_master(master)
+        info = derive(master, name, slot['aspect'])
+        credits[name] = {k: photo[k] for k in ('author', 'page', 'license', 'source')}
+        credits[name]['master'] = info['master']
+        print('    %s master, sizes %s' % (info['master'], info['widths']))
 
     json.dump(credits, open(credits_path, 'w'), indent=2, ensure_ascii=False)
-    print('\nCredits written to assets/photos/credits.json')
+    print('\nCredits -> assets/photos/credits.json')
     print('Now run: python3 tools/build.py')
 
 
