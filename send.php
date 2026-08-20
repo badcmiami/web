@@ -14,8 +14,13 @@
  */
 
 const MAIL_TO      = 'billing@bestamericandiagnostics.com';    // where requests arrive
-const MAIL_FROM    = 'website@bestamericandiagnostics.com';     // must be on your domain
+const MAIL_FROM    = '';                                       // blank = website@<your domain>
 const SUBJECT_TAG  = '[Website]';
+
+// A request from a patient must never disappear. If the mail server rejects it,
+// it is appended here and the visitor is told to call. The .htaccess blocks
+// this file from the web; read it from the File Manager if mail ever fails.
+const FALLBACK_LOG = 'form-inbox.log';
 
 // --------------------------------------------------------------------------
 header('X-Content-Type-Options: nosniff');
@@ -96,8 +101,14 @@ $lines[] = 'IP:   ' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
 $subject = sprintf('%s %s request — %s', SUBJECT_TAG,
     $type === 'referral' ? 'Referral' : 'Appointment', $name);
 
+// Shared hosting rejects a From: that is not on the site's own domain, so
+// derive it from the host the site is actually running on.
+$host = preg_replace('/^www\./i', '', $_SERVER['HTTP_HOST'] ?? 'localhost');
+$host = preg_replace('/[^a-z0-9.\-]/i', '', $host);
+$from = MAIL_FROM !== '' ? MAIL_FROM : 'website@' . $host;
+
 $headers = [
-    'From: Best American Diagnostic <' . MAIL_FROM . '>',
+    'From: Best American Diagnostic <' . $from . '>',
     'Content-Type: text/plain; charset=UTF-8',
     'X-Mailer: PHP/' . phpversion(),
 ];
@@ -105,11 +116,17 @@ if ($email !== '') {
     $headers[] = 'Reply-To: ' . $email;
 }
 
-$sent = @mail(MAIL_TO, $subject, implode("\n", $lines), implode("\r\n", $headers),
-              '-f' . MAIL_FROM);
+$body = implode("\n", $lines);
+$sent = @mail(MAIL_TO, $subject, $body, implode("\r\n", $headers), '-f' . $from);
 
 $redirect = $type === 'referral' ? 'providers.html' : 'contact.html';
 if ($sent) {
     respond(true, 'Thank you — we will call you the same business day.', $isAjax, $redirect);
 }
-respond(false, 'We could not send your request. Please call us at (305) 681-7555.', $isAjax, $redirect);
+
+// Mail failed — keep the request instead of losing it.
+@file_put_contents(__DIR__ . '/' . FALLBACK_LOG,
+    "=== " . date('Y-m-d H:i:s T') . " (mail failed)\n" . $body . "\n\n",
+    FILE_APPEND | LOCK_EX);
+respond(false, 'We could not send your request right now. Please call us at (305) 681-7555 — '
+             . 'your details were saved and we will follow up.', $isAjax, $redirect);

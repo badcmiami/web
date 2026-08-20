@@ -77,7 +77,7 @@ ErrorDocument 404 /404.html
 </IfModule>
 
 # --- Protect the source and tooling ------------------------------------------
-<FilesMatch "^(README\.md|package(-lock)?\.json|\.gitignore)$">
+<FilesMatch "^(README\.md|package(-lock)?\.json|\.gitignore|.*\.log)$">
   Require all denied
 </FilesMatch>
 RedirectMatch 404 ^/(src|tools|node_modules|\.git)/
