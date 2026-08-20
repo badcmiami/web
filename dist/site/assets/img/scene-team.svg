@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Care team placeholder image">
+  <defs>
+    <linearGradient id="g7" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#02114A"/><stop offset="0.55" stop-color="#001C77"/><stop offset="1" stop-color="#0B3AB0"/>
+    </linearGradient>
+    <radialGradient id="r7" cx="0.55" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#00C6C1" stop-opacity="0.55"/><stop offset="1" stop-color="#00C6C1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="n7"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3"/>
+      <feColorMatrix type="saturate" values="0"/></filter>
+  </defs>
+  <rect width="1400" height="1000" fill="url(#g7)"/>
+  <rect width="1400" height="1000" fill="url(#r7)"/>
+  <rect x="926" y="606" width="97" height="320" fill="#fff" opacity="0.108" rx="4"/><rect x="388" y="317" width="142" height="322" fill="#fff" opacity="0.078" rx="4"/><rect x="1257" y="352" width="52" height="288" fill="#fff" opacity="0.064" rx="4"/><rect x="185" y="230" width="116" height="262" fill="#fff" opacity="0.117" rx="4"/><rect x="1339" y="544" width="119" height="67" fill="#fff" opacity="0.107" rx="4"/><rect x="129" y="353" width="44" height="157" fill="#fff" opacity="0.11" rx="4"/><rect x="1228" y="183" width="139" height="297" fill="#fff" opacity="0.066" rx="4"/><rect x="1210" y="471" width="106" height="179" fill="#fff" opacity="0.091" rx="4"/><rect x="1023" y="351" width="124" height="103" fill="#fff" opacity="0.077" rx="4"/><rect x="569" y="376" width="110" height="490" fill="#fff" opacity="0.047" rx="4"/><rect x="520" y="595" width="137" height="177" fill="#fff" opacity="0.081" rx="4"/><rect x="60" y="69" width="112" height="452" fill="#fff" opacity="0.049" rx="4"/><rect x="220" y="653" width="89" height="94" fill="#fff" opacity="0.117" rx="4"/><rect x="1" y="582" width="66" height="86" fill="#fff" opacity="0.078" rx="4"/><pattern id="dp4" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20.0" cy="20.0" r="2" fill="#00C6C1"/></pattern><rect width="1400" height="1000" fill="url(#dp4)" opacity="0.18"/><circle cx="280.0" cy="250.0" r="46.7" fill="none" stroke="#00C6C1" stroke-width="1.0" opacity="0.3"/><circle cx="280.0" cy="250.0" r="93.3" fill="none" stroke="#00C6C1" stroke-width="1.6" opacity="0.27"/><circle cx="280.0" cy="250.0" r="140.0" fill="none" stroke="#00C6C1" stroke-width="2.2" opacity="0.24"/><circle cx="280.0" cy="250.0" r="186.7" fill="none" stroke="#00C6C1" stroke-width="1.0" opacity="0.21"/><circle cx="280.0" cy="250.0" r="233.3" fill="none" stroke="#00C6C1" stroke-width="1.6" opacity="0.18"/><circle cx="280.0" cy="250.0" r="280.0" fill="none" stroke="#00C6C1" stroke-width="2.2" opacity="0.15"/><circle cx="280.0" cy="250.0" r="326.7" fill="none" stroke="#00C6C1" stroke-width="1.0" opacity="0.12"/><circle cx="280.0" cy="250.0" r="373.3" fill="none" stroke="#00C6C1" stroke-width="1.6" opacity="0.09"/>
+  <rect width="1400" height="1000" filter="url(#n7)" opacity="0.06"/>
+</svg>

@@ -5,9 +5,10 @@ Only what the server needs goes in: the built pages, assets, the PHP form
 handler and the server config. Sources, tooling and the preview bundle stay out.
 
   python3 tools/package.py            -> dist/best-american-diagnostic-web.zip
+  python3 tools/package.py --dir      -> dist/site/  (the same files, unzipped)
   SITE_URL=https://otro-dominio.com python3 tools/build.py && python3 tools/package.py
 """
-import os, sys, zipfile
+import os, shutil, sys, zipfile
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
 DIST = os.path.join(ROOT, 'dist')
@@ -21,12 +22,43 @@ SKIP_DIRS = {'_masters', '__pycache__'}
 SKIP_FILES = {'README.md', 'credits.json'}       # credits.json is data, not served
 
 
+def deployable():
+    """Every path that belongs on the server, and nothing else."""
+    for f in ROOT_FILES:
+        yield f
+    for d in DIRS:
+        base = os.path.join(ROOT, d)
+        if not os.path.isdir(base):
+            continue
+        for dirpath, dirnames, filenames in os.walk(base):
+            dirnames[:] = [x for x in dirnames if x not in SKIP_DIRS]
+            for fn in filenames:
+                if fn in SKIP_FILES or fn.startswith('.'):
+                    continue
+                yield os.path.relpath(os.path.join(dirpath, fn), ROOT)
+
+
+def to_dir():
+    out = os.path.join(DIST, 'site')
+    if os.path.isdir(out):
+        shutil.rmtree(out)
+    total = 0
+    for rel in deployable():
+        dest = os.path.join(out, rel)
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
+        shutil.copy2(os.path.join(ROOT, rel), dest)
+        total += 1
+    print('  · dist/site/  —  %d files ready to sync to public_html' % total)
+
+
 def main():
     os.makedirs(DIST, exist_ok=True)
     out = os.path.join(DIST, NAME)
     missing = [f for f in ROOT_FILES if not os.path.exists(os.path.join(ROOT, f))]
     if missing:
         sys.exit('Run tools/build.py first — missing: %s' % ', '.join(missing))
+    if '--dir' in sys.argv:
+        return to_dir()
 
     total = 0
     with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:

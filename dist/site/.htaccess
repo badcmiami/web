@@ -1,0 +1,84 @@
+# =============================================================================
+# Best American Diagnostic Center — Apache / cPanel configuration
+# Drop this file in the same folder as index.html. Delete any rule your host
+# already handles (some cPanel accounts force HTTPS at the panel level).
+# =============================================================================
+
+DirectoryIndex index.html
+Options -Indexes
+ErrorDocument 404 /404.html
+
+# --- Force HTTPS -------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Canonical host: send www to the bare domain (swap the two lines to invert)
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # Pretty URLs: /services -> /services.html
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
+
+  # Note: internal links keep the .html extension on purpose, so no request is
+  # ever answered with a redirect. The rule above only makes the extensionless
+  # form work too, for anyone who types or links to it.
+</IfModule>
+
+# --- Compression -------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+    application/javascript application/json application/xml image/svg+xml \
+    application/manifest+json
+</IfModule>
+
+# --- Caching -----------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html                 "access plus 0 seconds"
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType application/manifest+json "access plus 1 week"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|svg|png|jpe?g|webp|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|json|webmanifest)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # --- Security headers ------------------------------------------------------
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+  # Everything the site needs is same-origin except the Google Fonts stylesheet.
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
+  Header unset X-Powered-By
+</IfModule>
+
+# --- Correct MIME types ------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType image/svg+xml            .svg
+  AddType application/manifest+json .webmanifest
+  AddType font/woff2               .woff2
+</IfModule>
+
+# --- Protect the source and tooling ------------------------------------------
+<FilesMatch "^(README\.md|package(-lock)?\.json|\.gitignore|.*\.log)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 ^/(src|tools|node_modules|\.git)/
+RedirectMatch 404 ^/assets/photos/_(masters|incoming)/

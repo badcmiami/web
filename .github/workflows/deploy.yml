@@ -1,0 +1,75 @@
+# Publishes the site to Hostinger over FTP.
+#
+# One-time setup, all of it inside GitHub — no credential ever leaves your
+# account and nobody else sees it:
+#
+#   1. hPanel -> Files -> FTP Accounts. Note the FTP hostname, username and
+#      password (use "Change account password" if you don't have it).
+#   2. GitHub -> this repo -> Settings -> Secrets and variables -> Actions ->
+#      "New repository secret", three times:
+#         FTP_SERVER     e.g. ftp.bestamericandiagnostics.com   (or the IP hPanel shows)
+#         FTP_USERNAME   e.g. u123456789.bestamericandiagnostics.com
+#         FTP_PASSWORD   the FTP password
+#   3. GitHub -> Actions -> "Deploy to Hostinger" -> Run workflow.
+#
+# After that every push to this branch republishes the site automatically.
+# The first run uploads everything; later runs send only what changed.
+
+name: Deploy to Hostinger
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'List what would be uploaded without touching the server'
+        type: boolean
+        default: false
+  push:
+    branches:
+      - claude/diagnostic-center-website-proposal-iskhcq
+    paths-ignore:
+      - 'README.md'
+      - 'src/**'
+      - 'dist/preview.html'
+
+concurrency:
+  group: hostinger-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Rebuild the pages and collect what the server needs
+        run: |
+          python3 tools/build.py
+          python3 tools/package.py --dir
+          echo "Files to publish: $(find dist/site -type f | wc -l)"
+
+      - name: Fail early if the build came out empty
+        run: |
+          test -f dist/site/index.html || { echo "index.html missing"; exit 1; }
+          test -f dist/site/send.php   || { echo "send.php missing"; exit 1; }
+          test -d dist/site/assets/photos || { echo "photos missing"; exit 1; }
+
+      - name: Upload to public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/site/
+          server-dir: /public_html/
+          dangerous-clean-slate: false
+          dry-run: ${{ inputs.dry_run == true }}
+          # Never delete what the site writes at runtime
+          exclude: |
+            **/form-inbox.log
+            **/.git*
+            **/node_modules/**

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ultrasound study placeholder image">
+  <defs>
+    <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#04186B"/><stop offset="0.55" stop-color="#001C77"/><stop offset="1" stop-color="#0A34A6"/>
+    </linearGradient>
+    <radialGradient id="r4" cx="0.5" cy="0.8" r="0.75">
+      <stop offset="0" stop-color="#00C6C1" stop-opacity="0.55"/><stop offset="1" stop-color="#00C6C1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="n4"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3"/>
+      <feColorMatrix type="saturate" values="0"/></filter>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#g4)"/>
+  <rect width="1200" height="1500" fill="url(#r4)"/>
+  <line x1="600.0" y1="1410.0" x2="-653.4" y2="-83.8" stroke="#fff" stroke-width="1.2" opacity="0.22"/><line x1="600.0" y1="1410.0" x2="-433.3" y2="-243.7" stroke="#fff" stroke-width="1.2" opacity="0.22"/><line x1="600.0" y1="1410.0" x2="-193.1" y2="-371.4" stroke="#fff" stroke-width="1.2" opacity="0.22"/><line x1="600.0" y1="1410.0" x2="62.5" y2="-464.5" stroke="#fff" stroke-width="1.2" opacity="0.22"/><line x1="600.0" y1="1410.0" x2="328.6" y2="-521.0" stroke="#fff" stroke-width="1.2" opacity="0.22"/><line x1="600.0" y1="1410.0" x2="600.0" y2="-540.0" stroke="#fff" stroke-width="1.2" opacity="0.22"/><line x1="600.0" y1="1410.0" x2="871.4" y2="-521.0" stroke="#fff" stroke-width="1.2" opacity="0.22"/><line x1="600.0" y1="1410.0" x2="1137.5" y2="-464.5" stroke="#fff" stroke-width="1.2" opacity="0.22"/><line x1="600.0" y1="1410.0" x2="1393.1" y2="-371.4" stroke="#fff" stroke-width="1.2" opacity="0.22"/><line x1="600.0" y1="1410.0" x2="1633.3" y2="-243.7" stroke="#fff" stroke-width="1.2" opacity="0.22"/><line x1="600.0" y1="1410.0" x2="1853.4" y2="-83.8" stroke="#fff" stroke-width="1.2" opacity="0.22"/><path d="M 340.0 1290.0 Q 600.0 1090.0 860.0 1290.0" fill="none" stroke="#00C6C1" stroke-width="2" opacity="0.45"/><path d="M 370.0 1210.0 Q 600.0 1000.0 830.0 1210.0" fill="none" stroke="#00C6C1" stroke-width="2" opacity="0.35"/><path d="M 400.0 1130.0 Q 600.0 910.0 800.0 1130.0" fill="none" stroke="#00C6C1" stroke-width="2" opacity="0.25"/><pattern id="dp2" width="34" height="34" patternUnits="userSpaceOnUse"><circle cx="17.0" cy="17.0" r="1.4" fill="#00C6C1"/></pattern><rect width="1200" height="1500" fill="url(#dp2)" opacity="0.2"/>
+  <rect width="1200" height="1500" filter="url(#n4)" opacity="0.06"/>
+</svg>
