@@ -77,8 +77,9 @@ ErrorDocument 404 /404.html
 </IfModule>
 
 # --- Protect the source and tooling ------------------------------------------
-<FilesMatch "^(README\.md|package(-lock)?\.json|\.gitignore|.*\.log)$">
+# --- Deployed straight from the repository? Hide everything that is not the site.
+<FilesMatch "^(README\.md|package(-lock)?\.json|photos\.json|reviews\.json|site\.json|\.gitignore|\.gitattributes|.*\.log|.*\.py|.*\.yml)$">
   Require all denied
 </FilesMatch>
-RedirectMatch 404 ^/(src|tools|node_modules|\.git)/
+RedirectMatch 404 ^/(src|tools|node_modules|dist|\.git|\.github)(/|$)
 RedirectMatch 404 ^/assets/photos/_(masters|incoming)/
