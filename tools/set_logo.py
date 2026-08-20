@@ -65,8 +65,8 @@ def main():
         inverse = args[1] if len(args) > 1 else src
         if not os.path.isfile(inverse):
             sys.exit('file not found: ' + inverse)
-        name_i = install(inverse, 'logo-mark-inverse')
-        repoint('brand-footer.html', 'logo-mark-inverse', name_i)
+        name_i = install(inverse, 'logo-mark-white')
+        repoint('brand-footer.html', 'logo-mark-white', name_i)
         if os.path.splitext(src)[1].lower() == '.svg':
             shutil.copyfile(src, os.path.join(IMG, 'favicon.svg'))
             print('  · favicon.svg updated')

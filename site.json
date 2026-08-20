@@ -1,0 +1,19 @@
+{
+  "_comment": "Single source for links that live outside the site. Empty values are simply not rendered — the site never ships a dead link.",
+  "phone": "+13056817555",
+  "phone_display": "(305) 681-7555",
+  "whatsapp": "17868196086",
+  "whatsapp_display": "(786) 819-6086",
+  "email": "billing@bestamericandiagnostics.com",
+  "address": "5005 E 8th Ave, Hialeah, FL 33013",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Best+American+Diagnostic+Center+5005+E+8th+Ave+Hialeah+FL+33013",
+  "directions": "https://www.google.com/maps/dir/?api=1&destination=5005+E+8th+Ave+Hialeah+FL+33013",
+  "google_place_id": "",
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "linkedin": "",
+    "youtube": "",
+    "tiktok": ""
+  }
+}

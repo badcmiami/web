@@ -34,7 +34,7 @@
 
   /* ---------------- Mega menu (hover on desktop, click anywhere) ---------- */
   $$('.has-mega').forEach(function (item) {
-    var btn = $('button', item);
+    var btn = $('a, button', item);
     var closeTimer;
     function open(v) {
       clearTimeout(closeTimer);
@@ -45,9 +45,17 @@
     item.addEventListener('mouseleave', function () {
       if (window.innerWidth > 900) closeTimer = setTimeout(function () { open(false); }, 140);
     });
+    // On a pointer device hover already opened it, so a click must follow the
+    // link instead of toggling it shut. Below the desktop breakpoint the panel
+    // is the only way in, so there the click opens it.
     if (btn) btn.addEventListener('click', function (e) {
+      if (window.innerWidth > 900) return;
       e.preventDefault();
       open(item.getAttribute('data-open') !== 'true');
+    });
+    item.addEventListener('focusin', function () { if (window.innerWidth > 900) open(true); });
+    item.addEventListener('focusout', function (e) {
+      if (!item.contains(e.relatedTarget)) open(false);
     });
     document.addEventListener('click', function (e) { if (!item.contains(e.target)) open(false); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') open(false); });

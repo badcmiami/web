@@ -8,7 +8,7 @@ const PHONE = 'tel:+13056817555';
 const WA    = 'https://wa.me/17868196086';
 const MAIL  = 'billing@bestamericandiagnostics.com';
 const ADDR  = '5005 E 8th Ave';
-const PAGES = ['index', 'services', 'patients', 'providers', 'about', 'contact', 'proposal', '404']
+const PAGES = ['index', 'services', 'patients', 'providers', 'about', 'contact', 'proposal', 'legal', '404']
   .map(p => p + '.html');
 
 const fails = [];

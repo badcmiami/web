@@ -1,0 +1,43 @@
+{
+  "_comment": "Google Business reviews. Set placeholder=false and paste the real text, name and date once the Google Business Profile is connected. Any entry left as a placeholder makes the site print a disclaimer under the section.",
+  "rating": 5.0,
+  "count": 0,
+  "reviews": [
+    {
+      "name": "María R.",
+      "date": "hace 2 semanas",
+      "date_en": "2 weeks ago",
+      "stars": 5,
+      "placeholder": true,
+      "text_en": "They took care of me in Spanish from the first phone call, and the report reached my doctor the next day.",
+      "text_es": "Me atendieron en español desde la primera llamada y el reporte llegó a mi doctora al día siguiente."
+    },
+    {
+      "name": "Alina P.",
+      "date": "hace 1 mes",
+      "date_en": "1 month ago",
+      "stars": 5,
+      "placeholder": true,
+      "text_en": "I was afraid of the closed scanner. The technologist explained every step and I never felt alone.",
+      "text_es": "Tenía miedo del equipo cerrado. El técnico me explicó cada paso y no me sentí sola ni un minuto."
+    },
+    {
+      "name": "Jorge M.",
+      "date": "hace 1 mes",
+      "date_en": "1 month ago",
+      "stars": 5,
+      "placeholder": true,
+      "text_en": "Same-week appointment, no waiting room marathon, and they verified my insurance before I arrived.",
+      "text_es": "Cita en la misma semana, sin maratón de sala de espera, y verificaron mi seguro antes de llegar."
+    },
+    {
+      "name": "Dr. L. Fernández",
+      "date": "hace 2 meses",
+      "date_en": "2 months ago",
+      "stars": 5,
+      "placeholder": true,
+      "text_en": "As a referring physician I value that they call me immediately when there is a critical finding.",
+      "text_es": "Como médico referente, valoro que me llamen de inmediato cuando hay un hallazgo crítico."
+    }
+  ]
+}

@@ -16,7 +16,7 @@ nav: home
   <!-- ============================ HERO ============================ -->
   <section class="hero">
     <div class="hero-media" aria-hidden="true">
-      <img src="assets/img/hero.svg" alt="">
+      <img data-photo="hero" src="assets/img/hero.svg" alt="">
     </div>
     <div class="container hero-inner">
       <div data-reveal>
@@ -62,11 +62,11 @@ nav: home
     <div class="container split split--wide-right">
       <div class="media-stack" data-reveal="left">
         <figure class="fig fig--wide">
-          <img src="assets/img/scene-lobby.svg" alt="Reception and waiting area">
+          <img data-photo="lobby" src="assets/img/scene-lobby.svg" alt="Reception and waiting area">
           <figcaption class="ph-note" data-es="Imagen de referencia — se reemplaza con foto real">Placeholder — replace with real photography</figcaption>
         </figure>
         <figure class="fig fig--float fig--sq">
-          <img src="assets/img/scene-tech.svg" alt="Imaging technology detail">
+          <img data-photo="tech" src="assets/img/scene-tech.svg" alt="Imaging technology detail">
         </figure>
       </div>
 
@@ -236,7 +236,7 @@ nav: home
         </div>
       </div>
       <figure class="fig fig--tall" data-reveal="right">
-        <img src="assets/img/scene-mri.svg" alt="MRI suite">
+        <img data-photo="mri" src="assets/img/scene-mri.svg" alt="MRI suite">
         <figcaption class="fig-badge" data-es="Sala de resonancia">MRI suite</figcaption>
       </figure>
     </div>
@@ -272,37 +272,34 @@ nav: home
     </div>
   </section>
 
-  <!-- ============================ TESTIMONIALS ============================ -->
-  <section class="sec">
+  <!-- ============================ GOOGLE REVIEWS ============================ -->
+  <section class="sec" id="reviews">
     <div class="container">
-      <div class="sec-head" data-reveal>
-        <span class="eyebrow" data-es="Pacientes">Patients</span>
-        <h2 class="mt-1" data-es="Lo que dicen nuestros vecinos.">What our neighbors say.</h2>
+      <div class="sec-head--split sec-head" data-reveal>
+        <div>
+          <span class="eyebrow" data-es="Reseñas">Reviews</span>
+          <h2 class="mt-1" data-es="Lo que dicen nuestros vecinos en Google.">What our neighbors say on Google.</h2>
+        </div>
+        <p class="lede" data-es="Cada reseña viene de un paciente que caminó por esa puerta. Si ya vino, díganos cómo le fue: nos ayuda a mejorar y ayuda al próximo paciente a decidir.">Every review comes from a patient who walked through that door. If you have been here, tell us how it went — it helps us improve and helps the next patient decide.</p>
       </div>
-      <div class="grid g-3 mt-3" data-stagger>
-        <figure class="quote">
-          <div class="stars" aria-label="5 out of 5">
-            <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
-          </div>
-          <blockquote data-es="«Me atendieron en español desde la primera llamada y el reporte llegó a mi doctora al día siguiente.»">“They took care of me in Spanish from the first phone call, and the report reached my doctor the next day.”</blockquote>
-          <figcaption><b>M. Rodríguez</b><span data-es="Paciente de resonancia · Hialeah">MRI patient · Hialeah</span></figcaption>
-        </figure>
-        <figure class="quote">
-          <div class="stars" aria-label="5 out of 5">
-            <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
-          </div>
-          <blockquote data-es="«Tenía miedo del equipo cerrado. El técnico se tomó el tiempo de explicarme todo y no me sentí sola ni un minuto.»">“I was afraid of the closed scanner. The technologist took the time to explain everything and I never felt alone.”</blockquote>
-          <figcaption><b>A. Pérez</b><span data-es="Paciente de tomografía · Miami Lakes">CT patient · Miami Lakes</span></figcaption>
-        </figure>
-        <figure class="quote">
-          <div class="stars" aria-label="5 out of 5">
-            <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
-          </div>
-          <blockquote data-es="«Como médico referente, valoro que me llamen de inmediato cuando hay un hallazgo crítico.»">“As a referring physician, I value that they call me immediately when there is a critical finding.”</blockquote>
-          <figcaption><b>Dr. L. Fernández</b><span data-es="Medicina interna · Miami-Dade">Internal medicine · Miami-Dade</span></figcaption>
-        </figure>
+
+      <div class="rating-card mt-3" data-reveal>
+        <div class="rating-score">
+          <b>{{reviews_rating}}</b>
+          <span data-es="de 5">out of 5</span>
+        </div>
+        <div class="rating-meta">
+          <div class="stars" aria-label="5 out of 5">{{reviews_stars}}</div>
+          <span class="small" data-es="Calificación en Google Business Profile">Google Business Profile rating</span>
+        </div>
+        <a class="btn" href="{{review_link}}" target="_blank" rel="noopener" data-es='Escribir una reseña <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Write a review <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
       </div>
-      <p class="small muted mt-2" data-reveal data-es="Testimonios de muestra para la propuesta — se reemplazan por reseñas reales de Google con autorización del paciente.">Sample testimonials for this proposal — to be replaced with real, patient-approved Google reviews.</p>
+
+      <div class="reviews-grid mt-3" data-stagger>
+          {{reviews}}
+      </div>
+
+      {{reviews_note}}
     </div>
   </section>
 

@@ -48,6 +48,7 @@ python3 tools/make_assets.py    # o: npm run assets  → regenera el kit SVG
 | `about.html` | Historia, valores, equipo médico, calidad y acreditaciones |
 | `contact.html` | Formulario de cita, dirección, horario, mapa y WhatsApp |
 | `proposal.html` | **La presentación**: dirección, identidad, marca, alcance y fases (`noindex`) |
+| `legal.html` | Privacidad (HIPAA), términos, accesibilidad y no discriminación (`noindex`) |
 | `404.html` | Página de error con rutas de rescate |
 
 ## Sistema
@@ -116,7 +117,7 @@ sosteniendo el gantry y la camilla del equipo.
 | Archivo | Uso |
 | --- | --- |
 | `logo-mark.svg` | Marca sobre fondo claro — cabecera |
-| `logo-mark-inverse.svg` | Marca sobre Infinity Navy — pie de página |
+| `logo-mark-white.svg` | Marca sobre Infinity Navy — pie de página |
 | `logo-lockup.svg` / `-inverse.svg` | Bloque completo con tipografía |
 | `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192/512.png` | Iconos de navegador, iOS y Android |
 | `og-cover.png` | Imagen para WhatsApp, Facebook y LinkedIn (1200×630) |
@@ -133,13 +134,51 @@ python3 tools/set_logo.py ruta/al/lockup.svg --original    # bloque mostrado en 
 node tools/png_export.js                                   # regenera PNGs e iconos
 ```
 
-## Imágenes
+## Imágenes y fotografía
 
-El resto de las imágenes son **SVG generados** (`tools/make_assets.py`): duotonos abstractos
-en la paleta de marca, sin licencias de terceros. Están pensados como marcadores de posición —
-reemplácelos por fotografía real del centro respetando las mismas proporciones
-(`scene-*.svg`, `fig--tall` 4:5, `fig--wide` 16:10, `fig--sq` 1:1). Los mapas
-(`map-1.svg`, `map-2.svg`) se sustituyen por Google Maps embebido.
+Cada imagen del sitio es un **SVG generado** (`tools/make_assets.py`): duotonos abstractos
+en la paleta de marca, sin licencias de terceros. Son marcadores de posición y se
+reemplazan **sin tocar el HTML**.
+
+```bash
+export PEXELS_API_KEY=xxxxxxxx        # clave gratuita en pexels.com/api
+python3 tools/fetch_photos.py         # descarga y recorta todas las fotos
+python3 tools/fetch_photos.py hero mri  # solo algunas
+python3 tools/build.py                # el build cambia el placeholder por la foto
+```
+
+`photos.json` define los diez huecos de foto (`hero`, `lobby`, `mri`, `ct`, `mammography`,
+`ultrasound`, `xray`, `cardiac`, `tech`, `team`) con su búsqueda y su proporción. Para fijar
+una foto concreta, pegue su URL de Pexels en el campo `url` de ese hueco. Los créditos del
+fotógrafo quedan en `assets/photos/credits.json`.
+
+El mecanismo es automático: `<img data-photo="mri">` usa el SVG mientras no exista
+`assets/photos/mri.jpg`, y cambia a la foto —con `loading="lazy"`— en cuanto el archivo
+aparece. También sirve para la fotografía propia del centro: basta copiar los archivos con
+esos nombres en `assets/photos/`.
+
+> Las fotos **no se descargaron desde aquí**: el proxy de red de este entorno bloquea
+> `pexels.com`. El script está listo y probado en su lógica; corre en cuanto lo ejecute
+> desde su máquina con la clave.
+
+## Reseñas de Google
+
+La sección de reseñas de la home se genera desde **`reviews.json`**: calificación, número de
+reseñas y las tarjetas con nombre, fecha, estrellas y texto en los dos idiomas. Mientras las
+entradas tengan `"placeholder": true`, el sitio imprime automáticamente una nota diciendo que
+son de ejemplo — así nunca se publica una reseña inventada como si fuera real.
+
+Para poner las reales: copie el texto de su perfil de Google Business, pegue cada una en
+`reviews.json`, ponga `"placeholder": false`, ajuste `rating` y `count`, y reconstruya. Si
+añade el `google_place_id` en `site.json`, el botón «Escribir una reseña» lleva directo al
+formulario de Google en vez de a la ficha del mapa.
+
+## Enlaces externos y redes sociales
+
+`site.json` concentra todo lo que apunta fuera del sitio: teléfono, WhatsApp, correo, mapa y
+redes sociales. **Las redes con URL vacía no se renderizan**, así que el sitio nunca publica
+un icono que no lleva a ninguna parte. Hoy están activos WhatsApp y la ficha de Google;
+añada Facebook, Instagram, LinkedIn, YouTube o TikTok pegando su URL y reconstruyendo.
 
 ## Formularios
 
@@ -182,10 +221,16 @@ presentación interna, no una página del sitio público.
 ### Comprobación previa
 
 ```bash
-php -S 127.0.0.1:8000        # sirve el sitio Y prueba send.php de verdad
-npm run audit                # enlaces, iconos, alt, errores JS y el switch EN/ES
-npm run check                # destino de cada botón de acción
+php -S 127.0.0.1:8811        # sirve el sitio Y prueba send.php de verdad
+npm test                     # las cuatro suites seguidas
 ```
+
+| Suite | Qué verifica |
+| --- | --- |
+| `npm run audit` | Enlaces rotos, iconos faltantes, `alt`, un solo `h1`, errores JS, switch EN/ES |
+| `npm run check` | Destino de cada `tel:`, WhatsApp, `mailto:`, acción del formulario y destinatario en `send.php` |
+| `npm run check:buttons` | Hace clic de verdad: mega menú, acordeones, pestañas, menú móvil, idioma, volver arriba, formulario completo, enlaces externos con `rel="noopener"`, cero `href="#"` |
+| `npm run check:responsive` | 8 dispositivos de 320 px a 1920 px: cero desbordamiento horizontal y ningún control por debajo de 30 px de alto |
 
 ## Preview en un solo archivo
 

@@ -8,7 +8,7 @@ Templating:
   {{cur:home}}    -> aria-current="page" when the page's `nav` value matches
 Run:  python3 tools/build.py
 """
-import datetime, os, re, sys
+import datetime, json, os, re, sys
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -32,6 +32,105 @@ def parse_meta(src):
                 meta[k.strip()] = v.strip()
         src = src[m.end():]
     return meta, src
+
+def load(name, default=None):
+    path = os.path.join(ROOT, name)
+    if not os.path.exists(path):
+        return default
+    with open(path, encoding='utf-8') as f:
+        return json.load(f)
+
+
+SITE_CFG = load('site.json', {}) or {}
+REVIEWS = load('reviews.json', {}) or {}
+
+SOCIAL_ICONS = {'facebook': 'i-fb', 'instagram': 'i-ig', 'linkedin': 'i-in',
+                'youtube': 'i-yt', 'tiktok': 'i-tt'}
+
+
+def social_html():
+    """Only renders the networks that actually have a URL — no dead icons."""
+    out = ['<a href="%s" target="_blank" rel="noopener" aria-label="WhatsApp">'
+           '<svg><use href="#i-wa"/></svg></a>' % ('https://wa.me/' + SITE_CFG.get('whatsapp', ''))]
+    if SITE_CFG.get('maps'):
+        out.append('<a href="%s" target="_blank" rel="noopener" aria-label="Google Business Profile">'
+                   '<svg><use href="#i-google"/></svg></a>' % SITE_CFG['maps'])
+    for net, url in (SITE_CFG.get('social') or {}).items():
+        if url and net in SOCIAL_ICONS:
+            out.append('<a href="%s" target="_blank" rel="noopener" aria-label="%s">'
+                       '<svg><use href="#%s"/></svg></a>' % (url, net.capitalize(), SOCIAL_ICONS[net]))
+    return '\n          '.join(out)
+
+
+def stars_html(n=5):
+    return ''.join('<svg><use href="#i-star"/></svg>' for _ in range(n))
+
+
+def reviews_html():
+    cards = []
+    for r in REVIEWS.get('reviews', []):
+        initial = (r.get('name') or '?').strip()[0]
+        cards.append(
+            '<figure class="review">\n'
+            '            <div class="review-top">\n'
+            '              <span class="review-avatar" aria-hidden="true">%s</span>\n'
+            '              <span><b>%s</b><span class="review-date" data-es="%s">%s</span></span>\n'
+            '              <svg class="review-g" aria-label="Google"><use href="#i-google"/></svg>\n'
+            '            </div>\n'
+            '            <div class="stars" aria-label="%d out of 5">%s</div>\n'
+            '            <blockquote data-es="%s">%s</blockquote>\n'
+            '          </figure>' % (
+                initial, r.get('name', ''), r.get('date', ''), r.get('date_en', ''),
+                r.get('stars', 5), stars_html(r.get('stars', 5)),
+                r.get('text_es', '').replace('"', '&quot;'), r.get('text_en', '')))
+    return '\n          '.join(cards)
+
+
+def reviews_meta():
+    rs = REVIEWS.get('reviews', [])
+    placeholder = any(r.get('placeholder') for r in rs)
+    return {
+        'reviews': reviews_html(),
+        'reviews_rating': ('%.1f' % REVIEWS.get('rating', 5.0)),
+        'reviews_count': str(REVIEWS.get('count') or len(rs)),
+        'reviews_stars': stars_html(5),
+        'reviews_note': (
+            '<p class="small muted mt-2" data-reveal data-es="Reseñas de ejemplo con el formato final. '
+            'Al conectar el perfil de Google Business se sustituyen por las reales editando reviews.json.">'
+            'Sample reviews shown in the final format. Connect the Google Business Profile and swap in the '
+            'real ones by editing reviews.json.</p>') if placeholder else '',
+        'maps': SITE_CFG.get('maps', '#'),
+        'review_link': ('https://search.google.com/local/writereview?placeid=' + SITE_CFG['google_place_id'])
+                       if SITE_CFG.get('google_place_id') else SITE_CFG.get('maps', '#'),
+        'social': social_html(),
+    }
+
+
+PHOTO_EXT = ('.jpg', '.jpeg', '.webp', '.png')
+
+
+def photo_for(slot):
+    """Real photography wins over the vector placeholder as soon as it exists."""
+    for ext in PHOTO_EXT:
+        rel = 'assets/photos/%s%s' % (slot, ext)
+        if os.path.exists(os.path.join(ROOT, rel)):
+            return rel
+    return None
+
+
+def swap_photos(html):
+    """<img data-photo="hero" src="assets/img/scene-x.svg"> -> the real photo."""
+    def sub(m):
+        tag, slot = m.group(0), m.group(1)
+        real = photo_for(slot)
+        if not real:
+            return tag
+        tag = re.sub(r'src="[^"]*"', 'src="%s"' % real, tag)
+        if 'loading=' not in tag:
+            tag = tag.replace('<img ', '<img loading="lazy" decoding="async" ', 1)
+        return tag
+    return re.sub(r'<img[^>]*data-photo="([\w-]+)"[^>]*>', sub, html)
+
 
 def render(src, meta, depth=0):
     if depth > 6:
@@ -68,12 +167,13 @@ def main():
         meta['path'] = name
         meta['site'] = SITE
         meta['base'] = '<base href="/">' if meta.get('base') == 'root' else ''
+        meta.update(reviews_meta())
         meta['url'] = SITE + '/' + ('' if name == 'index.html' else name)
         if meta.get('index', 'yes').lower() != 'no':
             pages.append((meta['url'], meta.get('priority', '0.8')))
         meta['robots'] = ('noindex, nofollow' if meta.get('index', 'yes').lower() == 'no'
                           else 'index, follow, max-image-preview:large')
-        out = render(body, meta)
+        out = swap_photos(render(body, meta))
         # collapse the blank lines left behind by stripped conditionals
         out = re.sub(r'[ \t]+\n', '\n', out)
         with open(os.path.join(ROOT, name), 'w') as f:

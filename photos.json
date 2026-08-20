@@ -1,0 +1,15 @@
+{
+  "_comment": "Photo slots used by the site. `query` feeds the Pexels search in tools/fetch_photos.py; `url` (optional) pins one specific photo and wins over the search. Aspect is enforced by a centre crop.",
+  "slots": [
+    { "slot": "hero",        "aspect": "16:10", "query": "mri scanner hospital",           "used_on": "index hero background",            "url": "" },
+    { "slot": "lobby",       "aspect": "16:10", "query": "medical clinic reception modern", "used_on": "index intro, about facility",      "url": "" },
+    { "slot": "tech",        "aspect": "1:1",   "query": "medical imaging equipment detail", "used_on": "index intro inset, bone density", "url": "" },
+    { "slot": "mri",         "aspect": "4:5",   "query": "mri machine patient",             "used_on": "services MRI, technology block",   "url": "" },
+    { "slot": "ct",          "aspect": "16:10", "query": "ct scan machine",                 "used_on": "services CT",                      "url": "" },
+    { "slot": "mammography", "aspect": "4:5",   "query": "mammogram breast screening",      "used_on": "services 3D mammography",          "url": "" },
+    { "slot": "ultrasound",  "aspect": "4:5",   "query": "ultrasound sonographer patient",  "used_on": "services ultrasound",              "url": "" },
+    { "slot": "xray",        "aspect": "16:10", "query": "x-ray radiography room",          "used_on": "services X-ray",                   "url": "" },
+    { "slot": "cardiac",     "aspect": "16:10", "query": "electrocardiogram cardiology",    "used_on": "services EKG and cardiac",         "url": "" },
+    { "slot": "team",        "aspect": "4:5",   "query": "friendly medical team hispanic",  "used_on": "about story, radiologist cards",   "url": "" }
+  ]
+}

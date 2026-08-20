@@ -100,6 +100,9 @@
   <symbol id="i-ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.6" y="3.6" width="16.8" height="16.8" rx="5"/><circle cx="12" cy="12" r="3.9"/><circle cx="16.9" cy="7.1" r="1.1" fill="currentColor" stroke="none"/></symbol>
   <symbol id="i-in" viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.6H4.1V20h2.8ZM5.5 4a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4ZM20 13.4c0-3-1.6-4.9-4.1-4.9-1.4 0-2.4.7-2.9 1.5V8.6H10.2V20H13v-6.1c0-1.5.7-2.4 1.9-2.4s1.7.8 1.7 2.4V20H20Z"/></symbol>
   <symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3Zm5.2 12.7c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-3-.7-2.5-1-4.1-3.6-4.2-3.8-.1-.2-1-1.3-1-2.5s.6-1.8.9-2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.2-.2.3 0 .6.2.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.2.1.4.1.6-.1l.8-1c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.1.1.5-.1 1Z"/></symbol>
+  <symbol id="i-google" viewBox="0 0 24 24"><path fill="#4285F4" d="M21.6 12.2c0-.7-.06-1.4-.18-2.05H12v3.88h5.4a4.6 4.6 0 0 1-2 3.02v2.5h3.23c1.89-1.74 2.97-4.3 2.97-7.35z"/><path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.43l-3.23-2.5c-.9.6-2.05.96-3.39.96-2.6 0-4.8-1.76-5.6-4.12H3.07v2.58A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 13.9a6 6 0 0 1 0-3.82V7.5H3.07a10 10 0 0 0 0 9l3.33-2.6z"/><path fill="#EA4335" d="M12 5.96c1.47 0 2.79.5 3.83 1.5l2.86-2.86C16.95 2.99 14.7 2 12 2A10 10 0 0 0 3.07 7.5L6.4 10.1c.8-2.36 3-4.14 5.6-4.14z"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8ZM10 15V9l5.2 3Z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.1 1.7 3.5 3.8 3.7v2.6c-1.4.1-2.7-.3-3.9-1v5.9c0 4.6-4.4 7.1-8 5-2.4-1.4-3-4.9-1.2-7.2 1.3-1.7 3.4-2.4 5.4-1.9v2.9c-.4-.1-.8-.2-1.2-.2-1.4 0-2.4 1.3-2 2.7.3 1.1 1.6 1.7 2.7 1.2.8-.3 1.3-1.1 1.3-2V3Z"/></symbol>
   <symbol id="i-menu-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
 </svg>
 
@@ -137,9 +140,9 @@
     <nav aria-label="Main">
       <ul class="nav">
         <li class="has-mega" data-open="false">
-          <button type="button" aria-expanded="false" data-es="Servicios">Services
+          <a href="services.html"  aria-expanded="false" aria-haspopup="true" data-es="Servicios">Services
             <svg class="caret"><use href="#i-chevron"/></svg>
-          </button>
+          </a>
           <div class="mega">
             <a class="mega-item" href="services.html#mri"><span class="m-ico"><svg><use href="#i-mri"/></svg></span>
               <span><b>MRI</b><span data-es="Resonancia magnética abierta y de alto campo, con y sin contraste.">High-field and open MRI, with and without contrast.</span></span></a>
@@ -198,7 +201,7 @@
   <!-- ============================ HERO ============================ -->
   <section class="hero">
     <div class="hero-media" aria-hidden="true">
-      <img src="assets/img/hero.svg" alt="">
+      <img data-photo="hero" src="assets/img/hero.svg" alt="">
     </div>
     <div class="container hero-inner">
       <div data-reveal>
@@ -244,11 +247,11 @@
     <div class="container split split--wide-right">
       <div class="media-stack" data-reveal="left">
         <figure class="fig fig--wide">
-          <img src="assets/img/scene-lobby.svg" alt="Reception and waiting area">
+          <img data-photo="lobby" src="assets/img/scene-lobby.svg" alt="Reception and waiting area">
           <figcaption class="ph-note" data-es="Imagen de referencia — se reemplaza con foto real">Placeholder — replace with real photography</figcaption>
         </figure>
         <figure class="fig fig--float fig--sq">
-          <img src="assets/img/scene-tech.svg" alt="Imaging technology detail">
+          <img data-photo="tech" src="assets/img/scene-tech.svg" alt="Imaging technology detail">
         </figure>
       </div>
 
@@ -418,7 +421,7 @@
         </div>
       </div>
       <figure class="fig fig--tall" data-reveal="right">
-        <img src="assets/img/scene-mri.svg" alt="MRI suite">
+        <img data-photo="mri" src="assets/img/scene-mri.svg" alt="MRI suite">
         <figcaption class="fig-badge" data-es="Sala de resonancia">MRI suite</figcaption>
       </figure>
     </div>
@@ -454,37 +457,69 @@
     </div>
   </section>
 
-  <!-- ============================ TESTIMONIALS ============================ -->
-  <section class="sec">
+  <!-- ============================ GOOGLE REVIEWS ============================ -->
+  <section class="sec" id="reviews">
     <div class="container">
-      <div class="sec-head" data-reveal>
-        <span class="eyebrow" data-es="Pacientes">Patients</span>
-        <h2 class="mt-1" data-es="Lo que dicen nuestros vecinos.">What our neighbors say.</h2>
+      <div class="sec-head--split sec-head" data-reveal>
+        <div>
+          <span class="eyebrow" data-es="Reseñas">Reviews</span>
+          <h2 class="mt-1" data-es="Lo que dicen nuestros vecinos en Google.">What our neighbors say on Google.</h2>
+        </div>
+        <p class="lede" data-es="Cada reseña viene de un paciente que caminó por esa puerta. Si ya vino, díganos cómo le fue: nos ayuda a mejorar y ayuda al próximo paciente a decidir.">Every review comes from a patient who walked through that door. If you have been here, tell us how it went — it helps us improve and helps the next patient decide.</p>
       </div>
-      <div class="grid g-3 mt-3" data-stagger>
-        <figure class="quote">
-          <div class="stars" aria-label="5 out of 5">
-            <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
-          </div>
-          <blockquote data-es="«Me atendieron en español desde la primera llamada y el reporte llegó a mi doctora al día siguiente.»">“They took care of me in Spanish from the first phone call, and the report reached my doctor the next day.”</blockquote>
-          <figcaption><b>M. Rodríguez</b><span data-es="Paciente de resonancia · Hialeah">MRI patient · Hialeah</span></figcaption>
-        </figure>
-        <figure class="quote">
-          <div class="stars" aria-label="5 out of 5">
-            <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
-          </div>
-          <blockquote data-es="«Tenía miedo del equipo cerrado. El técnico se tomó el tiempo de explicarme todo y no me sentí sola ni un minuto.»">“I was afraid of the closed scanner. The technologist took the time to explain everything and I never felt alone.”</blockquote>
-          <figcaption><b>A. Pérez</b><span data-es="Paciente de tomografía · Miami Lakes">CT patient · Miami Lakes</span></figcaption>
-        </figure>
-        <figure class="quote">
-          <div class="stars" aria-label="5 out of 5">
-            <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
-          </div>
-          <blockquote data-es="«Como médico referente, valoro que me llamen de inmediato cuando hay un hallazgo crítico.»">“As a referring physician, I value that they call me immediately when there is a critical finding.”</blockquote>
-          <figcaption><b>Dr. L. Fernández</b><span data-es="Medicina interna · Miami-Dade">Internal medicine · Miami-Dade</span></figcaption>
-        </figure>
+
+      <div class="rating-card mt-3" data-reveal>
+        <div class="rating-score">
+          <b>5.0</b>
+          <span data-es="de 5">out of 5</span>
+        </div>
+        <div class="rating-meta">
+          <div class="stars" aria-label="5 out of 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+          <span class="small" data-es="Calificación en Google Business Profile">Google Business Profile rating</span>
+        </div>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Best+American+Diagnostic+Center+5005+E+8th+Ave+Hialeah+FL+33013" target="_blank" rel="noopener" data-es='Escribir una reseña <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Write a review <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
       </div>
-      <p class="small muted mt-2" data-reveal data-es="Testimonios de muestra para la propuesta — se reemplazan por reseñas reales de Google con autorización del paciente.">Sample testimonials for this proposal — to be replaced with real, patient-approved Google reviews.</p>
+
+      <div class="reviews-grid mt-3" data-stagger>
+          <figure class="review">
+            <div class="review-top">
+              <span class="review-avatar" aria-hidden="true">M</span>
+              <span><b>María R.</b><span class="review-date" data-es="hace 2 semanas">2 weeks ago</span></span>
+              <svg class="review-g" aria-label="Google"><use href="#i-google"/></svg>
+            </div>
+            <div class="stars" aria-label="5 out of 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+            <blockquote data-es="Me atendieron en español desde la primera llamada y el reporte llegó a mi doctora al día siguiente.">They took care of me in Spanish from the first phone call, and the report reached my doctor the next day.</blockquote>
+          </figure>
+          <figure class="review">
+            <div class="review-top">
+              <span class="review-avatar" aria-hidden="true">A</span>
+              <span><b>Alina P.</b><span class="review-date" data-es="hace 1 mes">1 month ago</span></span>
+              <svg class="review-g" aria-label="Google"><use href="#i-google"/></svg>
+            </div>
+            <div class="stars" aria-label="5 out of 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+            <blockquote data-es="Tenía miedo del equipo cerrado. El técnico me explicó cada paso y no me sentí sola ni un minuto.">I was afraid of the closed scanner. The technologist explained every step and I never felt alone.</blockquote>
+          </figure>
+          <figure class="review">
+            <div class="review-top">
+              <span class="review-avatar" aria-hidden="true">J</span>
+              <span><b>Jorge M.</b><span class="review-date" data-es="hace 1 mes">1 month ago</span></span>
+              <svg class="review-g" aria-label="Google"><use href="#i-google"/></svg>
+            </div>
+            <div class="stars" aria-label="5 out of 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+            <blockquote data-es="Cita en la misma semana, sin maratón de sala de espera, y verificaron mi seguro antes de llegar.">Same-week appointment, no waiting room marathon, and they verified my insurance before I arrived.</blockquote>
+          </figure>
+          <figure class="review">
+            <div class="review-top">
+              <span class="review-avatar" aria-hidden="true">D</span>
+              <span><b>Dr. L. Fernández</b><span class="review-date" data-es="hace 2 meses">2 months ago</span></span>
+              <svg class="review-g" aria-label="Google"><use href="#i-google"/></svg>
+            </div>
+            <div class="stars" aria-label="5 out of 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+            <blockquote data-es="Como médico referente, valoro que me llamen de inmediato cuando hay un hallazgo crítico.">As a referring physician I value that they call me immediately when there is a critical finding.</blockquote>
+          </figure>
+      </div>
+
+      <p class="small muted mt-2" data-reveal data-es="Reseñas de ejemplo con el formato final. Al conectar el perfil de Google Business se sustituyen por las reales editando reviews.json.">Sample reviews shown in the final format. Connect the Google Business Profile and swap in the real ones by editing reviews.json.</p>
     </div>
   </section>
 
@@ -590,7 +625,7 @@
     <div class="footer-top">
       <div>
         <a class="brand brand--inverse" href="index.html" aria-label="Best American Diagnostic Center — home">
-  <img class="brand-mark" src="assets/img/logo-mark-inverse.svg" alt="" width="44" height="48">
+  <img class="brand-mark" src="assets/img/logo-mark-white.svg" alt="" width="44" height="48">
   <span class="brand-txt">
     <span class="brand-name">Best American</span>
     <span class="brand-sub">Diagnostic <b>Center</b></span>
@@ -599,10 +634,8 @@
 
         <p class="footer-about" data-es="Centro de diagnóstico por imágenes en Hialeah, Florida. Tecnología de última generación, radiólogos certificados y un equipo bilingüe que trata a cada paciente como familia.">Diagnostic imaging center in Hialeah, Florida. State-of-the-art technology, board-certified radiologists and a bilingual team that treats every patient like family.</p>
         <div class="social">
-          <a href="#" aria-label="Facebook"><svg><use href="#i-fb"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a>
-          <a href="#" aria-label="LinkedIn"><svg><use href="#i-in"/></svg></a>
-          <a href="#" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a>
+          <a href="https://wa.me/17868196086" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Best+American+Diagnostic+Center+5005+E+8th+Ave+Hialeah+FL+33013" target="_blank" rel="noopener" aria-label="Google Business Profile"><svg><use href="#i-google"/></svg></a>
         </div>
       </div>
 
@@ -647,10 +680,10 @@
     <div class="footer-bottom">
       <p>© <span data-year></span> Best American Diagnostic Center. <span data-es="Todos los derechos reservados.">All rights reserved.</span></p>
       <ul>
-        <li><a href="#" data-es="Aviso de privacidad (HIPAA)">Privacy practices (HIPAA)</a></li>
-        <li><a href="#" data-es="Términos">Terms</a></li>
-        <li><a href="#" data-es="Accesibilidad">Accessibility</a></li>
-        <li><a href="#" data-es="No discriminación">Non-discrimination</a></li>
+        <li><a href="legal.html#privacy" data-es="Aviso de privacidad (HIPAA)">Privacy practices (HIPAA)</a></li>
+        <li><a href="legal.html#terms" data-es="Términos">Terms</a></li>
+        <li><a href="legal.html#accessibility" data-es="Accesibilidad">Accessibility</a></li>
+        <li><a href="legal.html#non-discrimination" data-es="No discriminación">Non-discrimination</a></li>
         <li><a href="proposal.html" data-es="Propuesta de diseño">Design proposal</a></li>
       </ul>
     </div>

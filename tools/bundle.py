@@ -20,6 +20,7 @@ PAGES = [
     ('about', 'About', 'Nosotros'),
     ('contact', 'Contact', 'Contacto'),
     ('proposal', 'Design proposal', 'Propuesta'),
+    ('legal', 'Legal notices', 'Avisos legales'),
 ]
 MIME = {'.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg',
         '.jpeg': 'image/jpeg', '.webp': 'image/webp'}
@@ -124,7 +125,8 @@ def main():
     banner = '''
 <div class="preview-note">
   <strong>Preview</strong>
-  <span data-es="Sitio completo en un solo archivo — navegue por el menú. Los formularios muestran su estado de confirmación sin enviar nada.">Whole site in a single file — use the menu to navigate. Forms show their confirmation state without sending anything.</span>
+  <span class="pn-long" data-es="Sitio completo en un solo archivo — navegue por el menú. Los formularios muestran su confirmación sin enviar nada.">Whole site in a single file — use the menu to navigate. Forms show their confirmation without sending anything.</span>
+  <span class="pn-short" data-es="Navegue con el menú">Use the menu to navigate</span>
 </div>'''
 
     extra_css = '''
@@ -133,8 +135,13 @@ def main():
   background:rgba(0,11,51,.92);color:#EAEEFF;backdrop-filter:blur(10px);
   border:1px solid rgba(255,255,255,.14);border-radius:999px;
   padding:.55rem 1.1rem;font-size:.78rem;line-height:1.4;box-shadow:0 20px 50px -20px rgba(0,0,0,.6)}
-.preview-note strong{color:#00C6C1;letter-spacing:.12em;text-transform:uppercase;font-size:.66rem}
-@media (max-width:900px){.preview-note{bottom:5.5rem;border-radius:14px}}
+.preview-note strong{color:#00C6C1;letter-spacing:.12em;text-transform:uppercase;font-size:.66rem;flex:none}
+.preview-note .pn-short{display:none}
+@media (max-width:900px){
+  .preview-note{bottom:5.25rem;padding:.45rem .9rem;font-size:.72rem;white-space:nowrap;max-width:calc(100vw - 1.5rem)}
+  .preview-note .pn-long{display:none}
+  .preview-note .pn-short{display:inline}
+}
 '''
 
     head = read('index.html')

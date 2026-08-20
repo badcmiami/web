@@ -1,7 +1,7 @@
 /* Link / a11y / i18n smoke test across all built pages. */
 const { chromium } = require('playwright');
 const fs = require('fs');
-const pages = ['index','services','patients','providers','about','contact','proposal','404'].map(p => p + '.html');
+const pages = ['index','services','patients','providers','about','contact','proposal','legal','404'].map(p => p + '.html');
 (async () => {
   const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
   const page = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage();

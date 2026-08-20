@@ -100,6 +100,9 @@
   <symbol id="i-ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.6" y="3.6" width="16.8" height="16.8" rx="5"/><circle cx="12" cy="12" r="3.9"/><circle cx="16.9" cy="7.1" r="1.1" fill="currentColor" stroke="none"/></symbol>
   <symbol id="i-in" viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.6H4.1V20h2.8ZM5.5 4a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4ZM20 13.4c0-3-1.6-4.9-4.1-4.9-1.4 0-2.4.7-2.9 1.5V8.6H10.2V20H13v-6.1c0-1.5.7-2.4 1.9-2.4s1.7.8 1.7 2.4V20H20Z"/></symbol>
   <symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3Zm5.2 12.7c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-3-.7-2.5-1-4.1-3.6-4.2-3.8-.1-.2-1-1.3-1-2.5s.6-1.8.9-2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.2-.2.3 0 .6.2.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.2.1.4.1.6-.1l.8-1c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.1.1.5-.1 1Z"/></symbol>
+  <symbol id="i-google" viewBox="0 0 24 24"><path fill="#4285F4" d="M21.6 12.2c0-.7-.06-1.4-.18-2.05H12v3.88h5.4a4.6 4.6 0 0 1-2 3.02v2.5h3.23c1.89-1.74 2.97-4.3 2.97-7.35z"/><path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.43l-3.23-2.5c-.9.6-2.05.96-3.39.96-2.6 0-4.8-1.76-5.6-4.12H3.07v2.58A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 13.9a6 6 0 0 1 0-3.82V7.5H3.07a10 10 0 0 0 0 9l3.33-2.6z"/><path fill="#EA4335" d="M12 5.96c1.47 0 2.79.5 3.83 1.5l2.86-2.86C16.95 2.99 14.7 2 12 2A10 10 0 0 0 3.07 7.5L6.4 10.1c.8-2.36 3-4.14 5.6-4.14z"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8ZM10 15V9l5.2 3Z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.1 1.7 3.5 3.8 3.7v2.6c-1.4.1-2.7-.3-3.9-1v5.9c0 4.6-4.4 7.1-8 5-2.4-1.4-3-4.9-1.2-7.2 1.3-1.7 3.4-2.4 5.4-1.9v2.9c-.4-.1-.8-.2-1.2-.2-1.4 0-2.4 1.3-2 2.7.3 1.1 1.6 1.7 2.7 1.2.8-.3 1.3-1.1 1.3-2V3Z"/></symbol>
   <symbol id="i-menu-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
 </svg>
 
@@ -137,9 +140,9 @@
     <nav aria-label="Main">
       <ul class="nav">
         <li class="has-mega" data-open="false">
-          <button type="button" aria-expanded="false" data-es="Servicios">Services
+          <a href="services.html"  aria-expanded="false" aria-haspopup="true" data-es="Servicios">Services
             <svg class="caret"><use href="#i-chevron"/></svg>
-          </button>
+          </a>
           <div class="mega">
             <a class="mega-item" href="services.html#mri"><span class="m-ico"><svg><use href="#i-mri"/></svg></span>
               <span><b>MRI</b><span data-es="Resonancia magnética abierta y de alto campo, con y sin contraste.">High-field and open MRI, with and without contrast.</span></span></a>
@@ -337,11 +340,11 @@
         <h2 class="mt-1" data-es="Sus documentos, sus imágenes, su expediente.">Your documents, your images, your record.</h2>
       </div>
       <div class="grid g-3 mt-3" data-stagger>
-        <a class="card card--dark" href="#"><span class="c-ico"><svg><use href="#i-doc"/></svg></span><h3 data-es="Formulario de registro">Registration form</h3><p data-es="Complete sus datos en casa y ahorre tiempo en recepción. PDF bilingüe.">Fill in your details at home and save time at the front desk. Bilingual PDF.</p><span class="tlink" data-es='Descargar <svg class="ico"><use href="#i-arrow"/></svg>'>Download <svg class="ico"><use href="#i-arrow"/></svg></span></a>
-        <a class="card card--dark" href="#"><span class="c-ico"><svg><use href="#i-shield"/></svg></span><h3 data-es="Autorización de expedientes">Records release</h3><p data-es="Autorice el envío de sus imágenes y reportes a otro médico o centro.">Authorize sending your images and reports to another physician or facility.</p><span class="tlink" data-es='Descargar <svg class="ico"><use href="#i-arrow"/></svg>'>Download <svg class="ico"><use href="#i-arrow"/></svg></span></a>
+        <a class="card card--dark" href="https://wa.me/17868196086" target="_blank" rel="noopener"><span class="c-ico"><svg><use href="#i-doc"/></svg></span><h3 data-es="Formulario de registro">Registration form</h3><p data-es="Pídalo por WhatsApp y complételo en casa: ahorra tiempo en recepción. Disponible en español e inglés.">Request it on WhatsApp and fill it in at home — it saves time at the front desk. Available in Spanish and English.</p><span class="tlink" data-es='Pedirlo por WhatsApp <svg class="ico"><use href="#i-arrow"/></svg>'>Request on WhatsApp <svg class="ico"><use href="#i-arrow"/></svg></span></a>
+        <a class="card card--dark" href="tel:+13056817555"><span class="c-ico"><svg><use href="#i-shield"/></svg></span><h3 data-es="Autorización de expedientes">Records release</h3><p data-es="Llámenos para autorizar el envío de sus imágenes y reportes a otro médico o centro.">Call us to authorize sending your images and reports to another physician or facility.</p><span class="tlink" data-es='Llamar al (305) 681-7555 <svg class="ico"><use href="#i-arrow"/></svg>'>Call (305) 681-7555 <svg class="ico"><use href="#i-arrow"/></svg></span></a>
         <a class="card card--dark" href="contact.html"><span class="c-ico"><svg><use href="#i-mail"/></svg></span><h3 data-es="Solicitar mis resultados">Request my results</h3><p data-es="Pida una copia de su reporte e imágenes. Se entregan en persona o de forma segura.">Request a copy of your report and images, delivered in person or securely.</p><span class="tlink" data-es='Solicitar <svg class="ico"><use href="#i-arrow"/></svg>'>Request <svg class="ico"><use href="#i-arrow"/></svg></span></a>
       </div>
-      <p class="small muted mt-2" data-reveal data-es="En la versión final estos enlaces apuntan a los PDF reales del centro y, si se desea, a un portal seguro de resultados.">In the final version these links point to the center's real PDFs and, if desired, to a secure results portal.</p>
+      <p class="small muted mt-2" data-reveal data-es="Cuando el centro nos entregue los PDF oficiales, estas tarjetas pasan a descargarlos directamente; si se desea, se conecta también un portal seguro de resultados.">Once the center provides the official PDFs these cards will download them directly; a secure results portal can be connected as well.</p>
     </div>
   </section>
 
@@ -356,7 +359,7 @@
           <a class="btn btn--wa" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span data-es="Preguntar por WhatsApp">Ask on WhatsApp</span></a>
         </div>
       </div>
-      <div class="acc mt-3" data-reveal>
+      <div class="acc mt-3" data-single data-reveal>
         <div class="acc-item" data-open="true">
           <button class="acc-btn" type="button" data-es="¿Cuánto tiempo tarda mi estudio?">How long will my exam take?</button>
           <div class="acc-panel"><div class="acc-panel-in"><p data-es="Una radiografía toma entre 5 y 15 minutos; un ultrasonido, entre 20 y 40; una tomografía, entre 10 y 20; una resonancia, entre 20 y 45 minutos según la región. Sume 15 minutos para el registro.">An X-ray takes 5 to 15 minutes; an ultrasound 20 to 40; a CT 10 to 20; an MRI 20 to 45 minutes depending on the region. Add 15 minutes for registration.</p></div></div>
@@ -411,7 +414,7 @@
     <div class="footer-top">
       <div>
         <a class="brand brand--inverse" href="index.html" aria-label="Best American Diagnostic Center — home">
-  <img class="brand-mark" src="assets/img/logo-mark-inverse.svg" alt="" width="44" height="48">
+  <img class="brand-mark" src="assets/img/logo-mark-white.svg" alt="" width="44" height="48">
   <span class="brand-txt">
     <span class="brand-name">Best American</span>
     <span class="brand-sub">Diagnostic <b>Center</b></span>
@@ -420,10 +423,8 @@
 
         <p class="footer-about" data-es="Centro de diagnóstico por imágenes en Hialeah, Florida. Tecnología de última generación, radiólogos certificados y un equipo bilingüe que trata a cada paciente como familia.">Diagnostic imaging center in Hialeah, Florida. State-of-the-art technology, board-certified radiologists and a bilingual team that treats every patient like family.</p>
         <div class="social">
-          <a href="#" aria-label="Facebook"><svg><use href="#i-fb"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a>
-          <a href="#" aria-label="LinkedIn"><svg><use href="#i-in"/></svg></a>
-          <a href="#" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a>
+          <a href="https://wa.me/17868196086" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Best+American+Diagnostic+Center+5005+E+8th+Ave+Hialeah+FL+33013" target="_blank" rel="noopener" aria-label="Google Business Profile"><svg><use href="#i-google"/></svg></a>
         </div>
       </div>
 
@@ -468,10 +469,10 @@
     <div class="footer-bottom">
       <p>© <span data-year></span> Best American Diagnostic Center. <span data-es="Todos los derechos reservados.">All rights reserved.</span></p>
       <ul>
-        <li><a href="#" data-es="Aviso de privacidad (HIPAA)">Privacy practices (HIPAA)</a></li>
-        <li><a href="#" data-es="Términos">Terms</a></li>
-        <li><a href="#" data-es="Accesibilidad">Accessibility</a></li>
-        <li><a href="#" data-es="No discriminación">Non-discrimination</a></li>
+        <li><a href="legal.html#privacy" data-es="Aviso de privacidad (HIPAA)">Privacy practices (HIPAA)</a></li>
+        <li><a href="legal.html#terms" data-es="Términos">Terms</a></li>
+        <li><a href="legal.html#accessibility" data-es="Accesibilidad">Accessibility</a></li>
+        <li><a href="legal.html#non-discrimination" data-es="No discriminación">Non-discrimination</a></li>
         <li><a href="proposal.html" data-es="Propuesta de diseño">Design proposal</a></li>
       </ul>
     </div>
