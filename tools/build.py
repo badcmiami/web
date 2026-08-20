@@ -14,7 +14,7 @@ ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
 
 # Absolute origin used for canonical links, og:url and sitemap.xml.
 # Change this one line when the final domain is confirmed.
-SITE = os.environ.get('SITE_URL', 'https://bestamericandiagnostics.com').rstrip('/')
+SITE = os.environ.get('SITE_URL', 'https://bestamerican.center').rstrip('/')
 PAGES = os.path.join(ROOT, 'src', 'pages')
 PARTS = os.path.join(ROOT, 'src', 'partials')
 

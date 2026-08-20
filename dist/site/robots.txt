@@ -3,4 +3,4 @@ Allow: /
 Disallow: /proposal.html
 Disallow: /send.php
 
-Sitemap: https://bestamericandiagnostics.com/sitemap.xml
+Sitemap: https://bestamerican.center/sitemap.xml
