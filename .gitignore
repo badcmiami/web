@@ -7,3 +7,5 @@ package-lock.json
 assets/photos/_masters/
 __pycache__/
 *.pyc
+_masters/
+assets/photos/_masters/

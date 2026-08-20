@@ -44,6 +44,24 @@ def data_uri(path):
                                   base64.b64encode(raw).decode())
 
 
+def collapse_pictures(html):
+    """A single file cannot carry a srcset — keep one mid-size image per slot."""
+    def sub(m):
+        block = m.group(0)
+        img = re.search(r'<img[^>]*>', block)
+        if not img:
+            return block
+        tag = img.group(0)
+        src = re.search(r'src="([^"]+)"', tag)
+        if src:
+            mid = re.sub(r'(-\d+)?\.(jpg|jpeg|webp|png)$', '-960.jpg', src.group(1))
+            if os.path.exists(os.path.join(ROOT, mid)):
+                tag = tag.replace(src.group(1), mid)
+        tag = re.sub(r'\s(srcset|sizes)="[^"]*"', '', tag)
+        return tag
+    return re.sub(r'<picture>.*?</picture>', sub, html, flags=re.S)
+
+
 def inline_images(html, cache):
     def sub(m):
         path = m.group(2)
@@ -52,7 +70,7 @@ def inline_images(html, cache):
         if path not in cache:
             cache[path] = data_uri(path)
         return '%s%s%s' % (m.group(1), cache[path], m.group(3))
-    return re.sub(r'(src=")(assets/img/[^"]+)(")', sub, html)
+    return re.sub(r'(src=")(assets/(?:img|photos)/[^"]+)(")', sub, html)
 
 
 def rewrite_links(html):
@@ -83,7 +101,7 @@ def main():
             % (slug, title.replace('"', '&quot;'), main_html))
 
     body = header + '\n'.join(routes) + footer
-    body = inline_images(rewrite_links(body), cache)
+    body = inline_images(collapse_pictures(rewrite_links(body)), cache)
 
     css = read('assets', 'css', 'style.css')
     js = read('assets', 'js', 'main.js')

@@ -1,0 +1,72 @@
+{
+  "hero": {
+    "author": "",
+    "page": "",
+    "license": "licensed by the client",
+    "source": "supplied",
+    "master": "3840x2400"
+  },
+  "lobby": {
+    "author": "",
+    "page": "",
+    "license": "licensed by the client",
+    "source": "supplied",
+    "master": "3840x2400"
+  },
+  "tech": {
+    "author": "",
+    "page": "",
+    "license": "licensed by the client",
+    "source": "supplied",
+    "master": "2600x2600"
+  },
+  "mri": {
+    "author": "",
+    "page": "",
+    "license": "licensed by the client",
+    "source": "supplied",
+    "master": "2600x3250"
+  },
+  "ct": {
+    "author": "",
+    "page": "",
+    "license": "licensed by the client",
+    "source": "supplied",
+    "master": "3840x2400"
+  },
+  "mammography": {
+    "author": "",
+    "page": "",
+    "license": "licensed by the client",
+    "source": "supplied",
+    "master": "2600x3250"
+  },
+  "ultrasound": {
+    "author": "",
+    "page": "",
+    "license": "licensed by the client",
+    "source": "supplied",
+    "master": "2600x3250"
+  },
+  "xray": {
+    "author": "",
+    "page": "",
+    "license": "licensed by the client",
+    "source": "supplied",
+    "master": "3840x2400"
+  },
+  "cardiac": {
+    "author": "",
+    "page": "",
+    "license": "licensed by the client",
+    "source": "supplied",
+    "master": "3840x2400"
+  },
+  "team": {
+    "author": "",
+    "page": "",
+    "license": "licensed by the client",
+    "source": "supplied",
+    "master": "2600x3250"
+  }
+}
