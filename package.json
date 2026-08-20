@@ -2,13 +2,15 @@
   "name": "best-american-diagnostic-web",
   "version": "1.0.0",
   "private": true,
-  "description": "Website proposal for Best American Diagnostic Center (Hialeah, FL) — static, bilingual, dependency-free.",
+  "description": "Website proposal for Best American Diagnostic Center (Hialeah, FL) \u2014 static, bilingual, dependency-free.",
   "scripts": {
     "build": "python3 tools/build.py",
     "assets": "python3 tools/make_assets.py",
     "serve": "python3 -m http.server 8899",
-    "shot": "node tools/shot.js index.html services.html locations.html patients.html providers.html about.html contact.html proposal.html",
-    "audit": "node tools/audit.js"
+    "shot": "node tools/shot.js index.html services.html patients.html providers.html about.html contact.html proposal.html",
+    "audit": "node tools/audit.js",
+    "check": "node tools/check_actions.js",
+    "bundle": "python3 tools/bundle.py"
   },
   "devDependencies": {
     "playwright": "^1.58.0"

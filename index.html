@@ -51,9 +51,11 @@
   "availableLanguage":["en","es"],
   "medicalSpecialty":"Radiology",
   "areaServed":{"@type":"City","name":"Hialeah","addressRegion":"FL"},
-  "address":[
-    {"@type":"PostalAddress","streetAddress":"637 E 49th St","addressLocality":"Hialeah","addressRegion":"FL","postalCode":"33013","addressCountry":"US"},
-    {"@type":"PostalAddress","streetAddress":"5005 E 8th Ave","addressLocality":"Hialeah","addressRegion":"FL","postalCode":"33013","addressCountry":"US"}
+  "email":"billing@bestamericandiagnostics.com",
+  "address":{"@type":"PostalAddress","streetAddress":"5005 E 8th Ave","addressLocality":"Hialeah","addressRegion":"FL","postalCode":"33013","addressCountry":"US"},
+  "contactPoint":[
+    {"@type":"ContactPoint","contactType":"reservations","telephone":"+1-305-681-7555","availableLanguage":["en","es"]},
+    {"@type":"ContactPoint","contactType":"customer support","telephone":"+1-786-819-6086","availableLanguage":["en","es"]}
   ],
   "openingHoursSpecification":[
     {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"18:00"}
@@ -108,7 +110,8 @@
     <ul class="topbar-list">
       <li><svg class="ico"><use href="#i-phone"/></svg><a href="tel:+13056817555">(305) 681-7555</a></li>
       <li><svg class="ico"><use href="#i-clock"/></svg><span data-es="Lun – Vie · 8:00 am – 6:00 pm">Mon – Fri · 8:00 am – 6:00 pm</span></li>
-      <li><svg class="ico"><use href="#i-pin"/></svg><span data-es="Dos sedes en Hialeah, FL">Two locations in Hialeah, FL</span></li>
+      <li><svg class="ico"><use href="#i-pin"/></svg><span>5005 E 8th Ave, Hialeah, FL</span></li>
+      <li><svg class="ico"><use href="#i-wa"/></svg><a href="https://wa.me/17868196086" target="_blank" rel="noopener" data-es="WhatsApp: (786) 819-6086">WhatsApp (786) 819-6086</a></li>
     </ul>
     <div class="row" style="gap:1rem">
       <a href="contact.html" class="small" data-es="Resultados y portal del paciente">Results &amp; patient portal</a>
@@ -156,7 +159,6 @@
             </div>
           </div>
         </li>
-        <li><a href="locations.html"  data-es="Sedes">Locations</a></li>
         <li><a href="patients.html"  data-es="Pacientes">Patients</a></li>
         <li><a href="providers.html"  data-es="Médicos">Providers</a></li>
         <li><a href="about.html"  data-es="Nosotros">About</a></li>
@@ -178,7 +180,6 @@
   <nav aria-label="Mobile">
     <a href="index.html" data-es="Inicio">Home <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
     <a href="services.html" data-es="Servicios">Services <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
-    <a href="locations.html" data-es="Sedes">Locations <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
     <a href="patients.html" data-es="Pacientes">Patients <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
     <a href="providers.html" data-es="Médicos">Providers <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
     <a href="about.html" data-es="Nosotros">About <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
@@ -187,6 +188,7 @@
   <div class="drawer-foot">
     <a class="btn btn--block" href="contact.html" data-es='Agendar cita <svg class="ico"><use href="#i-arrow"/></svg>'>Book an exam <svg class="ico"><use href="#i-arrow"/></svg></a>
     <a class="btn btn--ghost btn--block" href="tel:+13056817555"><svg class="ico"><use href="#i-phone"/></svg>(305) 681-7555</a>
+    <a class="btn btn--wa btn--block" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span data-es="Preguntar por WhatsApp">Ask on WhatsApp</span></a>
     <p class="small muted" data-es="Lun – Vie · 8:00 am – 6:00 pm · Hialeah, Florida">Mon – Fri · 8:00 am – 6:00 pm · Hialeah, Florida</p>
   </div>
 </div>
@@ -262,7 +264,7 @@
         </ul>
         <div class="row mt-2">
           <a class="btn" href="about.html" data-es='Conozca el centro <svg class="ico"><use href="#i-arrow"/></svg>'>About the center <svg class="ico"><use href="#i-arrow"/></svg></a>
-          <a class="tlink" href="locations.html" data-es='Ver sedes <svg class="ico"><use href="#i-arrow-ur"/></svg>'>See locations <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+          <a class="tlink" href="#visit" data-es='Dónde estamos <svg class="ico"><use href="#i-arrow"/></svg>'>Where to find us <svg class="ico"><use href="#i-arrow"/></svg></a>
         </div>
       </div>
     </div>
@@ -333,7 +335,7 @@
       </div>
       <div class="stats mt-3" data-reveal>
         <div class="stat"><b><span data-count="25">0</span>+</b><span data-es="Años atendiendo a Hialeah y Miami-Dade">Years serving Hialeah and Miami-Dade</span></div>
-        <div class="stat"><b><span data-count="2">0</span></b><span data-es="Sedes a menos de 10 minutos entre sí">Locations less than 10 minutes apart</span></div>
+        <div class="stat"><b><span data-count="6">0</span></b><span data-es="Modalidades diagnósticas en un mismo edificio">Diagnostic modalities in one building</span></div>
         <div class="stat"><b><span data-count="30">0</span><span class="suf">k+</span></b><span data-es="Estudios realizados cada año*">Studies performed every year*</span></div>
         <div class="stat"><b><span data-count="24">0</span><span class="suf">h</span></b><span data-es="Entrega típica del reporte al médico*">Typical report turnaround to your doctor*</span></div>
       </div>
@@ -486,48 +488,35 @@
     </div>
   </section>
 
-  <!-- ============================ LOCATIONS ============================ -->
-  <section class="sec sec--paper">
+  <!-- ============================ VISIT US ============================ -->
+  <section class="sec sec--paper" id="visit">
     <div class="container">
       <div class="sec-head--split sec-head" data-reveal>
         <div>
-          <span class="eyebrow" data-es="Sedes">Locations</span>
-          <h2 class="mt-1" data-es="Dos sedes en Hialeah, con estacionamiento propio.">Two Hialeah locations, with parking at the door.</h2>
+          <span class="eyebrow" data-es="Visítenos">Visit us</span>
+          <h2 class="mt-1" data-es="Una sola dirección, en el corazón de Hialeah.">One address, in the heart of Hialeah.</h2>
         </div>
-        <p class="lede" data-es="Ambas sedes comparten el mismo equipo de radiólogos y el mismo historial digital, así que puede ir a la que le quede más cerca.">Both locations share the same radiologists and the same digital record, so you can go to whichever one is closer.</p>
+        <p class="lede" data-es="Todo bajo el mismo techo: los equipos, los radiólogos y el equipo que le atiende por teléfono. Estacionamiento en la puerta y acceso para sillas de ruedas.">Everything under one roof: the equipment, the radiologists and the team that answers your call. Parking at the door and wheelchair access.</p>
       </div>
 
-      <div class="grid g-2 mt-3" data-stagger>
-        <article class="loc">
-          <div class="loc-body">
-            <span class="tag" data-es="Sede principal">Main location</span>
-            <h3>637 E 49th Street</h3>
-            <dl class="dl">
-              <dt data-es="Dirección">Address</dt><dd>637 E 49th St, Hialeah, FL 33013</dd>
-              <dt data-es="Teléfono">Phone</dt><dd><a href="tel:+13056817555">(305) 681-7555</a></dd>
-              <dt>Fax</dt><dd>(305) 681-7040</dd>
-              <dt data-es="Horario">Hours</dt><dd data-es="Lun – Vie, 8:00 am – 6:00 pm">Mon – Fri, 8:00 am – 6:00 pm</dd>
-            </dl>
-            <a class="tlink" href="locations.html#east-49" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+      <article class="loc mt-3" data-reveal>
+        <div class="loc-body">
+          <span class="tag" data-es="Centro de diagnóstico">Diagnostic center</span>
+          <h3>5005 E 8th Avenue</h3>
+          <p class="muted" data-es="Hialeah, FL 33013 — con estacionamiento gratuito y entrada accesible.">Hialeah, FL 33013 — with free parking and an accessible entrance.</p>
+          <dl class="dl">
+            <dt data-es="Citas">Appointments</dt><dd><a href="tel:+13056817555">(305) 681-7555</a></dd>
+            <dt>WhatsApp</dt><dd><a href="https://wa.me/17868196086" target="_blank" rel="noopener">(786) 819-6086</a></dd>
+            <dt data-es="Órdenes médicas">Orders</dt><dd data-es="Fax: (305) 681-7040">Fax: (305) 681-7040</dd>
+            <dt data-es="Horario">Hours</dt><dd data-es="Lun – Vie, 8:00 am – 6:00 pm">Mon – Fri, 8:00 am – 6:00 pm</dd>
+          </dl>
+          <div class="row">
+            <a class="btn btn--sm" href="https://www.google.com/maps/dir/?api=1&destination=5005+E+8th+Ave+Hialeah+FL+33013" target="_blank" rel="noopener" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+            <a class="btn btn--wa btn--sm" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span data-es="Preguntar por WhatsApp">Ask on WhatsApp</span></a>
           </div>
-          <div class="loc-map"><img src="assets/img/map-1.svg" alt="Map of 637 E 49th St, Hialeah"></div>
-        </article>
-
-        <article class="loc">
-          <div class="loc-body">
-            <span class="tag tag--ghost" data-es="Segunda sede">Second location</span>
-            <h3>5005 E 8th Avenue</h3>
-            <dl class="dl">
-              <dt data-es="Dirección">Address</dt><dd>5005 E 8th Ave, Hialeah, FL 33013</dd>
-              <dt data-es="Teléfono">Phone</dt><dd><a href="tel:+13058251535">(305) 825-1535</a></dd>
-              <dt>Fax</dt><dd>(305) 681-7040</dd>
-              <dt data-es="Horario">Hours</dt><dd data-es="Lun – Vie, 8:00 am – 6:00 pm">Mon – Fri, 8:00 am – 6:00 pm</dd>
-            </dl>
-            <a class="tlink" href="locations.html#east-8" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
-          </div>
-          <div class="loc-map"><img src="assets/img/map-2.svg" alt="Map of 5005 E 8th Ave, Hialeah"></div>
-        </article>
-      </div>
+        </div>
+        <div class="loc-map"><img src="assets/img/map-2.svg" alt="Map of 5005 E 8th Ave, Hialeah"></div>
+      </article>
     </div>
   </section>
 
@@ -538,7 +527,10 @@
         <span class="eyebrow" data-es="Preguntas frecuentes">Frequent questions</span>
         <h2 class="mt-1" data-es="Antes de su visita.">Before your visit.</h2>
         <p class="lede mt-1" data-es="Las respuestas cortas están aquí. Las largas, en la sección de pacientes — o por teléfono, con una persona real.">The short answers live here. The long ones live in the patient section — or on the phone, with an actual person.</p>
-        <a class="btn btn--ghost mt-2" href="patients.html#faq" data-es='Ver todas las preguntas <svg class="ico"><use href="#i-arrow"/></svg>'>See all questions <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <div class="row mt-2">
+          <a class="btn btn--ghost" href="patients.html#faq" data-es='Ver todas las preguntas <svg class="ico"><use href="#i-arrow"/></svg>'>See all questions <svg class="ico"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--wa" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span data-es="Pregunte por WhatsApp">Ask on WhatsApp</span></a>
+        </div>
       </div>
 
       <div class="acc" data-single data-reveal="right">
@@ -587,6 +579,7 @@
     <div class="cta-actions" data-reveal="right">
       <a class="btn btn--teal btn--lg" href="contact.html" data-es='Solicitar cita <svg class="ico"><use href="#i-arrow"/></svg>'>Request an appointment <svg class="ico"><use href="#i-arrow"/></svg></a>
       <a class="btn btn--ghost btn--lg" href="tel:+13056817555"><svg class="ico"><use href="#i-phone"/></svg>(305) 681-7555</a>
+      <a class="btn btn--wa btn--lg" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span data-es="¿Una pregunta rápida? WhatsApp">Quick question? WhatsApp</span></a>
       <p class="small" style="color:#C7D2FF" data-es="Respuesta el mismo día hábil · Se habla español">Same business-day response · Se habla español</p>
     </div>
   </div>
@@ -639,13 +632,13 @@
       </div>
 
       <div>
-        <h4 data-es="Sedes">Locations</h4>
+        <h4 data-es="Visítenos">Visit us</h4>
         <ul>
-          <li><a href="locations.html#east-49">637 E 49th St<br>Hialeah, FL 33013</a></li>
-          <li><a href="locations.html#east-8">5005 E 8th Ave<br>Hialeah, FL 33013</a></li>
-          <li><a href="tel:+13056817555">(305) 681-7555</a></li>
-          <li><a href="tel:+13058251535">(305) 825-1535</a></li>
-          <li><span data-es="Fax: (305) 681-7040">Fax: (305) 681-7040</span></li>
+          <li><a href="https://www.google.com/maps/dir/?api=1&destination=5005+E+8th+Ave+Hialeah+FL+33013" target="_blank" rel="noopener">5005 E 8th Ave<br>Hialeah, FL 33013</a></li>
+          <li><a href="tel:+13056817555" data-es="Citas: (305) 681-7555">Appointments: (305) 681-7555</a></li>
+          <li><a href="https://wa.me/17868196086" target="_blank" rel="noopener">WhatsApp: (786) 819-6086</a></li>
+          <li><a href="mailto:billing@bestamericandiagnostics.com">billing@bestamericandiagnostics.com</a></li>
+          <li><span>Fax: (305) 681-7040</span></li>
           <li><span data-es="Lun – Vie · 8:00 am – 6:00 pm">Mon – Fri · 8:00 am – 6:00 pm</span></li>
         </ul>
       </div>
@@ -666,8 +659,14 @@
 
 <div class="mobar">
   <a class="btn btn--ghost" href="tel:+13056817555"><svg class="ico"><use href="#i-phone"/></svg><span data-es="Llamar">Call</span></a>
+  <a class="btn btn--wa" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
   <a class="btn" href="contact.html"><svg class="ico"><use href="#i-cal"/></svg><span data-es="Agendar">Book</span></a>
 </div>
+
+<a class="wafab" href="https://wa.me/17868196086" target="_blank" rel="noopener" aria-label="Ask us on WhatsApp — (786) 819-6086">
+  <svg><use href="#i-wa"/></svg>
+  <span class="wafab-txt" data-es="Escríbanos">Chat with us</span>
+</a>
 
 <button class="totop" aria-label="Back to top"><svg><use href="#i-arrow-up"/></svg></button>
 <script src="assets/js/main.js" defer></script>

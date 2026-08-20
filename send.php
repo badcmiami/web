@@ -13,7 +13,7 @@
  * encrypted intake service and a signed BAA.
  */
 
-const MAIL_TO      = 'frontdesk@bestamericandiagnostics.com';   // where requests arrive
+const MAIL_TO      = 'billing@bestamericandiagnostics.com';    // where requests arrive
 const MAIL_FROM    = 'website@bestamericandiagnostics.com';     // must be on your domain
 const SUBJECT_TAG  = '[Website]';
 

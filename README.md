@@ -43,11 +43,10 @@ python3 tools/make_assets.py    # o: npm run assets  → regenera el kit SVG
 | --- | --- |
 | `index.html` | Home — confianza en 5 segundos, servicios, cifras, proceso, sedes, FAQ |
 | `services.html` | Los 7 estudios: uso, duración, preparación |
-| `locations.html` | Dos sedes, horarios (resalta el día actual), acceso, cómo llegar |
 | `patients.html` | Qué traer, preparación por estudio (pestañas), seguros, formularios, FAQ |
 | `providers.html` | Médicos referentes: tiempos, cómo referir, formulario |
 | `about.html` | Historia, valores, equipo médico, calidad y acreditaciones |
-| `contact.html` | Formulario de cita con validación + datos directos |
+| `contact.html` | Formulario de cita, dirección, horario, mapa y WhatsApp |
 | `proposal.html` | **La presentación**: dirección, identidad, marca, alcance y fases (`noindex`) |
 | `404.html` | Página de error con rutas de rescate |
 
@@ -67,6 +66,28 @@ python3 tools/make_assets.py    # o: npm run assets  → regenera el kit SVG
   `MedicalBusiness` con ambas sedes y horarios, HTML semántico, foco visible, navegación
   por teclado, y cero librerías JS externas.
 
+## Datos de contacto en uso
+
+| Canal | Destino | Dónde aparece |
+| --- | --- | --- |
+| Botones de llamada | **(305) 681-7555** | Barra superior, cabecera, cada CTA, barra fija móvil |
+| WhatsApp | **(786) 819-6086** (`wa.me/17868196086`) | Barra superior, menú móvil, FAQ, CTA, pie, botón flotante, barra fija móvil |
+| Formularios | **billing@bestamericandiagnostics.com** (`MAIL_TO` en `send.php`) | Cita en `contact.html`, referencia en `providers.html` |
+| Dirección | **5005 E 8th Ave, Hialeah, FL 33013** | Home (sección *Visit us*), contacto, pie, datos estructurados |
+| Fax | (305) 681-7040 | Pie, contacto, servicios, médicos |
+
+Al ser una sola dirección oficial, **no hay página de sedes**: la dirección, el horario y el
+mapa viven en la home y en contacto. Para verificar que ningún botón quedó apuntando a otro
+lado después de un cambio:
+
+```bash
+node tools/check_actions.js     # o: npm run check
+```
+
+Comprueba que todo `tel:` sea (305) 681-7555, que todo enlace de WhatsApp sea el número
+correcto, que los formularios envíen a `send.php`, que `send.php` entregue a `billing@`,
+que no queden enlaces a la página de sedes eliminada y que el menú ya no la ofrezca.
+
 ## ⚠️ Contenido a confirmar antes de publicar
 
 Este prototipo se construyó **sin acceso directo al sitio actual** (el entorno de trabajo
@@ -74,11 +95,10 @@ bloquea la navegación externa), por lo que los textos son propuestas de referen
 redactadas a partir de la información pública del centro. Antes del lanzamiento hay que
 validar con el cliente:
 
-1. **Datos de contacto y sedes** — teléfonos (305) 681-7555 / (305) 825-1535, fax
-   (305) 681-7040, direcciones 637 E 49th St y 5005 E 8th Ave (Hialeah, FL 33013) y el
-   horario Lun–Vie 8:00 am – 6:00 pm.
-2. **Lista de servicios por sede** — se asumieron 7 modalidades; confirmar cuáles se
-   realizan y en cuál sede.
+1. **Fax y horario** — el fax (305) 681-7040 y el horario Lun–Vie 8:00 am – 6:00 pm vienen
+   de directorios públicos, no del cliente. El teléfono, el WhatsApp, el correo y la
+   dirección sí están confirmados.
+2. **Lista de servicios** — se asumieron 7 modalidades; confirmar cuáles se realizan.
 3. **Cifras** — años de operación, volumen anual de estudios y tiempo real de entrega de
    reportes (marcados con `*` en el sitio).
 4. **Seguros aceptados** — la lista actual es de referencia del mercado de Florida.
@@ -146,9 +166,9 @@ El sitio es HTML estático: sirve cualquier hosting. Para cPanel / Apache:
    en `tools/build.py` (o exporte `SITE_URL=https://sudominio.com`), ejecute
    `python3 tools/build.py` y suba de nuevo. Eso actualiza canonical, Open Graph,
    datos estructurados y `sitemap.xml`. Ajuste también la línea `Sitemap:` de `robots.txt`.
-3. **Configure el correo del formulario**: abra `send.php` y cambie `MAIL_TO` (dónde llegan
-   las solicitudes) y `MAIL_FROM` (una dirección **de su propio dominio**, o el correo no
-   pasará los filtros de spam).
+3. **Correo del formulario**: `MAIL_TO` ya apunta a `billing@bestamericandiagnostics.com`.
+   Revise `MAIL_FROM` (`website@bestamericandiagnostics.com`): debe existir como buzón o
+   alias **en su propio dominio**, o el correo no pasará los filtros de spam.
 4. **Revise el `.htaccess`**: fuerza HTTPS, redirige `www` a dominio pelado, comprime,
    cachea los estáticos un año, añade cabeceras de seguridad (CSP incluida) y usa
    `404.html`. Si su hosting ya forza HTTPS, borre ese bloque para no duplicar redirecciones.
@@ -164,6 +184,7 @@ presentación interna, no una página del sitio público.
 ```bash
 php -S 127.0.0.1:8000        # sirve el sitio Y prueba send.php de verdad
 npm run audit                # enlaces, iconos, alt, errores JS y el switch EN/ES
+npm run check                # destino de cada botón de acción
 ```
 
 ## Preview en un solo archivo

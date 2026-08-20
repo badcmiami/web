@@ -15,7 +15,6 @@ DIST = os.path.join(ROOT, 'dist')
 PAGES = [
     ('index', 'Home', 'Inicio'),
     ('services', 'Services', 'Servicios'),
-    ('locations', 'Locations', 'Sedes'),
     ('patients', 'Patients', 'Pacientes'),
     ('providers', 'Providers', 'Médicos'),
     ('about', 'About', 'Nosotros'),

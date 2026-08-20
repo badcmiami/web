@@ -51,9 +51,11 @@
   "availableLanguage":["en","es"],
   "medicalSpecialty":"Radiology",
   "areaServed":{"@type":"City","name":"Hialeah","addressRegion":"FL"},
-  "address":[
-    {"@type":"PostalAddress","streetAddress":"637 E 49th St","addressLocality":"Hialeah","addressRegion":"FL","postalCode":"33013","addressCountry":"US"},
-    {"@type":"PostalAddress","streetAddress":"5005 E 8th Ave","addressLocality":"Hialeah","addressRegion":"FL","postalCode":"33013","addressCountry":"US"}
+  "email":"billing@bestamericandiagnostics.com",
+  "address":{"@type":"PostalAddress","streetAddress":"5005 E 8th Ave","addressLocality":"Hialeah","addressRegion":"FL","postalCode":"33013","addressCountry":"US"},
+  "contactPoint":[
+    {"@type":"ContactPoint","contactType":"reservations","telephone":"+1-305-681-7555","availableLanguage":["en","es"]},
+    {"@type":"ContactPoint","contactType":"customer support","telephone":"+1-786-819-6086","availableLanguage":["en","es"]}
   ],
   "openingHoursSpecification":[
     {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"18:00"}
@@ -251,6 +253,8 @@ strong{font-weight:600}
 .btn--ghost:hover{color:#fff;border-color:var(--navy)}
 .sec--dark .btn--ghost,.on-dark .btn--ghost,.hero .btn--ghost,.phero .btn--ghost,.cta .btn--ghost{--btn-fg:#fff;--btn-sweep:#fff;border-color:var(--dark-line)}
 .sec--dark .btn--ghost:hover,.on-dark .btn--ghost:hover,.hero .btn--ghost:hover,.phero .btn--ghost:hover,.cta .btn--ghost:hover{color:var(--navy-900);border-color:#fff}
+.btn--wa{--btn-bg:#25D366;--btn-fg:#06331A;--btn-sweep:#fff;box-shadow:0 10px 24px -14px rgba(37,211,102,.9)}
+.btn--wa:hover{box-shadow:0 16px 34px -16px rgba(37,211,102,.85)}
 .btn--sm{padding:.7rem 1.15rem;font-size:.86rem}
 .btn--lg{padding:1.1rem 2rem;font-size:1rem}
 .btn--block{width:100%;justify-content:center}
@@ -544,7 +548,8 @@ strong{font-weight:600}
 
 /* ---------- 16. Locations ------------------------------------------------ */
 .loc{display:grid;grid-template-columns:1.1fr .9fr;gap:0;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:#fff}
-.loc-body{padding:clamp(1.6rem,3vw,2.5rem);display:flex;flex-direction:column;gap:1.1rem}
+.loc-body{padding:clamp(1.6rem,3vw,2.5rem);display:flex;flex-direction:column;gap:1.1rem;align-items:flex-start}
+.loc-body .dl,.loc-body .hours,.loc-body .row{width:100%}
 .loc-map{position:relative;min-height:280px;background:var(--paper)}
 .loc-map svg{width:100%;height:100%;object-fit:cover}
 .dl{display:grid;grid-template-columns:auto 1fr;gap:.6rem 1rem;font-size:.93rem}
@@ -631,9 +636,25 @@ strong{font-weight:600}
 .mobar.is-on{transform:translateY(0)}
 .mobar .btn{flex:1;justify-content:center;padding:.85rem 1rem}
 
+/* Floating WhatsApp — the quick-question lane */
+.wafab{
+  position:fixed;right:1.25rem;bottom:5rem;z-index:41;display:inline-flex;align-items:center;gap:0;
+  height:54px;padding:0 15px;border-radius:var(--r-pill);background:#25D366;color:#06331A;
+  box-shadow:0 14px 34px -12px rgba(37,211,102,.75),0 2px 6px rgba(6,51,26,.2);
+  transition:gap .45s var(--e-out),padding .45s var(--e-out),transform var(--d-2) var(--e-out),box-shadow var(--d-2) var(--e-out);
+}
+.wafab svg{width:26px;height:26px;flex:none}
+.wafab-txt{
+  max-width:0;overflow:hidden;white-space:nowrap;font-weight:600;font-size:.92rem;
+  transition:max-width .45s var(--e-out);
+}
+.wafab:hover,.wafab:focus-visible{gap:.6rem;padding-right:20px;transform:translateY(-3px);box-shadow:0 20px 40px -12px rgba(37,211,102,.85)}
+.wafab:hover .wafab-txt,.wafab:focus-visible .wafab-txt{max-width:180px}
+@media (max-width:900px){.wafab{display:none}}
+
 /* Back to top */
 .totop{
-  position:fixed;right:1.25rem;bottom:1.25rem;z-index:41;width:46px;height:46px;border-radius:50%;
+  position:fixed;right:1.6rem;bottom:1.25rem;z-index:41;width:46px;height:46px;border-radius:50%;
   background:var(--navy);color:#fff;display:grid;place-items:center;box-shadow:var(--sh-2);
   opacity:0;transform:translateY(14px) scale(.9);pointer-events:none;transition:all var(--d-2) var(--e-out)
 }
@@ -797,7 +818,8 @@ strong{font-weight:600}
     <ul class="topbar-list">
       <li><svg class="ico"><use href="#i-phone"/></svg><a href="tel:+13056817555">(305) 681-7555</a></li>
       <li><svg class="ico"><use href="#i-clock"/></svg><span data-es="Lun – Vie · 8:00 am – 6:00 pm">Mon – Fri · 8:00 am – 6:00 pm</span></li>
-      <li><svg class="ico"><use href="#i-pin"/></svg><span data-es="Dos sedes en Hialeah, FL">Two locations in Hialeah, FL</span></li>
+      <li><svg class="ico"><use href="#i-pin"/></svg><span>5005 E 8th Ave, Hialeah, FL</span></li>
+      <li><svg class="ico"><use href="#i-wa"/></svg><a href="https://wa.me/17868196086" target="_blank" rel="noopener" data-es="WhatsApp: (786) 819-6086">WhatsApp (786) 819-6086</a></li>
     </ul>
     <div class="row" style="gap:1rem">
       <a href="#/contact" class="small" data-es="Resultados y portal del paciente">Results &amp; patient portal</a>
@@ -845,7 +867,6 @@ strong{font-weight:600}
             </div>
           </div>
         </li>
-        <li><a href="#/locations"  data-es="Sedes">Locations</a></li>
         <li><a href="#/patients"  data-es="Pacientes">Patients</a></li>
         <li><a href="#/providers"  data-es="Médicos">Providers</a></li>
         <li><a href="#/about"  data-es="Nosotros">About</a></li>
@@ -867,7 +888,6 @@ strong{font-weight:600}
   <nav aria-label="Mobile">
     <a href="#/index" data-es="Inicio">Home <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
     <a href="#/services" data-es="Servicios">Services <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
-    <a href="#/locations" data-es="Sedes">Locations <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
     <a href="#/patients" data-es="Pacientes">Patients <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
     <a href="#/providers" data-es="Médicos">Providers <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
     <a href="#/about" data-es="Nosotros">About <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
@@ -876,6 +896,7 @@ strong{font-weight:600}
   <div class="drawer-foot">
     <a class="btn btn--block" href="#/contact" data-es='Agendar cita <svg class="ico"><use href="#i-arrow"/></svg>'>Book an exam <svg class="ico"><use href="#i-arrow"/></svg></a>
     <a class="btn btn--ghost btn--block" href="tel:+13056817555"><svg class="ico"><use href="#i-phone"/></svg>(305) 681-7555</a>
+    <a class="btn btn--wa btn--block" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span data-es="Preguntar por WhatsApp">Ask on WhatsApp</span></a>
     <p class="small muted" data-es="Lun – Vie · 8:00 am – 6:00 pm · Hialeah, Florida">Mon – Fri · 8:00 am – 6:00 pm · Hialeah, Florida</p>
   </div>
 </div>
@@ -952,7 +973,7 @@ strong{font-weight:600}
         </ul>
         <div class="row mt-2">
           <a class="btn" href="#/about" data-es='Conozca el centro <svg class="ico"><use href="#i-arrow"/></svg>'>About the center <svg class="ico"><use href="#i-arrow"/></svg></a>
-          <a class="tlink" href="#/locations" data-es='Ver sedes <svg class="ico"><use href="#i-arrow-ur"/></svg>'>See locations <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+          <a class="tlink" href="#visit" data-es='Dónde estamos <svg class="ico"><use href="#i-arrow"/></svg>'>Where to find us <svg class="ico"><use href="#i-arrow"/></svg></a>
         </div>
       </div>
     </div>
@@ -1023,7 +1044,7 @@ strong{font-weight:600}
       </div>
       <div class="stats mt-3" data-reveal>
         <div class="stat"><b><span data-count="25">0</span>+</b><span data-es="Años atendiendo a Hialeah y Miami-Dade">Years serving Hialeah and Miami-Dade</span></div>
-        <div class="stat"><b><span data-count="2">0</span></b><span data-es="Sedes a menos de 10 minutos entre sí">Locations less than 10 minutes apart</span></div>
+        <div class="stat"><b><span data-count="6">0</span></b><span data-es="Modalidades diagnósticas en un mismo edificio">Diagnostic modalities in one building</span></div>
         <div class="stat"><b><span data-count="30">0</span><span class="suf">k+</span></b><span data-es="Estudios realizados cada año*">Studies performed every year*</span></div>
         <div class="stat"><b><span data-count="24">0</span><span class="suf">h</span></b><span data-es="Entrega típica del reporte al médico*">Typical report turnaround to your doctor*</span></div>
       </div>
@@ -1176,48 +1197,35 @@ strong{font-weight:600}
     </div>
   </section>
 
-  <!-- ============================ LOCATIONS ============================ -->
-  <section class="sec sec--paper">
+  <!-- ============================ VISIT US ============================ -->
+  <section class="sec sec--paper" id="visit">
     <div class="container">
       <div class="sec-head--split sec-head" data-reveal>
         <div>
-          <span class="eyebrow" data-es="Sedes">Locations</span>
-          <h2 class="mt-1" data-es="Dos sedes en Hialeah, con estacionamiento propio.">Two Hialeah locations, with parking at the door.</h2>
+          <span class="eyebrow" data-es="Visítenos">Visit us</span>
+          <h2 class="mt-1" data-es="Una sola dirección, en el corazón de Hialeah.">One address, in the heart of Hialeah.</h2>
         </div>
-        <p class="lede" data-es="Ambas sedes comparten el mismo equipo de radiólogos y el mismo historial digital, así que puede ir a la que le quede más cerca.">Both locations share the same radiologists and the same digital record, so you can go to whichever one is closer.</p>
+        <p class="lede" data-es="Todo bajo el mismo techo: los equipos, los radiólogos y el equipo que le atiende por teléfono. Estacionamiento en la puerta y acceso para sillas de ruedas.">Everything under one roof: the equipment, the radiologists and the team that answers your call. Parking at the door and wheelchair access.</p>
       </div>
 
-      <div class="grid g-2 mt-3" data-stagger>
-        <article class="loc">
-          <div class="loc-body">
-            <span class="tag" data-es="Sede principal">Main location</span>
-            <h3>637 E 49th Street</h3>
-            <dl class="dl">
-              <dt data-es="Dirección">Address</dt><dd>637 E 49th St, Hialeah, FL 33013</dd>
-              <dt data-es="Teléfono">Phone</dt><dd><a href="tel:+13056817555">(305) 681-7555</a></dd>
-              <dt>Fax</dt><dd>(305) 681-7040</dd>
-              <dt data-es="Horario">Hours</dt><dd data-es="Lun – Vie, 8:00 am – 6:00 pm">Mon – Fri, 8:00 am – 6:00 pm</dd>
-            </dl>
-            <a class="tlink" href="#/locations!east-49" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+      <article class="loc mt-3" data-reveal>
+        <div class="loc-body">
+          <span class="tag" data-es="Centro de diagnóstico">Diagnostic center</span>
+          <h3>5005 E 8th Avenue</h3>
+          <p class="muted" data-es="Hialeah, FL 33013 — con estacionamiento gratuito y entrada accesible.">Hialeah, FL 33013 — with free parking and an accessible entrance.</p>
+          <dl class="dl">
+            <dt data-es="Citas">Appointments</dt><dd><a href="tel:+13056817555">(305) 681-7555</a></dd>
+            <dt>WhatsApp</dt><dd><a href="https://wa.me/17868196086" target="_blank" rel="noopener">(786) 819-6086</a></dd>
+            <dt data-es="Órdenes médicas">Orders</dt><dd data-es="Fax: (305) 681-7040">Fax: (305) 681-7040</dd>
+            <dt data-es="Horario">Hours</dt><dd data-es="Lun – Vie, 8:00 am – 6:00 pm">Mon – Fri, 8:00 am – 6:00 pm</dd>
+          </dl>
+          <div class="row">
+            <a class="btn btn--sm" href="https://www.google.com/maps/dir/?api=1&destination=5005+E+8th+Ave+Hialeah+FL+33013" target="_blank" rel="noopener" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+            <a class="btn btn--wa btn--sm" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span data-es="Preguntar por WhatsApp">Ask on WhatsApp</span></a>
           </div>
-          <div class="loc-map"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNzAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJNYXAgcGxhY2Vob2xkZXIiPgogIDxyZWN0IHdpZHRoPSI5MDAiIGhlaWdodD0iNzAwIiBmaWxsPSIjRThFREY3Ii8+PHJlY3QgeD0iOTEiIHk9IjU2MCIgd2lkdGg9IjQzIiBoZWlnaHQ9IjIwIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMjk4IiB5PSI1ODYiIHdpZHRoPSI2OSIgaGVpZ2h0PSIzOSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9Ijg2OCIgeT0iNTIwIiB3aWR0aD0iMzYiIGhlaWdodD0iNDYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI0MzMiIHk9IjYxMyIgd2lkdGg9IjQyIiBoZWlnaHQ9IjQ3IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDYyIiB5PSIxNjUiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzOSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjI2NSIgeT0iNDQiIHdpZHRoPSIyOSIgaGVpZ2h0PSIyMiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ3MyIgeT0iNjQxIiB3aWR0aD0iNDEiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI1NDciIHk9IjY2MyIgd2lkdGg9IjU0IiBoZWlnaHQ9IjQxIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMTQ4IiB5PSI2ODkiIHdpZHRoPSIzNiIgaGVpZ2h0PSIyNCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQyMiIgeT0iMjA3IiB3aWR0aD0iNjQiIGhlaWdodD0iNjAiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI0NTEiIHk9IjI4MiIgd2lkdGg9IjM1IiBoZWlnaHQ9IjQyIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDQ2IiB5PSI2MDIiIHdpZHRoPSI0NCIgaGVpZ2h0PSI2MCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjU3MSIgeT0iMjAzIiB3aWR0aD0iNDQiIGhlaWdodD0iMjYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI4NTkiIHk9IjYzIiB3aWR0aD0iNjkiIGhlaWdodD0iMzQiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyODQiIHk9IjU5NiIgd2lkdGg9IjYzIiBoZWlnaHQ9IjM1IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMTI1IiB5PSIzMzkiIHdpZHRoPSIzNSIgaGVpZ2h0PSIzOCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ3MCIgeT0iMjYiIHdpZHRoPSIyNiIgaGVpZ2h0PSI0MiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjcxNCIgeT0iODQiIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE4IiB5PSIzMzAiIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE1NiIgeT0iNjY3IiB3aWR0aD0iNTAiIGhlaWdodD0iNTkiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI2OTYiIHk9Ijc5IiB3aWR0aD0iNDIiIGhlaWdodD0iNTkiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxOTYiIHk9IjQ1NCIgd2lkdGg9IjQyIiBoZWlnaHQ9IjI4IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMjU2IiB5PSIzOTAiIHdpZHRoPSI2MiIgaGVpZ2h0PSIzMCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjMzOSIgeT0iNTg2IiB3aWR0aD0iMjQiIGhlaWdodD0iNDMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI0NSIgeT0iNDY1IiB3aWR0aD0iMzQiIGhlaWdodD0iNDMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI4MDIiIHk9IjM3MSIgd2lkdGg9IjQyIiBoZWlnaHQ9IjU2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iOTkiIHk9IjQ0OSIgd2lkdGg9IjM3IiBoZWlnaHQ9IjQ3IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMjEyIiB5PSIxMTYiIHdpZHRoPSIyNyIgaGVpZ2h0PSIyMyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjU2IiB5PSIxNzIiIHdpZHRoPSI2MiIgaGVpZ2h0PSIyOSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjYyMSIgeT0iNDEiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1MSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjU5NiIgeT0iMjU1IiB3aWR0aD0iNDQiIGhlaWdodD0iMjIiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMjUiIHk9IjU0MSIgd2lkdGg9IjQyIiBoZWlnaHQ9IjQ2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNjY3IiB5PSIyMDUiIHdpZHRoPSI1NCIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjI0NyIgeT0iNDQ5IiB3aWR0aD0iNTAiIGhlaWdodD0iNTEiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIzNyIgeT0iMjI0IiB3aWR0aD0iNTAiIGhlaWdodD0iNDgiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyNTQiIHk9IjY2MiIgd2lkdGg9IjUxIiBoZWlnaHQ9IjMzIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNTEwIiB5PSIxOTIiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyMiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjI2MCIgeT0iMjU5IiB3aWR0aD0iMzkiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyMTMiIHk9IjIzNyIgd2lkdGg9IjUwIiBoZWlnaHQ9IjM2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMTQ1IiB5PSIzMzIiIHdpZHRoPSIyNyIgaGVpZ2h0PSI0MCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPgogIDxyZWN0IHdpZHRoPSI5MDAiIGhlaWdodD0iNzAwIiBmaWxsPSJub25lIi8+PGxpbmUgeDE9IjAiIHkxPSIzMSIgeDI9IjkwMCIgeTI9IjMxIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSIxMDUiIHgyPSI5MDAiIHkyPSIxMDUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI2IiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjE5NSIgeDI9IjkwMCIgeTI9IjE5NSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iMjYwIiB4Mj0iOTAwIiB5Mj0iMjYwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSIzMzYiIHgyPSI5MDAiIHkyPSIzMzYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI2IiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjQzMCIgeDI9IjkwMCIgeTI9IjQzMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iNTE2IiB4Mj0iOTAwIiB5Mj0iNTE2IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSI1NzYiIHgyPSI5MDAiIHkyPSI1NzYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjY1NSIgeDI9IjkwMCIgeTI9IjY1NSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIzMSIgeTE9IjAiIHgyPSIzMSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSIxMTYiIHkxPSIwIiB4Mj0iMTE2IiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjIxMiIgeTE9IjAiIHgyPSIyMTIiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iMjgyIiB5MT0iMCIgeDI9IjI4MiIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSIzNjEiIHkxPSIwIiB4Mj0iMzYxIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjQ0NyIgeTE9IjAiIHgyPSI0NDciIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNTIxIiB5MT0iMCIgeDI9IjUyMSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI2MjIiIHkxPSIwIiB4Mj0iNjIyIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNSIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjY5OSIgeTE9IjAiIHgyPSI2OTkiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNzcwIiB5MT0iMCIgeDI9Ijc3MCIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI4NjIiIHkxPSIwIiB4Mj0iODYyIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iLjQ1Ii8+CiAgPHJlY3QgeD0iMCIgeT0iNDM0LjAiIHdpZHRoPSI5MDAiIGhlaWdodD0iNjMuMCIgZmlsbD0iIzAwQzZDMSIgb3BhY2l0eT0iLjE4Ii8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDUwLjAgMzIyLjApIj4KICAgICAgPGNpcmNsZSByPSI0NiIgZmlsbD0iIzAwQzZDMSIgb3BhY2l0eT0iLjIyIj48YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJyIiB2YWx1ZXM9IjMwOzU4OzMwIiBkdXI9IjMuNHMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+CiAgICAgICAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0ib3BhY2l0eSIgdmFsdWVzPSIuMzU7MDsuMzUiIGR1cj0iMy40cyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz48L2NpcmNsZT4KICAgICAgPHBhdGggZD0iTTAtMzRjLTkuNCAwLTE3IDcuNi0xNyAxNyAwIDEyLjggMTcgMzEgMTcgMzFzMTctMTguMiAxNy0zMWMwLTkuNC03LjYtMTctMTctMTd6IiBmaWxsPSIjMDAxQzc3Ii8+CiAgICAgIDxjaXJjbGUgY3k9Ii0xNyIgcj0iNi40IiBmaWxsPSIjMDBDNkMxIi8+PC9nPgo8L3N2Zz4=" alt="Map of 637 E 49th St, Hialeah"></div>
-        </article>
-
-        <article class="loc">
-          <div class="loc-body">
-            <span class="tag tag--ghost" data-es="Segunda sede">Second location</span>
-            <h3>5005 E 8th Avenue</h3>
-            <dl class="dl">
-              <dt data-es="Dirección">Address</dt><dd>5005 E 8th Ave, Hialeah, FL 33013</dd>
-              <dt data-es="Teléfono">Phone</dt><dd><a href="tel:+13058251535">(305) 825-1535</a></dd>
-              <dt>Fax</dt><dd>(305) 681-7040</dd>
-              <dt data-es="Horario">Hours</dt><dd data-es="Lun – Vie, 8:00 am – 6:00 pm">Mon – Fri, 8:00 am – 6:00 pm</dd>
-            </dl>
-            <a class="tlink" href="#/locations!east-8" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
-          </div>
-          <div class="loc-map"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNzAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJNYXAgcGxhY2Vob2xkZXIiPgogIDxyZWN0IHdpZHRoPSI5MDAiIGhlaWdodD0iNzAwIiBmaWxsPSIjRThFREY3Ii8+PHJlY3QgeD0iNDUwIiB5PSI2NzQiIHdpZHRoPSI0MyIgaGVpZ2h0PSI1NiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjUxNCIgeT0iMTYyIiB3aWR0aD0iNjQiIGhlaWdodD0iNDYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyMzgiIHk9IjU1OCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjI2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iODIwIiB5PSIyMTIiIHdpZHRoPSI0OCIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE0MSIgeT0iMTM3IiB3aWR0aD0iNjQiIGhlaWdodD0iNTEiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMDciIHk9IjU2MCIgd2lkdGg9IjY5IiBoZWlnaHQ9IjQ5IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNyIgeT0iNDY1IiB3aWR0aD0iNTQiIGhlaWdodD0iNTgiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMjIiIHk9IjUzMiIgd2lkdGg9IjU0IiBoZWlnaHQ9IjUyIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNTA1IiB5PSIzNzciIHdpZHRoPSI1MSIgaGVpZ2h0PSI1NCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9Ijg4NiIgeT0iMTg3IiB3aWR0aD0iMjQiIGhlaWdodD0iMzUiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI5MyIgeT0iMjYiIHdpZHRoPSI1MyIgaGVpZ2h0PSI0NCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ2MiIgeT0iMTE2IiB3aWR0aD0iNjciIGhlaWdodD0iMzYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMzEiIHk9IjQ4NyIgd2lkdGg9IjQyIiBoZWlnaHQ9IjQ4IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDEzIiB5PSIzMDAiIHdpZHRoPSIzNCIgaGVpZ2h0PSI0OSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ0OSIgeT0iMzA4IiB3aWR0aD0iNDMiIGhlaWdodD0iMjIiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3OSIgeT0iMjE0IiB3aWR0aD0iNDMiIGhlaWdodD0iNDYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMDMiIHk9IjQ3NCIgd2lkdGg9IjI4IiBoZWlnaHQ9IjQ5IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNTE3IiB5PSI0NjIiIHdpZHRoPSI2NiIgaGVpZ2h0PSIyMSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE3OSIgeT0iNDQ3IiB3aWR0aD0iNjUiIGhlaWdodD0iMzciIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3NyIgeT0iODciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ0MCIgeT0iMjkyIiB3aWR0aD0iNTMiIGhlaWdodD0iMjciIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyMDciIHk9IjYzNSIgd2lkdGg9IjU0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDM5IiB5PSI2NjQiIHdpZHRoPSI2NCIgaGVpZ2h0PSIyOSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjgiIHk9IjM5MyIgd2lkdGg9IjYzIiBoZWlnaHQ9IjM4IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNjUyIiB5PSI0MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjU0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNjAyIiB5PSIzNjUiIHdpZHRoPSI0MCIgaGVpZ2h0PSIzMyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjI3MCIgeT0iNTIxIiB3aWR0aD0iNDQiIGhlaWdodD0iMjMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyNSIgeT0iMjg3IiB3aWR0aD0iNjUiIGhlaWdodD0iMzMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI2NSIgeT0iMjAxIiB3aWR0aD0iNDIiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI0NzciIHk9IjUxNCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjQwIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iODIzIiB5PSI1MjUiIHdpZHRoPSI0MCIgaGVpZ2h0PSI1NSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjczMyIgeT0iMzEzIiB3aWR0aD0iNjUiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyOTIiIHk9IjY2MSIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDM5IiB5PSI0ODkiIHdpZHRoPSIyNyIgaGVpZ2h0PSIzNCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE1OCIgeT0iNDAiIHdpZHRoPSI1MyIgaGVpZ2h0PSIyNyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjUyNSIgeT0iNjA1IiB3aWR0aD0iMzAiIGhlaWdodD0iMzYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3MzQiIHk9IjQ3OCIgd2lkdGg9IjY4IiBoZWlnaHQ9IjQ0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNzAyIiB5PSIzMzIiIHdpZHRoPSI0NSIgaGVpZ2h0PSI0MyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE5MSIgeT0iNDU1IiB3aWR0aD0iNDUiIGhlaWdodD0iMjYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI2NTEiIHk9IjY4MyIgd2lkdGg9IjY2IiBoZWlnaHQ9IjUzIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+CiAgPHJlY3Qgd2lkdGg9IjkwMCIgaGVpZ2h0PSI3MDAiIGZpbGw9Im5vbmUiLz48bGluZSB4MT0iMCIgeTE9IjQ1IiB4Mj0iOTAwIiB5Mj0iNDUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjEyNyIgeDI9IjkwMCIgeTI9IjEyNyIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iMTk2IiB4Mj0iOTAwIiB5Mj0iMTk2IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSIyNzAiIHgyPSI5MDAiIHkyPSIyNzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjM1MiIgeDI9IjkwMCIgeTI9IjM1MiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iNDMxIiB4Mj0iOTAwIiB5Mj0iNDMxIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSI1MTAiIHgyPSI5MDAiIHkyPSI1MTAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjU3MiIgeDI9IjkwMCIgeTI9IjU3MiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iNjYwIiB4Mj0iOTAwIiB5Mj0iNjYwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjM2IiB5MT0iMCIgeDI9IjM2IiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjEzNCIgeTE9IjAiIHgyPSIxMzQiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iMjAxIiB5MT0iMCIgeDI9IjIwMSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSIyOTIiIHkxPSIwIiB4Mj0iMjkyIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjM1OCIgeTE9IjAiIHgyPSIzNTgiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNDQxIiB5MT0iMCIgeDI9IjQ0MSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjUiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI1MzEiIHkxPSIwIiB4Mj0iNTMxIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjYwNCIgeTE9IjAiIHgyPSI2MDQiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI1IiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNjgzIiB5MT0iMCIgeDI9IjY4MyIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI3ODMiIHkxPSIwIiB4Mj0iNzgzIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNSIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9Ijg3MSIgeTE9IjAiIHgyPSI4NzEiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI1IiBvcGFjaXR5PSIuNDUiLz4KICA8cmVjdCB4PSIwIiB5PSI0MzQuMCIgd2lkdGg9IjkwMCIgaGVpZ2h0PSI2My4wIiBmaWxsPSIjMDBDNkMxIiBvcGFjaXR5PSIuMTgiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0NTAuMCAzMjIuMCkiPgogICAgICA8Y2lyY2xlIHI9IjQ2IiBmaWxsPSIjMDBDNkMxIiBvcGFjaXR5PSIuMjIiPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHZhbHVlcz0iMzA7NTg7MzAiIGR1cj0iMy40cyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz4KICAgICAgICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJvcGFjaXR5IiB2YWx1ZXM9Ii4zNTswOy4zNSIgZHVyPSIzLjRzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIvPjwvY2lyY2xlPgogICAgICA8cGF0aCBkPSJNMC0zNGMtOS40IDAtMTcgNy42LTE3IDE3IDAgMTIuOCAxNyAzMSAxNyAzMXMxNy0xOC4yIDE3LTMxYzAtOS40LTcuNi0xNy0xNy0xN3oiIGZpbGw9IiMwMDFDNzciLz4KICAgICAgPGNpcmNsZSBjeT0iLTE3IiByPSI2LjQiIGZpbGw9IiMwMEM2QzEiLz48L2c+Cjwvc3ZnPg==" alt="Map of 5005 E 8th Ave, Hialeah"></div>
-        </article>
-      </div>
+        </div>
+        <div class="loc-map"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNzAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJNYXAgcGxhY2Vob2xkZXIiPgogIDxyZWN0IHdpZHRoPSI5MDAiIGhlaWdodD0iNzAwIiBmaWxsPSIjRThFREY3Ii8+PHJlY3QgeD0iNDUwIiB5PSI2NzQiIHdpZHRoPSI0MyIgaGVpZ2h0PSI1NiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjUxNCIgeT0iMTYyIiB3aWR0aD0iNjQiIGhlaWdodD0iNDYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyMzgiIHk9IjU1OCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjI2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iODIwIiB5PSIyMTIiIHdpZHRoPSI0OCIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE0MSIgeT0iMTM3IiB3aWR0aD0iNjQiIGhlaWdodD0iNTEiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMDciIHk9IjU2MCIgd2lkdGg9IjY5IiBoZWlnaHQ9IjQ5IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNyIgeT0iNDY1IiB3aWR0aD0iNTQiIGhlaWdodD0iNTgiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMjIiIHk9IjUzMiIgd2lkdGg9IjU0IiBoZWlnaHQ9IjUyIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNTA1IiB5PSIzNzciIHdpZHRoPSI1MSIgaGVpZ2h0PSI1NCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9Ijg4NiIgeT0iMTg3IiB3aWR0aD0iMjQiIGhlaWdodD0iMzUiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI5MyIgeT0iMjYiIHdpZHRoPSI1MyIgaGVpZ2h0PSI0NCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ2MiIgeT0iMTE2IiB3aWR0aD0iNjciIGhlaWdodD0iMzYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMzEiIHk9IjQ4NyIgd2lkdGg9IjQyIiBoZWlnaHQ9IjQ4IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDEzIiB5PSIzMDAiIHdpZHRoPSIzNCIgaGVpZ2h0PSI0OSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ0OSIgeT0iMzA4IiB3aWR0aD0iNDMiIGhlaWdodD0iMjIiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3OSIgeT0iMjE0IiB3aWR0aD0iNDMiIGhlaWdodD0iNDYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMDMiIHk9IjQ3NCIgd2lkdGg9IjI4IiBoZWlnaHQ9IjQ5IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNTE3IiB5PSI0NjIiIHdpZHRoPSI2NiIgaGVpZ2h0PSIyMSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE3OSIgeT0iNDQ3IiB3aWR0aD0iNjUiIGhlaWdodD0iMzciIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3NyIgeT0iODciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ0MCIgeT0iMjkyIiB3aWR0aD0iNTMiIGhlaWdodD0iMjciIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyMDciIHk9IjYzNSIgd2lkdGg9IjU0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDM5IiB5PSI2NjQiIHdpZHRoPSI2NCIgaGVpZ2h0PSIyOSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjgiIHk9IjM5MyIgd2lkdGg9IjYzIiBoZWlnaHQ9IjM4IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNjUyIiB5PSI0MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjU0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNjAyIiB5PSIzNjUiIHdpZHRoPSI0MCIgaGVpZ2h0PSIzMyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjI3MCIgeT0iNTIxIiB3aWR0aD0iNDQiIGhlaWdodD0iMjMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyNSIgeT0iMjg3IiB3aWR0aD0iNjUiIGhlaWdodD0iMzMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI2NSIgeT0iMjAxIiB3aWR0aD0iNDIiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI0NzciIHk9IjUxNCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjQwIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iODIzIiB5PSI1MjUiIHdpZHRoPSI0MCIgaGVpZ2h0PSI1NSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjczMyIgeT0iMzEzIiB3aWR0aD0iNjUiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyOTIiIHk9IjY2MSIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDM5IiB5PSI0ODkiIHdpZHRoPSIyNyIgaGVpZ2h0PSIzNCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE1OCIgeT0iNDAiIHdpZHRoPSI1MyIgaGVpZ2h0PSIyNyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjUyNSIgeT0iNjA1IiB3aWR0aD0iMzAiIGhlaWdodD0iMzYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3MzQiIHk9IjQ3OCIgd2lkdGg9IjY4IiBoZWlnaHQ9IjQ0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNzAyIiB5PSIzMzIiIHdpZHRoPSI0NSIgaGVpZ2h0PSI0MyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE5MSIgeT0iNDU1IiB3aWR0aD0iNDUiIGhlaWdodD0iMjYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI2NTEiIHk9IjY4MyIgd2lkdGg9IjY2IiBoZWlnaHQ9IjUzIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+CiAgPHJlY3Qgd2lkdGg9IjkwMCIgaGVpZ2h0PSI3MDAiIGZpbGw9Im5vbmUiLz48bGluZSB4MT0iMCIgeTE9IjQ1IiB4Mj0iOTAwIiB5Mj0iNDUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjEyNyIgeDI9IjkwMCIgeTI9IjEyNyIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iMTk2IiB4Mj0iOTAwIiB5Mj0iMTk2IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSIyNzAiIHgyPSI5MDAiIHkyPSIyNzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjM1MiIgeDI9IjkwMCIgeTI9IjM1MiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iNDMxIiB4Mj0iOTAwIiB5Mj0iNDMxIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSI1MTAiIHgyPSI5MDAiIHkyPSI1MTAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjU3MiIgeDI9IjkwMCIgeTI9IjU3MiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iNjYwIiB4Mj0iOTAwIiB5Mj0iNjYwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjM2IiB5MT0iMCIgeDI9IjM2IiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjEzNCIgeTE9IjAiIHgyPSIxMzQiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iMjAxIiB5MT0iMCIgeDI9IjIwMSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSIyOTIiIHkxPSIwIiB4Mj0iMjkyIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjM1OCIgeTE9IjAiIHgyPSIzNTgiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNDQxIiB5MT0iMCIgeDI9IjQ0MSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjUiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI1MzEiIHkxPSIwIiB4Mj0iNTMxIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjYwNCIgeTE9IjAiIHgyPSI2MDQiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI1IiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNjgzIiB5MT0iMCIgeDI9IjY4MyIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI3ODMiIHkxPSIwIiB4Mj0iNzgzIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNSIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9Ijg3MSIgeTE9IjAiIHgyPSI4NzEiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI1IiBvcGFjaXR5PSIuNDUiLz4KICA8cmVjdCB4PSIwIiB5PSI0MzQuMCIgd2lkdGg9IjkwMCIgaGVpZ2h0PSI2My4wIiBmaWxsPSIjMDBDNkMxIiBvcGFjaXR5PSIuMTgiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0NTAuMCAzMjIuMCkiPgogICAgICA8Y2lyY2xlIHI9IjQ2IiBmaWxsPSIjMDBDNkMxIiBvcGFjaXR5PSIuMjIiPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHZhbHVlcz0iMzA7NTg7MzAiIGR1cj0iMy40cyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz4KICAgICAgICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJvcGFjaXR5IiB2YWx1ZXM9Ii4zNTswOy4zNSIgZHVyPSIzLjRzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIvPjwvY2lyY2xlPgogICAgICA8cGF0aCBkPSJNMC0zNGMtOS40IDAtMTcgNy42LTE3IDE3IDAgMTIuOCAxNyAzMSAxNyAzMXMxNy0xOC4yIDE3LTMxYzAtOS40LTcuNi0xNy0xNy0xN3oiIGZpbGw9IiMwMDFDNzciLz4KICAgICAgPGNpcmNsZSBjeT0iLTE3IiByPSI2LjQiIGZpbGw9IiMwMEM2QzEiLz48L2c+Cjwvc3ZnPg==" alt="Map of 5005 E 8th Ave, Hialeah"></div>
+      </article>
     </div>
   </section>
 
@@ -1228,7 +1236,10 @@ strong{font-weight:600}
         <span class="eyebrow" data-es="Preguntas frecuentes">Frequent questions</span>
         <h2 class="mt-1" data-es="Antes de su visita.">Before your visit.</h2>
         <p class="lede mt-1" data-es="Las respuestas cortas están aquí. Las largas, en la sección de pacientes — o por teléfono, con una persona real.">The short answers live here. The long ones live in the patient section — or on the phone, with an actual person.</p>
-        <a class="btn btn--ghost mt-2" href="#/patients!faq" data-es='Ver todas las preguntas <svg class="ico"><use href="#i-arrow"/></svg>'>See all questions <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <div class="row mt-2">
+          <a class="btn btn--ghost" href="#/patients!faq" data-es='Ver todas las preguntas <svg class="ico"><use href="#i-arrow"/></svg>'>See all questions <svg class="ico"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--wa" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span data-es="Pregunte por WhatsApp">Ask on WhatsApp</span></a>
+        </div>
       </div>
 
       <div class="acc" data-single data-reveal="right">
@@ -1522,100 +1533,6 @@ strong{font-weight:600}
   </section>
 </main>
 </div>
-<div class="route" data-route="locations" data-title="Locations & Hours — Two Diagnostic Centers in Hialeah, FL | Best American Diagnostic" hidden>
-<main>
-  <section class="phero">
-    <div class="container phero-inner">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="#/index" data-es="Inicio">Home</a><span>/</span><span data-es="Sedes">Locations</span></nav>
-      <div data-reveal>
-        <span class="eyebrow" data-es="Hialeah, Florida">Hialeah, Florida</span>
-        <h1 class="mt-1" data-es="Dos sedes. El mismo equipo médico. El mismo expediente.">Two locations. One medical team. One record.</h1>
-        <p class="lede" data-es="Elija la sede que le quede más cerca: sus imágenes y su historial están disponibles en ambas.">Choose whichever is closer — your images and history are available at both.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="east-49">
-    <div class="container">
-      <div class="loc" data-reveal>
-        <div class="loc-body">
-          <span class="tag" data-es="Sede principal">Main location</span>
-          <h2>637 E 49th Street</h2>
-          <p class="muted" data-es="Hialeah, FL 33013 — entre E 4th Ave y E 8th Ave, con estacionamiento gratuito al frente.">Hialeah, FL 33013 — between E 4th Ave and E 8th Ave, with free parking in front.</p>
-          <dl class="dl">
-            <dt data-es="Teléfono">Phone</dt><dd><a href="tel:+13056817555">(305) 681-7555</a></dd>
-            <dt>Fax</dt><dd>(305) 681-7040</dd>
-            <dt data-es="Servicios">Services</dt><dd data-es="Resonancia, tomografía, mamografía 3D, ultrasonido, rayos X, EKG">MRI, CT, 3D mammography, ultrasound, X-ray, EKG</dd>
-            <dt data-es="Acceso">Access</dt><dd data-es="Accesible en silla de ruedas · Ruta 29 y 42 del Metrobus a dos cuadras">Wheelchair accessible · Metrobus routes 29 and 42 two blocks away</dd>
-          </dl>
-          <div class="hours mt-1">
-            <div data-day="1"><span data-es="Lunes">Monday</span><span>8:00 am – 6:00 pm</span></div>
-            <div data-day="2"><span data-es="Martes">Tuesday</span><span>8:00 am – 6:00 pm</span></div>
-            <div data-day="3"><span data-es="Miércoles">Wednesday</span><span>8:00 am – 6:00 pm</span></div>
-            <div data-day="4"><span data-es="Jueves">Thursday</span><span>8:00 am – 6:00 pm</span></div>
-            <div data-day="5"><span data-es="Viernes">Friday</span><span>8:00 am – 6:00 pm</span></div>
-            <div data-day="6,0"><span data-es="Sábado y domingo">Saturday &amp; Sunday</span><span data-es="Cerrado">Closed</span></div>
-          </div>
-          <div class="row mt-1">
-            <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=637+E+49th+St+Hialeah+FL+33013" target="_blank" rel="noopener" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
-            <a class="btn btn--ghost" href="#/contact" data-es="Agendar en esta sede">Book at this location</a>
-          </div>
-        </div>
-        <div class="loc-map"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNzAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJNYXAgcGxhY2Vob2xkZXIiPgogIDxyZWN0IHdpZHRoPSI5MDAiIGhlaWdodD0iNzAwIiBmaWxsPSIjRThFREY3Ii8+PHJlY3QgeD0iOTEiIHk9IjU2MCIgd2lkdGg9IjQzIiBoZWlnaHQ9IjIwIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMjk4IiB5PSI1ODYiIHdpZHRoPSI2OSIgaGVpZ2h0PSIzOSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9Ijg2OCIgeT0iNTIwIiB3aWR0aD0iMzYiIGhlaWdodD0iNDYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI0MzMiIHk9IjYxMyIgd2lkdGg9IjQyIiBoZWlnaHQ9IjQ3IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDYyIiB5PSIxNjUiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzOSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjI2NSIgeT0iNDQiIHdpZHRoPSIyOSIgaGVpZ2h0PSIyMiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ3MyIgeT0iNjQxIiB3aWR0aD0iNDEiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI1NDciIHk9IjY2MyIgd2lkdGg9IjU0IiBoZWlnaHQ9IjQxIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMTQ4IiB5PSI2ODkiIHdpZHRoPSIzNiIgaGVpZ2h0PSIyNCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQyMiIgeT0iMjA3IiB3aWR0aD0iNjQiIGhlaWdodD0iNjAiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI0NTEiIHk9IjI4MiIgd2lkdGg9IjM1IiBoZWlnaHQ9IjQyIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDQ2IiB5PSI2MDIiIHdpZHRoPSI0NCIgaGVpZ2h0PSI2MCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjU3MSIgeT0iMjAzIiB3aWR0aD0iNDQiIGhlaWdodD0iMjYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI4NTkiIHk9IjYzIiB3aWR0aD0iNjkiIGhlaWdodD0iMzQiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyODQiIHk9IjU5NiIgd2lkdGg9IjYzIiBoZWlnaHQ9IjM1IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMTI1IiB5PSIzMzkiIHdpZHRoPSIzNSIgaGVpZ2h0PSIzOCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ3MCIgeT0iMjYiIHdpZHRoPSIyNiIgaGVpZ2h0PSI0MiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjcxNCIgeT0iODQiIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE4IiB5PSIzMzAiIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE1NiIgeT0iNjY3IiB3aWR0aD0iNTAiIGhlaWdodD0iNTkiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI2OTYiIHk9Ijc5IiB3aWR0aD0iNDIiIGhlaWdodD0iNTkiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxOTYiIHk9IjQ1NCIgd2lkdGg9IjQyIiBoZWlnaHQ9IjI4IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMjU2IiB5PSIzOTAiIHdpZHRoPSI2MiIgaGVpZ2h0PSIzMCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjMzOSIgeT0iNTg2IiB3aWR0aD0iMjQiIGhlaWdodD0iNDMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI0NSIgeT0iNDY1IiB3aWR0aD0iMzQiIGhlaWdodD0iNDMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI4MDIiIHk9IjM3MSIgd2lkdGg9IjQyIiBoZWlnaHQ9IjU2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iOTkiIHk9IjQ0OSIgd2lkdGg9IjM3IiBoZWlnaHQ9IjQ3IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMjEyIiB5PSIxMTYiIHdpZHRoPSIyNyIgaGVpZ2h0PSIyMyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjU2IiB5PSIxNzIiIHdpZHRoPSI2MiIgaGVpZ2h0PSIyOSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjYyMSIgeT0iNDEiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1MSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjU5NiIgeT0iMjU1IiB3aWR0aD0iNDQiIGhlaWdodD0iMjIiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMjUiIHk9IjU0MSIgd2lkdGg9IjQyIiBoZWlnaHQ9IjQ2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNjY3IiB5PSIyMDUiIHdpZHRoPSI1NCIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjI0NyIgeT0iNDQ5IiB3aWR0aD0iNTAiIGhlaWdodD0iNTEiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIzNyIgeT0iMjI0IiB3aWR0aD0iNTAiIGhlaWdodD0iNDgiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyNTQiIHk9IjY2MiIgd2lkdGg9IjUxIiBoZWlnaHQ9IjMzIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNTEwIiB5PSIxOTIiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyMiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjI2MCIgeT0iMjU5IiB3aWR0aD0iMzkiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyMTMiIHk9IjIzNyIgd2lkdGg9IjUwIiBoZWlnaHQ9IjM2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iMTQ1IiB5PSIzMzIiIHdpZHRoPSIyNyIgaGVpZ2h0PSI0MCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPgogIDxyZWN0IHdpZHRoPSI5MDAiIGhlaWdodD0iNzAwIiBmaWxsPSJub25lIi8+PGxpbmUgeDE9IjAiIHkxPSIzMSIgeDI9IjkwMCIgeTI9IjMxIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSIxMDUiIHgyPSI5MDAiIHkyPSIxMDUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI2IiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjE5NSIgeDI9IjkwMCIgeTI9IjE5NSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iMjYwIiB4Mj0iOTAwIiB5Mj0iMjYwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSIzMzYiIHgyPSI5MDAiIHkyPSIzMzYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI2IiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjQzMCIgeDI9IjkwMCIgeTI9IjQzMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iNTE2IiB4Mj0iOTAwIiB5Mj0iNTE2IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSI1NzYiIHgyPSI5MDAiIHkyPSI1NzYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjY1NSIgeDI9IjkwMCIgeTI9IjY1NSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIzMSIgeTE9IjAiIHgyPSIzMSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSIxMTYiIHkxPSIwIiB4Mj0iMTE2IiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjIxMiIgeTE9IjAiIHgyPSIyMTIiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iMjgyIiB5MT0iMCIgeDI9IjI4MiIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSIzNjEiIHkxPSIwIiB4Mj0iMzYxIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjQ0NyIgeTE9IjAiIHgyPSI0NDciIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNTIxIiB5MT0iMCIgeDI9IjUyMSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI2MjIiIHkxPSIwIiB4Mj0iNjIyIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNSIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjY5OSIgeTE9IjAiIHgyPSI2OTkiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNzcwIiB5MT0iMCIgeDI9Ijc3MCIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI4NjIiIHkxPSIwIiB4Mj0iODYyIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iLjQ1Ii8+CiAgPHJlY3QgeD0iMCIgeT0iNDM0LjAiIHdpZHRoPSI5MDAiIGhlaWdodD0iNjMuMCIgZmlsbD0iIzAwQzZDMSIgb3BhY2l0eT0iLjE4Ii8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDUwLjAgMzIyLjApIj4KICAgICAgPGNpcmNsZSByPSI0NiIgZmlsbD0iIzAwQzZDMSIgb3BhY2l0eT0iLjIyIj48YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJyIiB2YWx1ZXM9IjMwOzU4OzMwIiBkdXI9IjMuNHMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+CiAgICAgICAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0ib3BhY2l0eSIgdmFsdWVzPSIuMzU7MDsuMzUiIGR1cj0iMy40cyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz48L2NpcmNsZT4KICAgICAgPHBhdGggZD0iTTAtMzRjLTkuNCAwLTE3IDcuNi0xNyAxNyAwIDEyLjggMTcgMzEgMTcgMzFzMTctMTguMiAxNy0zMWMwLTkuNC03LjYtMTctMTctMTd6IiBmaWxsPSIjMDAxQzc3Ii8+CiAgICAgIDxjaXJjbGUgY3k9Ii0xNyIgcj0iNi40IiBmaWxsPSIjMDBDNkMxIi8+PC9nPgo8L3N2Zz4=" alt="Map of 637 E 49th St, Hialeah, FL"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec sec--tight" id="east-8">
-    <div class="container">
-      <div class="loc" data-reveal>
-        <div class="loc-body">
-          <span class="tag tag--ghost" data-es="Segunda sede">Second location</span>
-          <h2>5005 E 8th Avenue</h2>
-          <p class="muted" data-es="Hialeah, FL 33013 — sobre E 8th Ave, con estacionamiento lateral y acceso directo desde la avenida.">Hialeah, FL 33013 — on E 8th Ave, with side parking and direct access from the avenue.</p>
-          <dl class="dl">
-            <dt data-es="Teléfono">Phone</dt><dd><a href="tel:+13058251535">(305) 825-1535</a></dd>
-            <dt>Fax</dt><dd>(305) 681-7040</dd>
-            <dt data-es="Servicios">Services</dt><dd data-es="Ultrasonido, rayos X, EKG, densitometría ósea y estudios cardíacos">Ultrasound, X-ray, EKG, bone density and cardiac studies</dd>
-            <dt data-es="Acceso">Access</dt><dd data-es="Accesible en silla de ruedas · Estacionamiento gratuito">Wheelchair accessible · Free parking</dd>
-          </dl>
-          <div class="hours mt-1">
-            <div data-day="1"><span data-es="Lunes">Monday</span><span>8:00 am – 6:00 pm</span></div>
-            <div data-day="2"><span data-es="Martes">Tuesday</span><span>8:00 am – 6:00 pm</span></div>
-            <div data-day="3"><span data-es="Miércoles">Wednesday</span><span>8:00 am – 6:00 pm</span></div>
-            <div data-day="4"><span data-es="Jueves">Thursday</span><span>8:00 am – 6:00 pm</span></div>
-            <div data-day="5"><span data-es="Viernes">Friday</span><span>8:00 am – 6:00 pm</span></div>
-            <div data-day="6,0"><span data-es="Sábado y domingo">Saturday &amp; Sunday</span><span data-es="Cerrado">Closed</span></div>
-          </div>
-          <div class="row mt-1">
-            <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=5005+E+8th+Ave+Hialeah+FL+33013" target="_blank" rel="noopener" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
-            <a class="btn btn--ghost" href="#/contact" data-es="Agendar en esta sede">Book at this location</a>
-          </div>
-        </div>
-        <div class="loc-map"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNzAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJNYXAgcGxhY2Vob2xkZXIiPgogIDxyZWN0IHdpZHRoPSI5MDAiIGhlaWdodD0iNzAwIiBmaWxsPSIjRThFREY3Ii8+PHJlY3QgeD0iNDUwIiB5PSI2NzQiIHdpZHRoPSI0MyIgaGVpZ2h0PSI1NiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjUxNCIgeT0iMTYyIiB3aWR0aD0iNjQiIGhlaWdodD0iNDYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyMzgiIHk9IjU1OCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjI2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iODIwIiB5PSIyMTIiIHdpZHRoPSI0OCIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE0MSIgeT0iMTM3IiB3aWR0aD0iNjQiIGhlaWdodD0iNTEiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMDciIHk9IjU2MCIgd2lkdGg9IjY5IiBoZWlnaHQ9IjQ5IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNyIgeT0iNDY1IiB3aWR0aD0iNTQiIGhlaWdodD0iNTgiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMjIiIHk9IjUzMiIgd2lkdGg9IjU0IiBoZWlnaHQ9IjUyIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNTA1IiB5PSIzNzciIHdpZHRoPSI1MSIgaGVpZ2h0PSI1NCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9Ijg4NiIgeT0iMTg3IiB3aWR0aD0iMjQiIGhlaWdodD0iMzUiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI5MyIgeT0iMjYiIHdpZHRoPSI1MyIgaGVpZ2h0PSI0NCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ2MiIgeT0iMTE2IiB3aWR0aD0iNjciIGhlaWdodD0iMzYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMzEiIHk9IjQ4NyIgd2lkdGg9IjQyIiBoZWlnaHQ9IjQ4IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDEzIiB5PSIzMDAiIHdpZHRoPSIzNCIgaGVpZ2h0PSI0OSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ0OSIgeT0iMzA4IiB3aWR0aD0iNDMiIGhlaWdodD0iMjIiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3OSIgeT0iMjE0IiB3aWR0aD0iNDMiIGhlaWdodD0iNDYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMDMiIHk9IjQ3NCIgd2lkdGg9IjI4IiBoZWlnaHQ9IjQ5IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNTE3IiB5PSI0NjIiIHdpZHRoPSI2NiIgaGVpZ2h0PSIyMSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE3OSIgeT0iNDQ3IiB3aWR0aD0iNjUiIGhlaWdodD0iMzciIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3NyIgeT0iODciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ0MCIgeT0iMjkyIiB3aWR0aD0iNTMiIGhlaWdodD0iMjciIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyMDciIHk9IjYzNSIgd2lkdGg9IjU0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDM5IiB5PSI2NjQiIHdpZHRoPSI2NCIgaGVpZ2h0PSIyOSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjgiIHk9IjM5MyIgd2lkdGg9IjYzIiBoZWlnaHQ9IjM4IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNjUyIiB5PSI0MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjU0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNjAyIiB5PSIzNjUiIHdpZHRoPSI0MCIgaGVpZ2h0PSIzMyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjI3MCIgeT0iNTIxIiB3aWR0aD0iNDQiIGhlaWdodD0iMjMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyNSIgeT0iMjg3IiB3aWR0aD0iNjUiIGhlaWdodD0iMzMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI2NSIgeT0iMjAxIiB3aWR0aD0iNDIiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI0NzciIHk9IjUxNCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjQwIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iODIzIiB5PSI1MjUiIHdpZHRoPSI0MCIgaGVpZ2h0PSI1NSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjczMyIgeT0iMzEzIiB3aWR0aD0iNjUiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyOTIiIHk9IjY2MSIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDM5IiB5PSI0ODkiIHdpZHRoPSIyNyIgaGVpZ2h0PSIzNCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE1OCIgeT0iNDAiIHdpZHRoPSI1MyIgaGVpZ2h0PSIyNyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjUyNSIgeT0iNjA1IiB3aWR0aD0iMzAiIGhlaWdodD0iMzYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3MzQiIHk9IjQ3OCIgd2lkdGg9IjY4IiBoZWlnaHQ9IjQ0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNzAyIiB5PSIzMzIiIHdpZHRoPSI0NSIgaGVpZ2h0PSI0MyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE5MSIgeT0iNDU1IiB3aWR0aD0iNDUiIGhlaWdodD0iMjYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI2NTEiIHk9IjY4MyIgd2lkdGg9IjY2IiBoZWlnaHQ9IjUzIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+CiAgPHJlY3Qgd2lkdGg9IjkwMCIgaGVpZ2h0PSI3MDAiIGZpbGw9Im5vbmUiLz48bGluZSB4MT0iMCIgeTE9IjQ1IiB4Mj0iOTAwIiB5Mj0iNDUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjEyNyIgeDI9IjkwMCIgeTI9IjEyNyIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iMTk2IiB4Mj0iOTAwIiB5Mj0iMTk2IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSIyNzAiIHgyPSI5MDAiIHkyPSIyNzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjM1MiIgeDI9IjkwMCIgeTI9IjM1MiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iNDMxIiB4Mj0iOTAwIiB5Mj0iNDMxIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSI1MTAiIHgyPSI5MDAiIHkyPSI1MTAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjU3MiIgeDI9IjkwMCIgeTI9IjU3MiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iNjYwIiB4Mj0iOTAwIiB5Mj0iNjYwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjM2IiB5MT0iMCIgeDI9IjM2IiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjEzNCIgeTE9IjAiIHgyPSIxMzQiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iMjAxIiB5MT0iMCIgeDI9IjIwMSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSIyOTIiIHkxPSIwIiB4Mj0iMjkyIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjM1OCIgeTE9IjAiIHgyPSIzNTgiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNDQxIiB5MT0iMCIgeDI9IjQ0MSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjUiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI1MzEiIHkxPSIwIiB4Mj0iNTMxIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjYwNCIgeTE9IjAiIHgyPSI2MDQiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI1IiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNjgzIiB5MT0iMCIgeDI9IjY4MyIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI3ODMiIHkxPSIwIiB4Mj0iNzgzIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNSIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9Ijg3MSIgeTE9IjAiIHgyPSI4NzEiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI1IiBvcGFjaXR5PSIuNDUiLz4KICA8cmVjdCB4PSIwIiB5PSI0MzQuMCIgd2lkdGg9IjkwMCIgaGVpZ2h0PSI2My4wIiBmaWxsPSIjMDBDNkMxIiBvcGFjaXR5PSIuMTgiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0NTAuMCAzMjIuMCkiPgogICAgICA8Y2lyY2xlIHI9IjQ2IiBmaWxsPSIjMDBDNkMxIiBvcGFjaXR5PSIuMjIiPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHZhbHVlcz0iMzA7NTg7MzAiIGR1cj0iMy40cyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz4KICAgICAgICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJvcGFjaXR5IiB2YWx1ZXM9Ii4zNTswOy4zNSIgZHVyPSIzLjRzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIvPjwvY2lyY2xlPgogICAgICA8cGF0aCBkPSJNMC0zNGMtOS40IDAtMTcgNy42LTE3IDE3IDAgMTIuOCAxNyAzMSAxNyAzMXMxNy0xOC4yIDE3LTMxYzAtOS40LTcuNi0xNy0xNy0xN3oiIGZpbGw9IiMwMDFDNzciLz4KICAgICAgPGNpcmNsZSBjeT0iLTE3IiByPSI2LjQiIGZpbGw9IiMwMEM2QzEiLz48L2c+Cjwvc3ZnPg==" alt="Map of 5005 E 8th Ave, Hialeah, FL"></div>
-      </div>
-      <p class="small muted mt-2" data-reveal data-es="Los servicios por sede y los datos de acceso son de referencia — se confirman con la administración antes de publicar. Los mapas se reemplazan por Google Maps embebido.">Per-location services and access details are placeholders — to be confirmed with administration before launch. Maps will be replaced with an embedded Google Map.</p>
-    </div>
-  </section>
-
-  <section class="sec sec--paper">
-    <div class="container">
-      <div class="sec-head center" data-reveal>
-        <span class="eyebrow eyebrow--plain" data-es="Antes de venir">Before you come in</span>
-        <h2 class="mt-1" data-es="Tres cosas que hacen su visita más corta.">Three things that make your visit shorter.</h2>
-      </div>
-      <div class="grid g-3 mt-3" data-stagger>
-        <div class="card"><span class="card-num">01</span><h3 data-es="Llegue 15 minutos antes">Arrive 15 minutes early</h3><p data-es="Es el tiempo justo para el registro sin que su cita se retrase.">That is exactly enough time to register without pushing your appointment back.</p></div>
-        <div class="card"><span class="card-num">02</span><h3 data-es="Traiga la orden y su seguro">Bring your order and insurance</h3><p data-es="Identificación con foto, tarjeta del seguro y la orden de su médico.">Photo ID, insurance card and your physician's order.</p></div>
-        <div class="card"><span class="card-num">03</span><h3 data-es="Confirme la preparación">Confirm your prep</h3><p data-es="Algunos estudios requieren ayuno o beber agua antes. Revíselo con nosotros.">Some studies require fasting or drinking water beforehand. Check with us first.</p></div>
-      </div>
-      <div class="row mt-3" style="justify-content:center" data-reveal>
-        <a class="btn btn--ghost" href="#/patients!prepare" data-es='Guía de preparación por estudio <svg class="ico"><use href="#i-arrow"/></svg>'>Preparation guide by study <svg class="ico"><use href="#i-arrow"/></svg></a>
-      </div>
-    </div>
-  </section>
-</main>
-</div>
 <div class="route" data-route="patients" data-title="Patient Information — Preparation, Insurance, Forms & FAQ | Best American Diagnostic" hidden>
 <main>
   <section class="phero">
@@ -1774,6 +1691,10 @@ strong{font-weight:600}
       <div class="sec-head center" data-reveal>
         <span class="eyebrow eyebrow--plain" data-es="Preguntas frecuentes">Frequent questions</span>
         <h2 class="mt-1" data-es="Las preguntas que más nos hacen.">The questions we hear most.</h2>
+        <p class="lede mt-1" data-es="¿No está su pregunta? Escríbanos por WhatsApp al (786) 819-6086 y le respondemos en horario de atención.">Not seeing your question? Message us on WhatsApp at (786) 819-6086 and we answer during business hours.</p>
+        <div class="row mt-2" style="justify-content:center">
+          <a class="btn btn--wa" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span data-es="Preguntar por WhatsApp">Ask on WhatsApp</span></a>
+        </div>
       </div>
       <div class="acc mt-3" data-reveal>
         <div class="acc-item" data-open="true">
@@ -1954,9 +1875,9 @@ strong{font-weight:600}
         <span class="eyebrow" data-es="El centro">The center</span>
         <h2 class="mt-1" data-es="Cerca de casa, con el estándar de un gran hospital.">Close to home, held to a large-hospital standard.</h2>
         <p class="lede mt-1" data-es="Best American Diagnostic Center nació como una respuesta local a un problema real: los tiempos de espera. Una madre con un dolor persistente no debería esperar tres semanas por una resonancia, ni conducir cuarenta minutos para hacérsela.">Best American Diagnostic Center started as a local answer to a real problem: waiting. A mother with persistent pain should not wait three weeks for an MRI, nor drive forty minutes to get one.</p>
-        <p class="mt-1 muted" data-es="Hoy operamos dos sedes en Hialeah con seis modalidades diagnósticas, un equipo bilingüe completo y radiólogos certificados que leen cada estudio. Seguimos siendo un centro independiente — y esa independencia es exactamente lo que nos permite dedicarle veinte minutos a un paciente que llegó con miedo.">Today we run two Hialeah locations with six diagnostic modalities, a fully bilingual team and board-certified radiologists reading every study. We remain independent — and that independence is exactly what lets us spend twenty minutes with a patient who walked in afraid.</p>
+        <p class="mt-1 muted" data-es="Hoy operamos un centro en Hialeah con seis modalidades diagnósticas, un equipo bilingüe completo y radiólogos certificados que leen cada estudio. Seguimos siendo un centro independiente — y esa independencia es exactamente lo que nos permite dedicarle veinte minutos a un paciente que llegó con miedo.">Today we run one Hialeah center with six diagnostic modalities, a fully bilingual team and board-certified radiologists reading every study. We remain independent — and that independence is exactly what lets us spend twenty minutes with a patient who walked in afraid.</p>
         <div class="row mt-2">
-          <a class="btn" href="#/locations" data-es='Visite nuestras sedes <svg class="ico"><use href="#i-arrow"/></svg>'>Visit our locations <svg class="ico"><use href="#i-arrow"/></svg></a>
+          <a class="btn" href="#/contact" data-es='Visítenos en Hialeah <svg class="ico"><use href="#i-arrow"/></svg>'>Visit us in Hialeah <svg class="ico"><use href="#i-arrow"/></svg></a>
           <a class="tlink" href="#/contact" data-es="Hablar con nuestro equipo">Talk to our team</a>
         </div>
       </div>
@@ -2103,7 +2024,7 @@ strong{font-weight:600}
             <div class="field">
               <label for="c-loc" data-es="Sede preferida">Preferred location</label>
               <select id="c-loc" name="location">
-                <option>637 E 49th St, Hialeah</option>
+                <option>5005 E 8th Ave, Hialeah</option>
                 <option>5005 E 8th Ave, Hialeah</option>
                 <option data-es="La que tenga cita antes">Whichever is available sooner</option>
               </select>
@@ -2148,31 +2069,41 @@ strong{font-weight:600}
       <div class="stack-lg" data-reveal="right">
         <div>
           <span class="eyebrow" data-es="Hable con nosotros">Talk to us</span>
-          <h2 class="mt-1" style="font-size:var(--t-h3)" data-es="Preferimos el teléfono. Contesta una persona.">We prefer the phone. A person answers.</h2>
+          <h2 class="mt-1" style="font-size:var(--t-h3)" data-es="Tres formas de llegar a una persona real.">Three ways to reach an actual person.</h2>
           <dl class="dl mt-2">
             <dt data-es="Citas">Appointments</dt><dd><a href="tel:+13056817555">(305) 681-7555</a></dd>
-            <dt data-es="Segunda sede">Second location</dt><dd><a href="tel:+13058251535">(305) 825-1535</a></dd>
+            <dt>WhatsApp</dt><dd><a href="https://wa.me/17868196086" target="_blank" rel="noopener">(786) 819-6086</a></dd>
+            <dt data-es="Correo">Email</dt><dd><a href="mailto:billing@bestamericandiagnostics.com">billing@bestamericandiagnostics.com</a></dd>
             <dt data-es="Órdenes médicas">Physician orders</dt><dd data-es="Fax: (305) 681-7040">Fax: (305) 681-7040</dd>
             <dt data-es="Horario">Hours</dt><dd data-es="Lunes a viernes, 8:00 am – 6:00 pm">Monday to Friday, 8:00 am – 6:00 pm</dd>
           </dl>
         </div>
 
-        <div class="card">
-          <span class="c-ico"><svg><use href="#i-pin"/></svg></span>
-          <h3>637 E 49th Street</h3>
-          <p>Hialeah, FL 33013</p>
-          <a class="tlink" href="https://www.google.com/maps/dir/?api=1&destination=637+E+49th+St+Hialeah+FL+33013" target="_blank" rel="noopener" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
+        <div class="card" style="border-color:rgba(37,211,102,.35)">
+          <span class="c-ico" style="background:rgba(37,211,102,.14);color:#128C4A"><svg><use href="#i-wa"/></svg></span>
+          <h3 data-es="¿Una pregunta rápida?">Quick question?</h3>
+          <p data-es="Escríbanos por WhatsApp al (786) 819-6086 y le respondemos en horario de atención — en español o en inglés, sin esperar en línea.">Message us on WhatsApp at (786) 819-6086 and we answer during business hours — in Spanish or English, with no hold music.</p>
+          <a class="btn btn--wa btn--sm" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span data-es="Abrir WhatsApp">Open WhatsApp</span></a>
         </div>
 
         <div class="card">
           <span class="c-ico"><svg><use href="#i-pin"/></svg></span>
           <h3>5005 E 8th Avenue</h3>
           <p>Hialeah, FL 33013</p>
+          <p class="small muted" data-es="Estacionamiento gratuito · Entrada accesible en silla de ruedas">Free parking · Wheelchair-accessible entrance</p>
+          <div class="hours mt-1">
+            <div data-day="1,2,3,4,5"><span data-es="Lunes a viernes">Monday to Friday</span><span>8:00 am – 6:00 pm</span></div>
+            <div data-day="6,0"><span data-es="Sábado y domingo">Saturday &amp; Sunday</span><span data-es="Cerrado">Closed</span></div>
+          </div>
           <a class="tlink" href="https://www.google.com/maps/dir/?api=1&destination=5005+E+8th+Ave+Hialeah+FL+33013" target="_blank" rel="noopener" data-es='Cómo llegar <svg class="ico"><use href="#i-arrow-ur"/></svg>'>Get directions <svg class="ico"><use href="#i-arrow-ur"/></svg></a>
         </div>
 
+        <figure class="fig fig--wide" style="border-radius:var(--r-md)">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNzAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJNYXAgcGxhY2Vob2xkZXIiPgogIDxyZWN0IHdpZHRoPSI5MDAiIGhlaWdodD0iNzAwIiBmaWxsPSIjRThFREY3Ii8+PHJlY3QgeD0iNDUwIiB5PSI2NzQiIHdpZHRoPSI0MyIgaGVpZ2h0PSI1NiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjUxNCIgeT0iMTYyIiB3aWR0aD0iNjQiIGhlaWdodD0iNDYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyMzgiIHk9IjU1OCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjI2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iODIwIiB5PSIyMTIiIHdpZHRoPSI0OCIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE0MSIgeT0iMTM3IiB3aWR0aD0iNjQiIGhlaWdodD0iNTEiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMDciIHk9IjU2MCIgd2lkdGg9IjY5IiBoZWlnaHQ9IjQ5IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNyIgeT0iNDY1IiB3aWR0aD0iNTQiIGhlaWdodD0iNTgiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMjIiIHk9IjUzMiIgd2lkdGg9IjU0IiBoZWlnaHQ9IjUyIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNTA1IiB5PSIzNzciIHdpZHRoPSI1MSIgaGVpZ2h0PSI1NCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9Ijg4NiIgeT0iMTg3IiB3aWR0aD0iMjQiIGhlaWdodD0iMzUiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI5MyIgeT0iMjYiIHdpZHRoPSI1MyIgaGVpZ2h0PSI0NCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ2MiIgeT0iMTE2IiB3aWR0aD0iNjciIGhlaWdodD0iMzYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMzEiIHk9IjQ4NyIgd2lkdGg9IjQyIiBoZWlnaHQ9IjQ4IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDEzIiB5PSIzMDAiIHdpZHRoPSIzNCIgaGVpZ2h0PSI0OSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ0OSIgeT0iMzA4IiB3aWR0aD0iNDMiIGhlaWdodD0iMjIiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3OSIgeT0iMjE0IiB3aWR0aD0iNDMiIGhlaWdodD0iNDYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIxMDMiIHk9IjQ3NCIgd2lkdGg9IjI4IiBoZWlnaHQ9IjQ5IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNTE3IiB5PSI0NjIiIHdpZHRoPSI2NiIgaGVpZ2h0PSIyMSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE3OSIgeT0iNDQ3IiB3aWR0aD0iNjUiIGhlaWdodD0iMzciIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3NyIgeT0iODciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjQ0MCIgeT0iMjkyIiB3aWR0aD0iNTMiIGhlaWdodD0iMjciIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyMDciIHk9IjYzNSIgd2lkdGg9IjU0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDM5IiB5PSI2NjQiIHdpZHRoPSI2NCIgaGVpZ2h0PSIyOSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjgiIHk9IjM5MyIgd2lkdGg9IjYzIiBoZWlnaHQ9IjM4IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNjUyIiB5PSI0MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjU0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNjAyIiB5PSIzNjUiIHdpZHRoPSI0MCIgaGVpZ2h0PSIzMyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjI3MCIgeT0iNTIxIiB3aWR0aD0iNDQiIGhlaWdodD0iMjMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyNSIgeT0iMjg3IiB3aWR0aD0iNjUiIGhlaWdodD0iMzMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI2NSIgeT0iMjAxIiB3aWR0aD0iNDIiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI0NzciIHk9IjUxNCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjQwIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iODIzIiB5PSI1MjUiIHdpZHRoPSI0MCIgaGVpZ2h0PSI1NSIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjczMyIgeT0iMzEzIiB3aWR0aD0iNjUiIGhlaWdodD0iNTMiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSIyOTIiIHk9IjY2MSIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNDM5IiB5PSI0ODkiIHdpZHRoPSIyNyIgaGVpZ2h0PSIzNCIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE1OCIgeT0iNDAiIHdpZHRoPSI1MyIgaGVpZ2h0PSIyNyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjUyNSIgeT0iNjA1IiB3aWR0aD0iMzAiIGhlaWdodD0iMzYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI3MzQiIHk9IjQ3OCIgd2lkdGg9IjY4IiBoZWlnaHQ9IjQ0IiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+PHJlY3QgeD0iNzAyIiB5PSIzMzIiIHdpZHRoPSI0NSIgaGVpZ2h0PSI0MyIgZmlsbD0iIzAwMUM3NyIgb3BhY2l0eT0iLjA3IiByeD0iMiIvPjxyZWN0IHg9IjE5MSIgeT0iNDU1IiB3aWR0aD0iNDUiIGhlaWdodD0iMjYiIGZpbGw9IiMwMDFDNzciIG9wYWNpdHk9Ii4wNyIgcng9IjIiLz48cmVjdCB4PSI2NTEiIHk9IjY4MyIgd2lkdGg9IjY2IiBoZWlnaHQ9IjUzIiBmaWxsPSIjMDAxQzc3IiBvcGFjaXR5PSIuMDciIHJ4PSIyIi8+CiAgPHJlY3Qgd2lkdGg9IjkwMCIgaGVpZ2h0PSI3MDAiIGZpbGw9Im5vbmUiLz48bGluZSB4MT0iMCIgeTE9IjQ1IiB4Mj0iOTAwIiB5Mj0iNDUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjEyNyIgeDI9IjkwMCIgeTI9IjEyNyIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iMTk2IiB4Mj0iOTAwIiB5Mj0iMTk2IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSIyNzAiIHgyPSI5MDAiIHkyPSIyNzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjM1MiIgeDI9IjkwMCIgeTI9IjM1MiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iNDMxIiB4Mj0iOTAwIiB5Mj0iNDMxIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjAiIHkxPSI1MTAiIHgyPSI5MDAiIHkyPSI1MTAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNTUiLz48bGluZSB4MT0iMCIgeTE9IjU3MiIgeDI9IjkwMCIgeTI9IjU3MiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii41NSIvPjxsaW5lIHgxPSIwIiB5MT0iNjYwIiB4Mj0iOTAwIiB5Mj0iNjYwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iLjU1Ii8+PGxpbmUgeDE9IjM2IiB5MT0iMCIgeDI9IjM2IiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjEzNCIgeTE9IjAiIHgyPSIxMzQiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iMjAxIiB5MT0iMCIgeDI9IjIwMSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSIyOTIiIHkxPSIwIiB4Mj0iMjkyIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjM1OCIgeTE9IjAiIHgyPSIzNTgiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNDQxIiB5MT0iMCIgeDI9IjQ0MSIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjUiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI1MzEiIHkxPSIwIiB4Mj0iNTMxIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9IjYwNCIgeTE9IjAiIHgyPSI2MDQiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI1IiBvcGFjaXR5PSIuNDUiLz48bGluZSB4MT0iNjgzIiB5MT0iMCIgeDI9IjY4MyIgeTI9IjcwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii40NSIvPjxsaW5lIHgxPSI3ODMiIHkxPSIwIiB4Mj0iNzgzIiB5Mj0iNzAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNSIgb3BhY2l0eT0iLjQ1Ii8+PGxpbmUgeDE9Ijg3MSIgeTE9IjAiIHgyPSI4NzEiIHkyPSI3MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI1IiBvcGFjaXR5PSIuNDUiLz4KICA8cmVjdCB4PSIwIiB5PSI0MzQuMCIgd2lkdGg9IjkwMCIgaGVpZ2h0PSI2My4wIiBmaWxsPSIjMDBDNkMxIiBvcGFjaXR5PSIuMTgiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0NTAuMCAzMjIuMCkiPgogICAgICA8Y2lyY2xlIHI9IjQ2IiBmaWxsPSIjMDBDNkMxIiBvcGFjaXR5PSIuMjIiPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHZhbHVlcz0iMzA7NTg7MzAiIGR1cj0iMy40cyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz4KICAgICAgICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJvcGFjaXR5IiB2YWx1ZXM9Ii4zNTswOy4zNSIgZHVyPSIzLjRzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIvPjwvY2lyY2xlPgogICAgICA8cGF0aCBkPSJNMC0zNGMtOS40IDAtMTcgNy42LTE3IDE3IDAgMTIuOCAxNyAzMSAxNyAzMXMxNy0xOC4yIDE3LTMxYzAtOS40LTcuNi0xNy0xNy0xN3oiIGZpbGw9IiMwMDFDNzciLz4KICAgICAgPGNpcmNsZSBjeT0iLTE3IiByPSI2LjQiIGZpbGw9IiMwMEM2QzEiLz48L2c+Cjwvc3ZnPg==" alt="Map of 5005 E 8th Ave, Hialeah, FL">
+        </figure>
+
         <div class="card card--dark">
-          <span class="c-ico" style="background:rgba(255,255,255,.08);color:var(--teal)"><svg><use href="#i-doc"/></svg></span>
+          <span class="c-ico"><svg><use href="#i-doc"/></svg></span>
           <h3 data-es="¿Es usted médico?">Are you a provider?</h3>
           <p data-es="Use la línea de consultorios para coordinar estudios urgentes y hablar con el radiólogo.">Use the provider line to coordinate urgent studies and speak with the radiologist.</p>
           <a class="tlink" href="#/providers" data-es='Portal para médicos <svg class="ico"><use href="#i-arrow"/></svg>'>Provider information <svg class="ico"><use href="#i-arrow"/></svg></a>
@@ -2319,16 +2250,15 @@ strong{font-weight:600}
     <div class="container split split--wide-left">
       <div data-reveal="left">
         <span class="eyebrow" data-es="Arquitectura">Architecture</span>
-        <h2 class="mt-1" data-es="Siete páginas, cada una con un trabajo claro.">Seven pages, each with one clear job.</h2>
+        <h2 class="mt-1" data-es="Seis páginas, cada una con un trabajo claro.">Six pages, each with one clear job.</h2>
         <p class="lede mt-1" data-es="Ninguna página existe «porque sí». Cada una responde a una intención de búsqueda concreta y termina en una acción.">No page exists “just because”. Each one answers a specific search intent and ends in an action.</p>
         <ul class="map-list mt-2" data-stagger>
           <li><b><a href="#/index">Home</a></b><span data-es="Confianza en 5 segundos + acceso a todo">Trust in 5 seconds + access to everything</span></li>
           <li><b><a href="#/services">Services</a></b><span data-es="Siete estudios, uso, duración y preparación">Seven studies, use, duration and prep</span></li>
-          <li><b><a href="#/locations">Locations</a></b><span data-es="Direcciones, horarios, acceso y cómo llegar">Addresses, hours, access and directions</span></li>
           <li><b><a href="#/patients">Patients</a></b><span data-es="Preparación, seguros, formularios y FAQ">Preparation, insurance, forms and FAQ</span></li>
           <li><b><a href="#/providers">Providers</a></b><span data-es="Cómo referir, tiempos y formulario">How to refer, turnaround and form</span></li>
           <li><b><a href="#/about">About</a></b><span data-es="Historia, valores, equipo y calidad">Story, values, team and quality</span></li>
-          <li><b><a href="#/contact">Contact</a></b><span data-es="Formulario de cita y datos directos">Appointment form and direct details</span></li>
+          <li><b><a href="#/contact">Contact</a></b><span data-es="Cita, dirección, WhatsApp y datos directos">Appointment, address, WhatsApp and direct details</span></li>
         </ul>
       </div>
       <div data-reveal="right">
@@ -2385,7 +2315,7 @@ strong{font-weight:600}
       </div>
       <div class="grid g-4 mt-3" data-stagger>
         <div class="card card--dark"><span class="c-ico"><svg><use href="#i-bolt"/></svg></span><h3 data-es="Rendimiento">Performance</h3><p data-es="HTML, CSS y JavaScript propios, sin librerías externas. Todo el sitio pesa menos que una sola foto sin optimizar.">Hand-written HTML, CSS and JavaScript with no external libraries. The entire site weighs less than one unoptimized photo.</p></div>
-        <div class="card card--dark"><span class="c-ico"><svg><use href="#i-globe"/></svg></span><h3>SEO</h3><p data-es="Títulos y descripciones por página, datos estructurados MedicalBusiness con ambas sedes, horarios y teléfonos para Google.">Per-page titles and descriptions, MedicalBusiness structured data with both locations, hours and phone numbers for Google.</p></div>
+        <div class="card card--dark"><span class="c-ico"><svg><use href="#i-globe"/></svg></span><h3>SEO</h3><p data-es="Títulos y descripciones por página, y datos estructurados MedicalBusiness con la dirección, el horario y los teléfonos para Google.">Per-page titles and descriptions, plus MedicalBusiness structured data carrying the address, hours and phone numbers for Google.</p></div>
         <div class="card card--dark"><span class="c-ico"><svg><use href="#i-wheel"/></svg></span><h3 data-es="Accesibilidad">Accessibility</h3><p data-es="Contraste AA, navegación por teclado, foco visible, etiquetas ARIA y respeto por «reducir movimiento».">AA contrast, keyboard navigation, visible focus, ARIA labelling and respect for reduced motion.</p></div>
         <div class="card card--dark"><span class="c-ico"><svg><use href="#i-shield"/></svg></span><h3 data-es="Privacidad">Privacy</h3><p data-es="Los formularios piden datos de contacto, nunca información clínica, con aviso explícito y ruta segura para el envío real.">Forms collect contact details, never clinical information, with an explicit notice and a secure path for real submissions.</p></div>
       </div>
@@ -2445,6 +2375,7 @@ strong{font-weight:600}
     <div class="cta-actions" data-reveal="right">
       <a class="btn btn--teal btn--lg" href="#/contact" data-es='Solicitar cita <svg class="ico"><use href="#i-arrow"/></svg>'>Request an appointment <svg class="ico"><use href="#i-arrow"/></svg></a>
       <a class="btn btn--ghost btn--lg" href="tel:+13056817555"><svg class="ico"><use href="#i-phone"/></svg>(305) 681-7555</a>
+      <a class="btn btn--wa btn--lg" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span data-es="¿Una pregunta rápida? WhatsApp">Quick question? WhatsApp</span></a>
       <p class="small" style="color:#C7D2FF" data-es="Respuesta el mismo día hábil · Se habla español">Same business-day response · Se habla español</p>
     </div>
   </div>
@@ -2497,13 +2428,13 @@ strong{font-weight:600}
       </div>
 
       <div>
-        <h4 data-es="Sedes">Locations</h4>
+        <h4 data-es="Visítenos">Visit us</h4>
         <ul>
-          <li><a href="#/locations!east-49">637 E 49th St<br>Hialeah, FL 33013</a></li>
-          <li><a href="#/locations!east-8">5005 E 8th Ave<br>Hialeah, FL 33013</a></li>
-          <li><a href="tel:+13056817555">(305) 681-7555</a></li>
-          <li><a href="tel:+13058251535">(305) 825-1535</a></li>
-          <li><span data-es="Fax: (305) 681-7040">Fax: (305) 681-7040</span></li>
+          <li><a href="https://www.google.com/maps/dir/?api=1&destination=5005+E+8th+Ave+Hialeah+FL+33013" target="_blank" rel="noopener">5005 E 8th Ave<br>Hialeah, FL 33013</a></li>
+          <li><a href="tel:+13056817555" data-es="Citas: (305) 681-7555">Appointments: (305) 681-7555</a></li>
+          <li><a href="https://wa.me/17868196086" target="_blank" rel="noopener">WhatsApp: (786) 819-6086</a></li>
+          <li><a href="mailto:billing@bestamericandiagnostics.com">billing@bestamericandiagnostics.com</a></li>
+          <li><span>Fax: (305) 681-7040</span></li>
           <li><span data-es="Lun – Vie · 8:00 am – 6:00 pm">Mon – Fri · 8:00 am – 6:00 pm</span></li>
         </ul>
       </div>
@@ -2524,8 +2455,14 @@ strong{font-weight:600}
 
 <div class="mobar">
   <a class="btn btn--ghost" href="tel:+13056817555"><svg class="ico"><use href="#i-phone"/></svg><span data-es="Llamar">Call</span></a>
+  <a class="btn btn--wa" href="https://wa.me/17868196086" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
   <a class="btn" href="#/contact"><svg class="ico"><use href="#i-cal"/></svg><span data-es="Agendar">Book</span></a>
 </div>
+
+<a class="wafab" href="https://wa.me/17868196086" target="_blank" rel="noopener" aria-label="Ask us on WhatsApp — (786) 819-6086">
+  <svg><use href="#i-wa"/></svg>
+  <span class="wafab-txt" data-es="Escríbanos">Chat with us</span>
+</a>
 
 <button class="totop" aria-label="Back to top"><svg><use href="#i-arrow-up"/></svg></button>
 

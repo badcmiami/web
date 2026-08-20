@@ -188,6 +188,8 @@ strong{font-weight:600}
 .btn--ghost:hover{color:#fff;border-color:var(--navy)}
 .sec--dark .btn--ghost,.on-dark .btn--ghost,.hero .btn--ghost,.phero .btn--ghost,.cta .btn--ghost{--btn-fg:#fff;--btn-sweep:#fff;border-color:var(--dark-line)}
 .sec--dark .btn--ghost:hover,.on-dark .btn--ghost:hover,.hero .btn--ghost:hover,.phero .btn--ghost:hover,.cta .btn--ghost:hover{color:var(--navy-900);border-color:#fff}
+.btn--wa{--btn-bg:#25D366;--btn-fg:#06331A;--btn-sweep:#fff;box-shadow:0 10px 24px -14px rgba(37,211,102,.9)}
+.btn--wa:hover{box-shadow:0 16px 34px -16px rgba(37,211,102,.85)}
 .btn--sm{padding:.7rem 1.15rem;font-size:.86rem}
 .btn--lg{padding:1.1rem 2rem;font-size:1rem}
 .btn--block{width:100%;justify-content:center}
@@ -481,7 +483,8 @@ strong{font-weight:600}
 
 /* ---------- 16. Locations ------------------------------------------------ */
 .loc{display:grid;grid-template-columns:1.1fr .9fr;gap:0;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:#fff}
-.loc-body{padding:clamp(1.6rem,3vw,2.5rem);display:flex;flex-direction:column;gap:1.1rem}
+.loc-body{padding:clamp(1.6rem,3vw,2.5rem);display:flex;flex-direction:column;gap:1.1rem;align-items:flex-start}
+.loc-body .dl,.loc-body .hours,.loc-body .row{width:100%}
 .loc-map{position:relative;min-height:280px;background:var(--paper)}
 .loc-map svg{width:100%;height:100%;object-fit:cover}
 .dl{display:grid;grid-template-columns:auto 1fr;gap:.6rem 1rem;font-size:.93rem}
@@ -568,9 +571,25 @@ strong{font-weight:600}
 .mobar.is-on{transform:translateY(0)}
 .mobar .btn{flex:1;justify-content:center;padding:.85rem 1rem}
 
+/* Floating WhatsApp — the quick-question lane */
+.wafab{
+  position:fixed;right:1.25rem;bottom:5rem;z-index:41;display:inline-flex;align-items:center;gap:0;
+  height:54px;padding:0 15px;border-radius:var(--r-pill);background:#25D366;color:#06331A;
+  box-shadow:0 14px 34px -12px rgba(37,211,102,.75),0 2px 6px rgba(6,51,26,.2);
+  transition:gap .45s var(--e-out),padding .45s var(--e-out),transform var(--d-2) var(--e-out),box-shadow var(--d-2) var(--e-out);
+}
+.wafab svg{width:26px;height:26px;flex:none}
+.wafab-txt{
+  max-width:0;overflow:hidden;white-space:nowrap;font-weight:600;font-size:.92rem;
+  transition:max-width .45s var(--e-out);
+}
+.wafab:hover,.wafab:focus-visible{gap:.6rem;padding-right:20px;transform:translateY(-3px);box-shadow:0 20px 40px -12px rgba(37,211,102,.85)}
+.wafab:hover .wafab-txt,.wafab:focus-visible .wafab-txt{max-width:180px}
+@media (max-width:900px){.wafab{display:none}}
+
 /* Back to top */
 .totop{
-  position:fixed;right:1.25rem;bottom:1.25rem;z-index:41;width:46px;height:46px;border-radius:50%;
+  position:fixed;right:1.6rem;bottom:1.25rem;z-index:41;width:46px;height:46px;border-radius:50%;
   background:var(--navy);color:#fff;display:grid;place-items:center;box-shadow:var(--sh-2);
   opacity:0;transform:translateY(14px) scale(.9);pointer-events:none;transition:all var(--d-2) var(--e-out)
 }
