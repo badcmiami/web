@@ -178,8 +178,30 @@ python3 tools/fetch_photos.py                      # Openverse, sin clave, todos
 python3 tools/fetch_photos.py --source pexels      # con PEXELS_API_KEY exportada
 python3 tools/fetch_photos.py hero mri --source unsplash
 python3 tools/fetch_photos.py --url hero=https://…/foto.jpg   # una foto concreta
+python3 tools/fetch_photos.py --local              # fotos que ya descargó usted
 python3 tools/build.py
 ```
+
+### Envato Elements, otra biblioteca de pago, o fotos propias
+
+Envato exige sesión iniciada, así que no hay API que valga: descargue usted las fotos desde
+el navegador y deje que el pipeline haga el resto.
+
+1. Descargue de Envato la foto de cada tema (busque «MRI», «CT scan», «medical reception»…).
+2. Guárdelas en `assets/photos/_incoming/` **con el nombre de su hueco**:
+   `hero.jpg`, `lobby.jpg`, `tech.jpg`, `mri.jpg`, `ct.jpg`, `mammography.jpg`,
+   `ultrasound.jpg`, `xray.jpg`, `cardiac.jpg`, `team.jpg`.
+3. `python3 tools/fetch_photos.py --local && python3 tools/build.py`
+
+Reciben exactamente el mismo tratamiento que las de banco: recorte a la proporción del
+diseño, cinco tamaños, WebP y `srcset`. Los originales quedan en `_masters/`, fuera del
+sitio publicado.
+
+Sobre la licencia de Envato Elements: cubre uso comercial, pero **hay que registrar cada
+descarga a un «proyecto» desde su cuenta** y conservar el certificado. La licencia muere si
+cancela la suscripción sin haber registrado el uso, así que hágalo el mismo día. Y siguen
+aplicando las reglas de uso sensible del punto anterior: nada de rostros identificables
+junto a texto que insinúe que esa persona es paciente.
 
 Para cada hueco el script:
 

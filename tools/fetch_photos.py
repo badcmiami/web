@@ -13,6 +13,12 @@ Sources, in order of how little setup they need:
     python3 tools/fetch_photos.py --source pexels       # needs PEXELS_API_KEY
     python3 tools/fetch_photos.py hero mri --source unsplash
     python3 tools/fetch_photos.py --url hero=https://…/photo.jpg
+    python3 tools/fetch_photos.py --local            # photos you already have
+
+Use --local for anything downloaded by hand — an Envato Elements subscription,
+a stock library that needs a login, or the centre's own photography. Drop the
+files in assets/photos/_incoming/ named after their slot (hero.jpg, mri.jpg…)
+and they get the same crop, the same five sizes and the same WebP treatment.
 
 What it does with each photo:
   1. downloads the largest version the provider offers (4K when available)
@@ -148,6 +154,46 @@ def shrink_master(path):
         im.save(path, 'JPEG', quality=90, optimize=True)
 
 
+INCOMING = os.path.join(OUT, '_incoming')
+
+
+def run_local(cfg, wanted):
+    """Derive every size from files the user supplied by hand."""
+    os.makedirs(INCOMING, exist_ok=True)
+    by_slot = {}
+    for fn in sorted(os.listdir(INCOMING)):
+        stem, ext = os.path.splitext(fn)
+        if ext.lower() in ('.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff'):
+            by_slot[stem.lower()] = os.path.join(INCOMING, fn)
+    if not by_slot:
+        print('Nothing in %s.\nDrop your files there named after their slot '
+              '(hero.jpg, mri.jpg, team.jpg…) and run this again.'
+              % os.path.relpath(INCOMING, ROOT))
+        print('Slots: ' + ', '.join(s['slot'] for s in cfg['slots']))
+        return {}
+
+    credits = {}
+    for slot in cfg['slots']:
+        name = slot['slot']
+        if (wanted and name not in wanted) or name not in by_slot:
+            continue
+        src = by_slot[name]
+        master = os.path.join(MASTERS, name + '.jpg')
+        from PIL import Image, ImageOps
+        ImageOps.exif_transpose(Image.open(src)).convert('RGB').save(
+            master, 'JPEG', quality=95, optimize=True)
+        shrink_master(master)
+        info = derive(master, name, slot['aspect'])
+        credits[name] = {'author': '', 'page': '', 'license': 'licensed by the client',
+                         'source': 'supplied', 'master': info['master']}
+        print('· %-12s %s from %s -> sizes %s'
+              % (name, info['master'], os.path.basename(src), info['widths']))
+    unused = sorted(set(by_slot) - {s['slot'] for s in cfg['slots']})
+    if unused:
+        print('\nIgnored (no slot with that name): ' + ', '.join(unused))
+    return credits
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     flags = [a for a in sys.argv[1:] if a.startswith('--')]
@@ -174,6 +220,12 @@ def main():
     wanted = set(args)
     credits_path = os.path.join(OUT, 'credits.json')
     credits = json.load(open(credits_path)) if os.path.exists(credits_path) else {}
+
+    if '--local' in flags:
+        credits.update(run_local(cfg, wanted))
+        json.dump(credits, open(credits_path, 'w'), indent=2, ensure_ascii=False)
+        print('\nNow run: python3 tools/build.py')
+        return
 
     for slot in cfg['slots']:
         name = slot['slot']
