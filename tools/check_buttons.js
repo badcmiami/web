@@ -144,6 +144,72 @@ function assert(cond, label) { (cond ? ok : fails).push(label); return cond; }
     return okBox.classList.contains('is-on') || (err && err.classList.contains('is-on'));
   }), 'form reports the outcome to the visitor');
 
+  // ---- accessibility widget ----------------------------------------------
+  await page.goto(BASE + 'index.html', { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(400);
+  await page.evaluate(() => localStorage.removeItem('bad-a11y'));
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(500);
+  const fabBox = await page.evaluate(() => {
+    const a = document.querySelector('.a11y-fab').getBoundingClientRect();
+    const w = document.querySelector('.wafab').getBoundingClientRect();
+    const overlap = !(a.right < w.left || a.left > w.right || a.bottom < w.top || a.top > w.bottom);
+    return { overlap, mid: Math.abs((a.top + a.height / 2) - window.innerHeight / 2) < 40 };
+  });
+  assert(!fabBox.overlap, 'accessibility button does not overlap the WhatsApp button');
+  assert(fabBox.mid, 'accessibility button sits at mid-height on the right');
+
+  await page.click('.a11y-fab');
+  await page.waitForTimeout(500);
+  assert(await page.evaluate(() => !document.querySelector('.a11y-panel').hidden), 'accessibility panel opens');
+
+  await page.click('[data-profile="dyslexia"]');
+  await page.waitForTimeout(400);
+  assert(await page.evaluate(() => {
+    const r = document.documentElement;
+    return r.classList.contains('a11y-readable') && r.dataset.a11ySpace === '2' && r.dataset.a11yLine === '2';
+  }), 'the dyslexia profile applies its adjustments');
+
+  const baseFont = await page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).fontSize));
+  await page.click('[data-step="font"][data-dir="1"]');
+  await page.waitForTimeout(300);
+  assert(await page.evaluate(f => parseFloat(getComputedStyle(document.documentElement).fontSize) > f, baseFont),
+    'the text-size stepper really enlarges the page');
+
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(500);
+  assert(await page.evaluate(() => document.documentElement.classList.contains('a11y-readable')),
+    'accessibility choices survive a reload');
+
+  await page.click('.a11y-fab');
+  await page.waitForTimeout(400);
+  await page.click('#a11yReset');
+  await page.waitForTimeout(300);
+  assert(await page.evaluate(() => document.documentElement.className === '' && !document.documentElement.dataset.a11yFont),
+    'reset clears every accessibility change');
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(300);
+  assert(await page.evaluate(() => document.querySelector('.a11y-panel').hidden), 'accessibility panel closes on Escape');
+
+  // ---- cookie consent -----------------------------------------------------
+  await page.evaluate(() => { localStorage.removeItem('bad-consent'); });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(1400);
+  assert(await page.evaluate(() => !document.querySelector('#cookieBar').hidden), 'cookie banner shows on a first visit');
+  assert(await page.evaluate(() => {
+    const c = document.querySelector('#cookieBar').getBoundingClientRect();
+    const w = document.querySelector('.wafab').getBoundingClientRect();
+    return c.right < w.left;
+  }), 'cookie banner clears the WhatsApp button');
+  await page.click('#cookieReject');
+  await page.waitForTimeout(700);
+  assert(await page.evaluate(() => localStorage.getItem('bad-consent') === 'rejected'
+    && document.querySelector('#cookieBar').hidden), 'rejecting stores the choice and hides the banner');
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(1300);
+  assert(await page.evaluate(() => document.querySelector('#cookieBar').hidden
+    && window.badcConsent === 'rejected'), 'the consent choice is remembered on the next visit');
+
   assert(jsErrors.length === 0, 'no JavaScript errors' + (jsErrors.length ? `: ${jsErrors[0]}` : ''));
 
   console.log(ok.map(o => '  ✓ ' + o).join('\n'));

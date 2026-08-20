@@ -261,6 +261,10 @@
       if (!el.hasAttribute('data-en')) el.setAttribute('data-en', el.innerHTML);
       el.innerHTML = el.getAttribute(lang === 'es' ? 'data-es' : 'data-en');
     });
+    $$('[data-es-label]').forEach(function (el) {
+      if (!el.hasAttribute('data-en-label')) el.setAttribute('data-en-label', el.getAttribute('aria-label') || '');
+      el.setAttribute('aria-label', el.getAttribute(lang === 'es' ? 'data-es-label' : 'data-en-label'));
+    });
     $$('[data-es-ph]').forEach(function (el) {
       if (!el.hasAttribute('data-en-ph')) el.setAttribute('data-en-ph', el.getAttribute('placeholder') || '');
       el.setAttribute('placeholder', el.getAttribute(lang === 'es' ? 'data-es-ph' : 'data-en-ph'));
@@ -276,6 +280,141 @@
   var saved;
   try { saved = localStorage.getItem(STORE); } catch (e) {}
   applyLang(saved === 'es' ? 'es' : 'en');
+
+  /* ---------------- Accessibility preferences ------------------------------ */
+  (function () {
+    var fab = $('.a11y-fab'), panel = $('#a11yPanel'), scrim = $('#a11yScrim');
+    if (!fab || !panel) return;
+    var guide = $('#a11yGuide');
+    var STORE = 'bad-a11y';
+    var STEPS = { font: 3, space: 3, line: 3 };
+    var TOGGLES = ['contrast', 'gray', 'links', 'readable', 'align', 'noimg', 'cursor', 'still', 'guide'];
+    var PROFILES = {
+      motor:     { still: true, cursor: true, font: 1 },
+      vision:    { font: 2, contrast: true, links: true },
+      dyslexia:  { readable: true, space: 2, line: 2, align: true },
+      cognitive: { readable: true, guide: true, still: true, line: 1 },
+      adhd:      { guide: true, still: true, gray: true },
+      seizure:   { still: true, gray: true }
+    };
+    var state = { font: 0, space: 0, line: 0, profile: '' };
+    TOGGLES.forEach(function (t) { state[t] = false; });
+
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORE) || '{}');
+      Object.keys(saved).forEach(function (k) { if (k in state) state[k] = saved[k]; });
+    } catch (e) {}
+
+    function apply() {
+      var root = document.documentElement;
+      ['font', 'space', 'line'].forEach(function (k) {
+        if (state[k]) root.setAttribute('data-a11y-' + k, state[k]);
+        else root.removeAttribute('data-a11y-' + k);
+        var out = $('[data-out="' + k + '"]', panel);
+        if (out) out.textContent = state[k];
+      });
+      TOGGLES.forEach(function (t) {
+        root.classList.toggle('a11y-' + t, !!state[t]);
+        var btn = $('[data-toggle="' + t + '"]', panel);
+        if (btn) btn.setAttribute('aria-pressed', state[t] ? 'true' : 'false');
+      });
+      $$('[data-profile]', panel).forEach(function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-profile') === state.profile ? 'true' : 'false');
+      });
+      if (guide) guide.hidden = !state.guide;
+      try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {}
+    }
+
+    function open(v) {
+      panel.hidden = !v;
+      if (scrim) scrim.hidden = !v;
+      fab.setAttribute('aria-expanded', v ? 'true' : 'false');
+      if (v) { apply(); ($('.a11y-close', panel) || panel).focus(); }
+      else fab.focus();
+    }
+
+    fab.addEventListener('click', function () { open(panel.hidden); });
+    $('#a11yClose').addEventListener('click', function () { open(false); });
+    if (scrim) scrim.addEventListener('click', function () { open(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panel.hidden) open(false);
+      if (e.altKey && (e.key === 'a' || e.key === 'A')) { e.preventDefault(); open(panel.hidden); }
+    });
+
+    $$('[data-step]', panel).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-step');
+        var dir = parseInt(btn.getAttribute('data-dir'), 10);
+        state[key] = Math.min(STEPS[key], Math.max(0, state[key] + dir));
+        state.profile = '';
+        apply();
+      });
+    });
+
+    $$('[data-toggle]', panel).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-toggle');
+        state[key] = !state[key];
+        state.profile = '';
+        apply();
+      });
+    });
+
+    $$('[data-profile]', panel).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var name = btn.getAttribute('data-profile');
+        var on = state.profile !== name;
+        reset(false);
+        if (on) {
+          state.profile = name;
+          Object.keys(PROFILES[name]).forEach(function (k) { state[k] = PROFILES[name][k]; });
+        }
+        apply();
+      });
+    });
+
+    function reset(doApply) {
+      state.font = state.space = state.line = 0;
+      state.profile = '';
+      TOGGLES.forEach(function (t) { state[t] = false; });
+      if (doApply !== false) apply();
+    }
+    $('#a11yReset').addEventListener('click', function () { reset(); });
+
+    // reading guide follows the pointer
+    document.addEventListener('mousemove', function (e) {
+      if (!state.guide || !guide) return;
+      guide.style.top = (e.clientY - 21) + 'px';
+    });
+
+    apply();
+  })();
+
+  /* ---------------- Cookie consent ----------------------------------------- */
+  (function () {
+    var bar = $('#cookieBar');
+    if (!bar) return;
+    var STORE = 'bad-consent';
+    var choice = null;
+    try { choice = localStorage.getItem(STORE); } catch (e) {}
+
+    // Anything that drops a measurement cookie should wait for this flag.
+    window.badcConsent = choice;
+
+    if (!choice) bar.hidden = false;
+
+    function decide(value) {
+      try { localStorage.setItem(STORE, value); } catch (e) {}
+      window.badcConsent = value;
+      bar.classList.add('is-leaving');
+      setTimeout(function () { bar.hidden = true; bar.classList.remove('is-leaving'); }, reduced ? 0 : 420);
+      document.dispatchEvent(new CustomEvent('badc:consent', { detail: value }));
+    }
+
+    $('#cookieAccept').addEventListener('click', function () { decide('accepted'); });
+    $('#cookieReject').addEventListener('click', function () { decide('rejected'); });
+    $('#cookieClose').addEventListener('click', function () { decide('rejected'); });
+  })();
 
   /* ---------------- Year stamp -------------------------------------------- */
   $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });

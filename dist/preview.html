@@ -159,6 +159,8 @@ input,textarea,select{font:inherit;color:inherit}
 ul,ol{margin:0;padding:0;list-style:none}
 h1,h2,h3,h4,h5,p,figure,blockquote{margin:0}
 hr{border:0;border-top:1px solid var(--line);margin:0}
+/* a display value on a component must never beat the hidden attribute */
+[hidden]{display:none!important}
 ::selection{background:var(--teal);color:var(--navy-900)}
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:2px}
 
@@ -814,6 +816,170 @@ strong{font-weight:600}
   .sec{padding-block:1.5rem}
 }
 
+/* =========================================================================
+   24. Accessibility preferences widget
+   ========================================================================= */
+.a11y-fab{
+  position:fixed;right:1.25rem;top:50%;transform:translateY(-50%);z-index:60;
+  width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+  background:var(--navy);color:#fff;box-shadow:0 14px 34px -12px rgba(0,28,119,.8);
+  transition:background var(--d-2) var(--e-out),transform var(--d-2) var(--e-out),box-shadow var(--d-2) var(--e-out);
+}
+.a11y-fab svg{width:27px;height:27px}
+.a11y-fab:hover{background:var(--teal);color:var(--navy-900);transform:translateY(-50%) scale(1.06)}
+.a11y-fab[aria-expanded="true"]{background:var(--teal);color:var(--navy-900)}
+
+.a11y-scrim{position:fixed;inset:0;z-index:61;background:rgba(10,16,48,.35);backdrop-filter:blur(2px);animation:fadeIn .3s var(--e-out)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.a11y-panel{
+  position:fixed;right:1.25rem;top:50%;transform:translateY(-50%);z-index:62;
+  width:min(370px,calc(100vw - 2.5rem));max-height:min(86vh,720px);
+  display:flex;flex-direction:column;overflow:hidden;
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-3);
+  animation:a11yIn .42s var(--e-out);
+}
+@keyframes a11yIn{from{opacity:0;transform:translateY(-50%) translateX(24px)}to{opacity:1;transform:translateY(-50%) translateX(0)}}
+.a11y-head{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex:none;
+  padding:1.05rem 1.25rem;background:var(--navy);color:#fff;
+}
+.a11y-head h2{font-size:1.05rem;color:#fff;letter-spacing:-.02em}
+.a11y-close{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--dark-line);color:#fff;transition:background var(--d-1)}
+.a11y-close:hover{background:rgba(255,255,255,.14)}
+.a11y-close svg{width:16px;height:16px}
+.a11y-body{padding:1.1rem 1.25rem;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+.a11y-legend{
+  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);
+  font-weight:700;margin:.35rem 0 .7rem
+}
+.a11y-legend + .a11y-legend,.a11y-grid + .a11y-legend,.a11y-step + .a11y-legend{margin-top:1.4rem}
+.a11y-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.a11y-grid + .a11y-step{margin-top:1rem}
+.a11y-tile{
+  display:flex;align-items:center;gap:.55rem;text-align:left;min-height:52px;
+  padding:.6rem .7rem;border:1px solid var(--line);border-radius:var(--r-sm);
+  font-size:.83rem;font-weight:500;line-height:1.25;color:var(--ink);background:#fff;
+  transition:border-color var(--d-1),background var(--d-1),color var(--d-1),box-shadow var(--d-1);
+}
+.a11y-tile svg{width:19px;height:19px;flex:none;color:var(--navy)}
+.a11y-df{font-family:var(--f-display);font-weight:700;font-size:1rem;color:var(--navy);width:19px;flex:none;text-align:center}
+.a11y-tile:hover{border-color:var(--navy);background:var(--paper)}
+.a11y-tile[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:0 8px 20px -12px rgba(0,28,119,.9)}
+.a11y-tile[aria-pressed="true"] svg,.a11y-tile[aria-pressed="true"] .a11y-df{color:var(--teal)}
+
+.a11y-step{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.55rem 0}
+.a11y-step + .a11y-step{border-top:1px solid var(--line-soft)}
+.a11y-step-label{display:flex;align-items:center;gap:.55rem;font-size:.86rem;font-weight:500}
+.a11y-step-label svg{width:19px;height:19px;color:var(--navy);flex:none}
+.a11y-stepper{display:flex;align-items:center;gap:.35rem;flex:none}
+.a11y-stepper button{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;
+  font-size:1.1rem;font-weight:600;line-height:1;color:var(--navy);transition:all var(--d-1)
+}
+.a11y-stepper button:hover{background:var(--navy);border-color:var(--navy);color:#fff}
+.a11y-stepper output{min-width:2.1rem;text-align:center;font-size:.85rem;font-weight:600;font-variant-numeric:tabular-nums}
+.a11y-foot{
+  flex:none;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;
+  padding:.9rem 1.25rem;border-top:1px solid var(--line);background:var(--paper)
+}
+.a11y-foot .tlink{font-size:.8rem}
+
+.a11y-guide{position:fixed;left:0;right:0;height:42px;z-index:59;pointer-events:none;
+  background:rgba(0,28,119,.12);border-top:2px solid var(--navy);border-bottom:2px solid var(--navy)}
+
+@media (max-width:640px){
+  .a11y-fab{width:46px;height:46px;right:.9rem}
+  .a11y-panel{
+    right:0;left:0;bottom:0;top:auto;transform:none;width:100%;
+    max-height:88vh;border-radius:var(--r-lg) var(--r-lg) 0 0;animation:sheetIn .42s var(--e-out)
+  }
+  @keyframes sheetIn{from{transform:translateY(100%)}to{transform:translateY(0)}}
+}
+
+/* ---- what the preferences actually do ---------------------------------- */
+html[data-a11y-font="1"]{font-size:112.5%}
+html[data-a11y-font="2"]{font-size:125%}
+html[data-a11y-font="3"]{font-size:140%}
+html[data-a11y-space="1"] body{letter-spacing:.03em;word-spacing:.08em}
+html[data-a11y-space="2"] body{letter-spacing:.06em;word-spacing:.16em}
+html[data-a11y-space="3"] body{letter-spacing:.1em;word-spacing:.26em}
+html[data-a11y-line="1"] body{line-height:1.85}
+html[data-a11y-line="2"] body{line-height:2.1}
+html[data-a11y-line="3"] body{line-height:2.4}
+html[data-a11y-line] p,html[data-a11y-line] li,html[data-a11y-line] blockquote{line-height:inherit}
+
+html.a11y-readable body,html.a11y-readable h1,html.a11y-readable h2,html.a11y-readable h3,
+html.a11y-readable h4,html.a11y-readable .btn,html.a11y-readable input,html.a11y-readable select,
+html.a11y-readable textarea{
+  font-family:Verdana,"Trebuchet MS",Tahoma,sans-serif!important;letter-spacing:normal
+}
+html.a11y-align p,html.a11y-align li,html.a11y-align h1,html.a11y-align h2,
+html.a11y-align h3,html.a11y-align .lede,html.a11y-align blockquote{text-align:left!important}
+
+html.a11y-links a{
+  text-decoration:underline!important;text-underline-offset:3px;text-decoration-thickness:2px;
+  outline:2px solid var(--teal);outline-offset:2px;border-radius:2px
+}
+html.a11y-noimg img,html.a11y-noimg .fig,html.a11y-noimg .hero-media,html.a11y-noimg .loc-map{
+  visibility:hidden!important
+}
+html.a11y-noimg .fig,html.a11y-noimg .loc-map{background:var(--paper);visibility:visible!important}
+html.a11y-noimg .fig img{display:none}
+
+html.a11y-gray{filter:grayscale(1)}
+html.a11y-contrast{filter:contrast(1.35) saturate(1.15)}
+html.a11y-contrast.a11y-gray{filter:grayscale(1) contrast(1.5)}
+
+html.a11y-cursor,html.a11y-cursor *{
+  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24'%3E%3Cpath d='M5 3.5 18.5 11l-5.6 1.6L10.6 18Z' fill='%23fff' stroke='%23001C77' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") 4 2,auto!important
+}
+html.a11y-still *,html.a11y-still *::before,html.a11y-still *::after{
+  animation-play-state:paused!important;animation-duration:.001ms!important;
+  transition-duration:.001ms!important;scroll-behavior:auto!important
+}
+html.a11y-still [data-reveal],html.a11y-still [data-stagger]>*,html.a11y-still .rt>span{
+  opacity:1!important;transform:none!important
+}
+
+/* =========================================================================
+   25. Cookie consent
+   ========================================================================= */
+.cookie{
+  position:fixed;left:1.25rem;bottom:1.25rem;z-index:58;
+  width:min(420px,calc(100vw - 2.5rem));display:flex;gap:.9rem;align-items:flex-start;
+  padding:1.1rem 1.15rem;background:#fff;border:1px solid var(--line);
+  border-radius:var(--r-md);box-shadow:var(--sh-3);
+  animation:cookieIn .55s var(--e-out) .6s both;
+}
+@keyframes cookieIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.cookie.is-leaving{animation:cookieOut .4s var(--e-out) forwards}
+@keyframes cookieOut{to{opacity:0;transform:translateY(16px) scale(.97)}}
+.cookie-ico{
+  width:40px;height:40px;flex:none;border-radius:12px;display:grid;place-items:center;
+  background:var(--teal-050);color:var(--navy)
+}
+.cookie-ico svg{width:22px;height:22px}
+.cookie-body{min-width:0}
+.cookie-body b{display:block;font-family:var(--f-display);font-size:.98rem;letter-spacing:-.02em}
+.cookie-body p{margin-top:.3rem;font-size:.82rem;line-height:1.55;color:var(--muted)}
+.cookie-actions{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.85rem}
+.cookie-actions .tlink{font-size:.8rem}
+.cookie-x{
+  position:absolute;top:.6rem;right:.6rem;width:28px;height:28px;border-radius:50%;
+  display:grid;place-items:center;color:var(--muted-2);transition:background var(--d-1),color var(--d-1)
+}
+.cookie-x:hover{background:var(--paper);color:var(--ink)}
+.cookie-x svg{width:14px;height:14px}
+
+@media (max-width:900px){
+  .cookie{left:.75rem;right:.75rem;width:auto;bottom:5.5rem}
+}
+@media (max-width:400px){
+  .cookie{padding:.9rem}
+  .cookie-ico{display:none}
+}
+
 .preview-note{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);z-index:60;
   display:flex;gap:.6rem;align-items:center;max-width:min(680px,92vw);
   background:rgba(0,11,51,.92);color:#EAEEFF;backdrop-filter:blur(10px);
@@ -869,6 +1035,23 @@ strong{font-weight:600}
   <symbol id="i-google" viewBox="0 0 24 24"><path fill="#4285F4" d="M21.6 12.2c0-.7-.06-1.4-.18-2.05H12v3.88h5.4a4.6 4.6 0 0 1-2 3.02v2.5h3.23c1.89-1.74 2.97-4.3 2.97-7.35z"/><path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.43l-3.23-2.5c-.9.6-2.05.96-3.39.96-2.6 0-4.8-1.76-5.6-4.12H3.07v2.58A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 13.9a6 6 0 0 1 0-3.82V7.5H3.07a10 10 0 0 0 0 9l3.33-2.6z"/><path fill="#EA4335" d="M12 5.96c1.47 0 2.79.5 3.83 1.5l2.86-2.86C16.95 2.99 14.7 2 12 2A10 10 0 0 0 3.07 7.5L6.4 10.1c.8-2.36 3-4.14 5.6-4.14z"/></symbol>
   <symbol id="i-yt" viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8ZM10 15V9l5.2 3Z"/></symbol>
   <symbol id="i-tt" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.1 1.7 3.5 3.8 3.7v2.6c-1.4.1-2.7-.3-3.9-1v5.9c0 4.6-4.4 7.1-8 5-2.4-1.4-3-4.9-1.2-7.2 1.3-1.7 3.4-2.4 5.4-1.9v2.9c-.4-.1-.8-.2-1.2-.2-1.4 0-2.4 1.3-2 2.7.3 1.1 1.6 1.7 2.7 1.2.8-.3 1.3-1.1 1.3-2V3Z"/></symbol>
+  <symbol id="i-a11y" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><circle cx="12" cy="6.9" r="1.5" fill="currentColor" stroke="none"/><path d="M6.8 9.6c3.4 1 6.9 1 10.3 0M12 10.2v3.4m0 0-2.2 4.6M12 13.6l2.2 4.6"/></symbol>
+  <symbol id="i-cookie" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9 4 4 0 0 1-4.6-4.4A4 4 0 0 1 12 3Z"/><circle cx="9.2" cy="10.4" r=".9" fill="currentColor"/><circle cx="13.6" cy="14.6" r=".9" fill="currentColor"/><circle cx="8.8" cy="15.4" r=".9" fill="currentColor"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 1 2.6 6.1"/><path d="M3.2 19.2v-5h5"/></symbol>
+  <symbol id="i-text-size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5.5h9V7M7.5 5.5V19M13.5 12v-1h7.5v1M17.2 11v8"/></symbol>
+  <symbol id="i-spacing" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M6 8.5 2.5 12 6 15.5M18 8.5 21.5 12 18 15.5"/></symbol>
+  <symbol id="i-line-h" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h12M9 12h12M9 18h12M4.5 4.5v15M2.5 6.5 4.5 4.5l2 2M2.5 17.5l2 2 2-2"/></symbol>
+  <symbol id="i-align" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 10.5h10M4 15h16M4 19.5h10"/></symbol>
+  <symbol id="i-contrast" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2c3.4 4 5.6 6.7 5.6 9.4A5.6 5.6 0 0 1 6.4 12.6c0-2.7 2.2-5.4 5.6-9.4Z"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 13.5a4 4 0 0 0 5.7 0l2.6-2.6a4 4 0 1 0-5.7-5.7L11.6 6.7"/><path d="M13.5 10.5a4 4 0 0 0-5.7 0l-2.6 2.6a4 4 0 0 0 5.7 5.7l1.5-1.5"/></symbol>
+  <symbol id="i-image-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="m4.5 17 4.5-5 3 3 2.5-2.5 5 5M4 20 20 4"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M5 3.5 18.5 11l-5.6 1.6L10.6 18Z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9.5 5.5v13M14.5 5.5v13"/></symbol>
+  <symbol id="i-guide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 8h18M3 16h18"/><path d="M3 12h18" stroke-width="3"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M10 4.5a2 2 0 1 1 4 0V6h3a1.5 1.5 0 0 1 1.5 1.5v3h1.5a2 2 0 1 1 0 4H18.5v3A1.5 1.5 0 0 1 17 19h-3v-1.5a2 2 0 1 0-4 0V19H7a1.5 1.5 0 0 1-1.5-1.5v-3H4a2 2 0 1 1 0-4h1.5v-3A1.5 1.5 0 0 1 7 6h3Z"/></symbol>
+  <symbol id="i-adhd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M7 9h10M7 12.5h6"/></symbol>
   <symbol id="i-menu-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
 </svg>
 
@@ -2616,6 +2799,119 @@ strong{font-weight:600}
 </a>
 
 <button class="totop" aria-label="Back to top"><svg><use href="#i-arrow-up"/></svg></button>
+<!-- Accessibility preferences. Pure CSS switches stored per visitor; it complements
+     the semantic markup and keyboard support already built into the site. -->
+<button class="a11y-fab" id="a11yOpen" aria-expanded="false" aria-controls="a11yPanel"
+        aria-label="Accessibility options" data-es-label="Opciones de accesibilidad" title="Accessibility (Alt + A)">
+  <svg><use href="#i-a11y"/></svg>
+</button>
+
+<div class="a11y-scrim" id="a11yScrim" hidden></div>
+
+<aside class="a11y-panel" id="a11yPanel" role="dialog" aria-modal="false" aria-labelledby="a11yTitle" hidden>
+  <header class="a11y-head">
+    <h2 id="a11yTitle" data-es="Accesibilidad">Accessibility</h2>
+    <button class="a11y-close" id="a11yClose" aria-label="Close" data-es-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </header>
+
+  <div class="a11y-body">
+    <h3 class="a11y-legend" data-es="Perfiles rápidos">Quick profiles</h3>
+    <div class="a11y-grid">
+      <button class="a11y-tile" data-profile="motor" aria-pressed="false">
+        <svg><use href="#i-wheel"/></svg><span data-es="Movilidad reducida">Motor impaired</span></button>
+      <button class="a11y-tile" data-profile="vision" aria-pressed="false">
+        <svg><use href="#i-eye"/></svg><span data-es="Baja visión">Low vision</span></button>
+      <button class="a11y-tile" data-profile="dyslexia" aria-pressed="false">
+        <b class="a11y-df">Df</b><span data-es="Dislexia">Dyslexia</span></button>
+      <button class="a11y-tile" data-profile="cognitive" aria-pressed="false">
+        <svg><use href="#i-puzzle"/></svg><span data-es="Cognitivo">Cognitive</span></button>
+      <button class="a11y-tile" data-profile="adhd" aria-pressed="false">
+        <svg><use href="#i-adhd"/></svg><span data-es="TDAH">ADHD friendly</span></button>
+      <button class="a11y-tile" data-profile="seizure" aria-pressed="false">
+        <svg><use href="#i-bolt"/></svg><span data-es="Sin destellos">Seizure safe</span></button>
+    </div>
+
+    <h3 class="a11y-legend" data-es="Ajustes">Adjustments</h3>
+
+    <div class="a11y-step">
+      <span class="a11y-step-label"><svg><use href="#i-text-size"/></svg><span data-es="Tamaño del texto">Text size</span></span>
+      <div class="a11y-stepper">
+        <button data-step="font" data-dir="-1" aria-label="Smaller text" data-es-label="Texto más pequeño">–</button>
+        <output data-out="font">0</output>
+        <button data-step="font" data-dir="1" aria-label="Bigger text" data-es-label="Texto más grande">+</button>
+      </div>
+    </div>
+
+    <div class="a11y-step">
+      <span class="a11y-step-label"><svg><use href="#i-spacing"/></svg><span data-es="Espaciado">Letter spacing</span></span>
+      <div class="a11y-stepper">
+        <button data-step="space" data-dir="-1" aria-label="Less spacing" data-es-label="Menos espaciado">–</button>
+        <output data-out="space">0</output>
+        <button data-step="space" data-dir="1" aria-label="More spacing" data-es-label="Más espaciado">+</button>
+      </div>
+    </div>
+
+    <div class="a11y-step">
+      <span class="a11y-step-label"><svg><use href="#i-line-h"/></svg><span data-es="Interlineado">Line height</span></span>
+      <div class="a11y-stepper">
+        <button data-step="line" data-dir="-1" aria-label="Tighter lines" data-es-label="Líneas más juntas">–</button>
+        <output data-out="line">0</output>
+        <button data-step="line" data-dir="1" aria-label="Looser lines" data-es-label="Líneas más separadas">+</button>
+      </div>
+    </div>
+
+    <div class="a11y-grid">
+      <button class="a11y-tile" data-toggle="contrast" aria-pressed="false">
+        <svg><use href="#i-contrast"/></svg><span data-es="Alto contraste">High contrast</span></button>
+      <button class="a11y-tile" data-toggle="gray" aria-pressed="false">
+        <svg><use href="#i-drop"/></svg><span data-es="Escala de grises">Grayscale</span></button>
+      <button class="a11y-tile" data-toggle="links" aria-pressed="false">
+        <svg><use href="#i-link"/></svg><span data-es="Resaltar enlaces">Highlight links</span></button>
+      <button class="a11y-tile" data-toggle="readable" aria-pressed="false">
+        <b class="a11y-df">Aa</b><span data-es="Fuente legible">Readable font</span></button>
+      <button class="a11y-tile" data-toggle="align" aria-pressed="false">
+        <svg><use href="#i-align"/></svg><span data-es="Alinear a la izquierda">Align left</span></button>
+      <button class="a11y-tile" data-toggle="noimg" aria-pressed="false">
+        <svg><use href="#i-image-off"/></svg><span data-es="Ocultar imágenes">Hide images</span></button>
+      <button class="a11y-tile" data-toggle="cursor" aria-pressed="false">
+        <svg><use href="#i-cursor"/></svg><span data-es="Cursor grande">Big cursor</span></button>
+      <button class="a11y-tile" data-toggle="still" aria-pressed="false">
+        <svg><use href="#i-pause"/></svg><span data-es="Detener animaciones">Pause animations</span></button>
+      <button class="a11y-tile" data-toggle="guide" aria-pressed="false">
+        <svg><use href="#i-guide"/></svg><span data-es="Guía de lectura">Reading guide</span></button>
+    </div>
+  </div>
+
+  <footer class="a11y-foot">
+    <button class="btn btn--ghost btn--sm" id="a11yReset">
+      <svg class="ico"><use href="#i-reset"/></svg><span data-es="Restablecer">Reset all</span>
+    </button>
+    <a class="tlink" href="#/legal!accessibility" data-es="Declaración de accesibilidad">Accessibility statement</a>
+  </footer>
+</aside>
+
+<div class="a11y-guide" id="a11yGuide" hidden></div>
+
+<!-- Consent banner. Nothing but the visitor's own choice is stored until they accept. -->
+<div class="cookie" id="cookieBar" role="dialog" aria-live="polite" aria-labelledby="cookieTitle" hidden>
+  <div class="cookie-ico"><svg><use href="#i-cookie"/></svg></div>
+  <div class="cookie-body">
+    <b id="cookieTitle" data-es="Usamos cookies">We use cookies</b>
+    <p data-es="Usamos cookies propias para que el sitio funcione y recordar sus preferencias (idioma y accesibilidad). Las de medición solo se activan si usted las acepta.">We use first-party cookies to run the site and remember your preferences (language and accessibility). Measurement cookies are only enabled if you accept them.</p>
+    <div class="cookie-actions">
+      <button class="btn btn--sm" id="cookieAccept" data-es="Aceptar">Accept</button>
+      <button class="btn btn--ghost btn--sm" id="cookieReject" data-es="Rechazar">Reject</button>
+      <a class="tlink" href="#/legal!privacy" data-es="Privacidad y términos">Privacy &amp; terms</a>
+    </div>
+  </div>
+  <button class="cookie-x" id="cookieClose" aria-label="Close" data-es-label="Cerrar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+</div>
+
+
 
 
 
@@ -2888,6 +3184,10 @@ strong{font-weight:600}
       if (!el.hasAttribute('data-en')) el.setAttribute('data-en', el.innerHTML);
       el.innerHTML = el.getAttribute(lang === 'es' ? 'data-es' : 'data-en');
     });
+    $$('[data-es-label]').forEach(function (el) {
+      if (!el.hasAttribute('data-en-label')) el.setAttribute('data-en-label', el.getAttribute('aria-label') || '');
+      el.setAttribute('aria-label', el.getAttribute(lang === 'es' ? 'data-es-label' : 'data-en-label'));
+    });
     $$('[data-es-ph]').forEach(function (el) {
       if (!el.hasAttribute('data-en-ph')) el.setAttribute('data-en-ph', el.getAttribute('placeholder') || '');
       el.setAttribute('placeholder', el.getAttribute(lang === 'es' ? 'data-es-ph' : 'data-en-ph'));
@@ -2903,6 +3203,141 @@ strong{font-weight:600}
   var saved;
   try { saved = localStorage.getItem(STORE); } catch (e) {}
   applyLang(saved === 'es' ? 'es' : 'en');
+
+  /* ---------------- Accessibility preferences ------------------------------ */
+  (function () {
+    var fab = $('.a11y-fab'), panel = $('#a11yPanel'), scrim = $('#a11yScrim');
+    if (!fab || !panel) return;
+    var guide = $('#a11yGuide');
+    var STORE = 'bad-a11y';
+    var STEPS = { font: 3, space: 3, line: 3 };
+    var TOGGLES = ['contrast', 'gray', 'links', 'readable', 'align', 'noimg', 'cursor', 'still', 'guide'];
+    var PROFILES = {
+      motor:     { still: true, cursor: true, font: 1 },
+      vision:    { font: 2, contrast: true, links: true },
+      dyslexia:  { readable: true, space: 2, line: 2, align: true },
+      cognitive: { readable: true, guide: true, still: true, line: 1 },
+      adhd:      { guide: true, still: true, gray: true },
+      seizure:   { still: true, gray: true }
+    };
+    var state = { font: 0, space: 0, line: 0, profile: '' };
+    TOGGLES.forEach(function (t) { state[t] = false; });
+
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORE) || '{}');
+      Object.keys(saved).forEach(function (k) { if (k in state) state[k] = saved[k]; });
+    } catch (e) {}
+
+    function apply() {
+      var root = document.documentElement;
+      ['font', 'space', 'line'].forEach(function (k) {
+        if (state[k]) root.setAttribute('data-a11y-' + k, state[k]);
+        else root.removeAttribute('data-a11y-' + k);
+        var out = $('[data-out="' + k + '"]', panel);
+        if (out) out.textContent = state[k];
+      });
+      TOGGLES.forEach(function (t) {
+        root.classList.toggle('a11y-' + t, !!state[t]);
+        var btn = $('[data-toggle="' + t + '"]', panel);
+        if (btn) btn.setAttribute('aria-pressed', state[t] ? 'true' : 'false');
+      });
+      $$('[data-profile]', panel).forEach(function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-profile') === state.profile ? 'true' : 'false');
+      });
+      if (guide) guide.hidden = !state.guide;
+      try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {}
+    }
+
+    function open(v) {
+      panel.hidden = !v;
+      if (scrim) scrim.hidden = !v;
+      fab.setAttribute('aria-expanded', v ? 'true' : 'false');
+      if (v) { apply(); ($('.a11y-close', panel) || panel).focus(); }
+      else fab.focus();
+    }
+
+    fab.addEventListener('click', function () { open(panel.hidden); });
+    $('#a11yClose').addEventListener('click', function () { open(false); });
+    if (scrim) scrim.addEventListener('click', function () { open(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panel.hidden) open(false);
+      if (e.altKey && (e.key === 'a' || e.key === 'A')) { e.preventDefault(); open(panel.hidden); }
+    });
+
+    $$('[data-step]', panel).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-step');
+        var dir = parseInt(btn.getAttribute('data-dir'), 10);
+        state[key] = Math.min(STEPS[key], Math.max(0, state[key] + dir));
+        state.profile = '';
+        apply();
+      });
+    });
+
+    $$('[data-toggle]', panel).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-toggle');
+        state[key] = !state[key];
+        state.profile = '';
+        apply();
+      });
+    });
+
+    $$('[data-profile]', panel).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var name = btn.getAttribute('data-profile');
+        var on = state.profile !== name;
+        reset(false);
+        if (on) {
+          state.profile = name;
+          Object.keys(PROFILES[name]).forEach(function (k) { state[k] = PROFILES[name][k]; });
+        }
+        apply();
+      });
+    });
+
+    function reset(doApply) {
+      state.font = state.space = state.line = 0;
+      state.profile = '';
+      TOGGLES.forEach(function (t) { state[t] = false; });
+      if (doApply !== false) apply();
+    }
+    $('#a11yReset').addEventListener('click', function () { reset(); });
+
+    // reading guide follows the pointer
+    document.addEventListener('mousemove', function (e) {
+      if (!state.guide || !guide) return;
+      guide.style.top = (e.clientY - 21) + 'px';
+    });
+
+    apply();
+  })();
+
+  /* ---------------- Cookie consent ----------------------------------------- */
+  (function () {
+    var bar = $('#cookieBar');
+    if (!bar) return;
+    var STORE = 'bad-consent';
+    var choice = null;
+    try { choice = localStorage.getItem(STORE); } catch (e) {}
+
+    // Anything that drops a measurement cookie should wait for this flag.
+    window.badcConsent = choice;
+
+    if (!choice) bar.hidden = false;
+
+    function decide(value) {
+      try { localStorage.setItem(STORE, value); } catch (e) {}
+      window.badcConsent = value;
+      bar.classList.add('is-leaving');
+      setTimeout(function () { bar.hidden = true; bar.classList.remove('is-leaving'); }, reduced ? 0 : 420);
+      document.dispatchEvent(new CustomEvent('badc:consent', { detail: value }));
+    }
+
+    $('#cookieAccept').addEventListener('click', function () { decide('accepted'); });
+    $('#cookieReject').addEventListener('click', function () { decide('rejected'); });
+    $('#cookieClose').addEventListener('click', function () { decide('rejected'); });
+  })();
 
   /* ---------------- Year stamp -------------------------------------------- */
   $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });

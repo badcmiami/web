@@ -1,0 +1,94 @@
+<!-- Accessibility preferences. Pure CSS switches stored per visitor; it complements
+     the semantic markup and keyboard support already built into the site. -->
+<button class="a11y-fab" id="a11yOpen" aria-expanded="false" aria-controls="a11yPanel"
+        aria-label="Accessibility options" data-es-label="Opciones de accesibilidad" title="Accessibility (Alt + A)">
+  <svg><use href="#i-a11y"/></svg>
+</button>
+
+<div class="a11y-scrim" id="a11yScrim" hidden></div>
+
+<aside class="a11y-panel" id="a11yPanel" role="dialog" aria-modal="false" aria-labelledby="a11yTitle" hidden>
+  <header class="a11y-head">
+    <h2 id="a11yTitle" data-es="Accesibilidad">Accessibility</h2>
+    <button class="a11y-close" id="a11yClose" aria-label="Close" data-es-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </header>
+
+  <div class="a11y-body">
+    <h3 class="a11y-legend" data-es="Perfiles rápidos">Quick profiles</h3>
+    <div class="a11y-grid">
+      <button class="a11y-tile" data-profile="motor" aria-pressed="false">
+        <svg><use href="#i-wheel"/></svg><span data-es="Movilidad reducida">Motor impaired</span></button>
+      <button class="a11y-tile" data-profile="vision" aria-pressed="false">
+        <svg><use href="#i-eye"/></svg><span data-es="Baja visión">Low vision</span></button>
+      <button class="a11y-tile" data-profile="dyslexia" aria-pressed="false">
+        <b class="a11y-df">Df</b><span data-es="Dislexia">Dyslexia</span></button>
+      <button class="a11y-tile" data-profile="cognitive" aria-pressed="false">
+        <svg><use href="#i-puzzle"/></svg><span data-es="Cognitivo">Cognitive</span></button>
+      <button class="a11y-tile" data-profile="adhd" aria-pressed="false">
+        <svg><use href="#i-adhd"/></svg><span data-es="TDAH">ADHD friendly</span></button>
+      <button class="a11y-tile" data-profile="seizure" aria-pressed="false">
+        <svg><use href="#i-bolt"/></svg><span data-es="Sin destellos">Seizure safe</span></button>
+    </div>
+
+    <h3 class="a11y-legend" data-es="Ajustes">Adjustments</h3>
+
+    <div class="a11y-step">
+      <span class="a11y-step-label"><svg><use href="#i-text-size"/></svg><span data-es="Tamaño del texto">Text size</span></span>
+      <div class="a11y-stepper">
+        <button data-step="font" data-dir="-1" aria-label="Smaller text" data-es-label="Texto más pequeño">–</button>
+        <output data-out="font">0</output>
+        <button data-step="font" data-dir="1" aria-label="Bigger text" data-es-label="Texto más grande">+</button>
+      </div>
+    </div>
+
+    <div class="a11y-step">
+      <span class="a11y-step-label"><svg><use href="#i-spacing"/></svg><span data-es="Espaciado">Letter spacing</span></span>
+      <div class="a11y-stepper">
+        <button data-step="space" data-dir="-1" aria-label="Less spacing" data-es-label="Menos espaciado">–</button>
+        <output data-out="space">0</output>
+        <button data-step="space" data-dir="1" aria-label="More spacing" data-es-label="Más espaciado">+</button>
+      </div>
+    </div>
+
+    <div class="a11y-step">
+      <span class="a11y-step-label"><svg><use href="#i-line-h"/></svg><span data-es="Interlineado">Line height</span></span>
+      <div class="a11y-stepper">
+        <button data-step="line" data-dir="-1" aria-label="Tighter lines" data-es-label="Líneas más juntas">–</button>
+        <output data-out="line">0</output>
+        <button data-step="line" data-dir="1" aria-label="Looser lines" data-es-label="Líneas más separadas">+</button>
+      </div>
+    </div>
+
+    <div class="a11y-grid">
+      <button class="a11y-tile" data-toggle="contrast" aria-pressed="false">
+        <svg><use href="#i-contrast"/></svg><span data-es="Alto contraste">High contrast</span></button>
+      <button class="a11y-tile" data-toggle="gray" aria-pressed="false">
+        <svg><use href="#i-drop"/></svg><span data-es="Escala de grises">Grayscale</span></button>
+      <button class="a11y-tile" data-toggle="links" aria-pressed="false">
+        <svg><use href="#i-link"/></svg><span data-es="Resaltar enlaces">Highlight links</span></button>
+      <button class="a11y-tile" data-toggle="readable" aria-pressed="false">
+        <b class="a11y-df">Aa</b><span data-es="Fuente legible">Readable font</span></button>
+      <button class="a11y-tile" data-toggle="align" aria-pressed="false">
+        <svg><use href="#i-align"/></svg><span data-es="Alinear a la izquierda">Align left</span></button>
+      <button class="a11y-tile" data-toggle="noimg" aria-pressed="false">
+        <svg><use href="#i-image-off"/></svg><span data-es="Ocultar imágenes">Hide images</span></button>
+      <button class="a11y-tile" data-toggle="cursor" aria-pressed="false">
+        <svg><use href="#i-cursor"/></svg><span data-es="Cursor grande">Big cursor</span></button>
+      <button class="a11y-tile" data-toggle="still" aria-pressed="false">
+        <svg><use href="#i-pause"/></svg><span data-es="Detener animaciones">Pause animations</span></button>
+      <button class="a11y-tile" data-toggle="guide" aria-pressed="false">
+        <svg><use href="#i-guide"/></svg><span data-es="Guía de lectura">Reading guide</span></button>
+    </div>
+  </div>
+
+  <footer class="a11y-foot">
+    <button class="btn btn--ghost btn--sm" id="a11yReset">
+      <svg class="ico"><use href="#i-reset"/></svg><span data-es="Restablecer">Reset all</span>
+    </button>
+    <a class="tlink" href="legal.html#accessibility" data-es="Declaración de accesibilidad">Accessibility statement</a>
+  </footer>
+</aside>
+
+<div class="a11y-guide" id="a11yGuide" hidden></div>

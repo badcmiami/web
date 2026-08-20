@@ -173,6 +173,32 @@ Para poner las reales: copie el texto de su perfil de Google Business, pegue cad
 añade el `google_place_id` en `site.json`, el botón «Escribir una reseña» lleva directo al
 formulario de Google en vez de a la ficha del mapa.
 
+## Accesibilidad y cookies
+
+**Panel de accesibilidad** — botón flotante a la derecha, a media altura, para que no se cruce
+con el de WhatsApp (abajo a la derecha) ni con la barra fija del móvil. Se abre también con
+`Alt + A`. Ofrece seis perfiles rápidos (movilidad reducida, baja visión, dislexia, cognitivo,
+TDAH y sin destellos) y doce ajustes sueltos: tamaño de texto, espaciado, interlineado, alto
+contraste, escala de grises, resaltar enlaces, fuente legible, alinear a la izquierda, ocultar
+imágenes, cursor grande, detener animaciones y guía de lectura. Las preferencias se guardan
+por visitante en `localStorage` y sobreviven a la navegación.
+
+Está escrito a mano, sin servicios de terceros: no añade scripts externos, no rompe la CSP y
+no ralentiza la carga. Es un complemento de la accesibilidad real del sitio (marcado
+semántico, navegación por teclado, contraste AA, `prefers-reduced-motion`), no un sustituto —
+una capa de overlay no arregla por sí sola un sitio inaccesible, y este no lo necesita.
+
+**Banner de cookies** — abajo a la izquierda, con entrada animada. Aceptar o rechazar guarda
+la decisión y expone `window.badcConsent` más un evento `badc:consent`. Hoy el sitio solo usa
+almacenamiento propio para el idioma y la accesibilidad; **cuando añada Google Analytics o un
+píxel, condicione su carga a ese flag** para que el rechazo signifique algo:
+
+```js
+document.addEventListener('badc:consent', function (e) {
+  if (e.detail === 'accepted') { /* cargar analytics aquí */ }
+});
+```
+
 ## Enlaces externos y redes sociales
 
 `site.json` concentra todo lo que apunta fuera del sitio: teléfono, WhatsApp, correo, mapa y
@@ -229,7 +255,7 @@ npm test                     # las cuatro suites seguidas
 | --- | --- |
 | `npm run audit` | Enlaces rotos, iconos faltantes, `alt`, un solo `h1`, errores JS, switch EN/ES |
 | `npm run check` | Destino de cada `tel:`, WhatsApp, `mailto:`, acción del formulario y destinatario en `send.php` |
-| `npm run check:buttons` | Hace clic de verdad: mega menú, acordeones, pestañas, menú móvil, idioma, volver arriba, formulario completo, enlaces externos con `rel="noopener"`, cero `href="#"` |
+| `npm run check:buttons` | Hace clic de verdad: mega menú, acordeones, pestañas, menú móvil, idioma, volver arriba, formulario completo, panel de accesibilidad (perfiles, pasos, persistencia, reset), banner de cookies, enlaces externos con `rel="noopener"`, cero `href="#"` |
 | `npm run check:responsive` | 8 dispositivos de 320 px a 1920 px: cero desbordamiento horizontal y ningún control por debajo de 30 px de alto |
 
 ## Preview en un solo archivo
