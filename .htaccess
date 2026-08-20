@@ -81,4 +81,4 @@ ErrorDocument 404 /404.html
   Require all denied
 </FilesMatch>
 RedirectMatch 404 ^/(src|tools|node_modules|\.git)/
-RedirectMatch 404 ^/assets/photos/_masters/
+RedirectMatch 404 ^/assets/photos/_(masters|incoming)/

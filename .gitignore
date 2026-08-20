@@ -10,3 +10,5 @@ __pycache__/
 _masters/
 assets/photos/_masters/
 form-inbox.log
+assets/photos/_incoming/*.jpg
+assets/photos/_incoming/*.svg
