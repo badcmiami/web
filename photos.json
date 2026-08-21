@@ -22,7 +22,7 @@
       "slot": "tech",
       "aspect": "1:1",
       "query": "medical imaging equipment detail",
-      "used_on": "index intro inset, bone density",
+      "used_on": "index intro inset, about team",
       "url": "",
       "sizes": "(max-width:900px) 100vw, 24vw"
     },
