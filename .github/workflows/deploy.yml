@@ -84,33 +84,43 @@ jobs:
             exit 1
           fi
 
-      - name: Normalise and check the FTP host
+      - name: Work out a usable FTP host
         run: |
           v="$FTP_SERVER"
           # People paste what the panel shows them: ftp://host, https://host,
-          # host/public_html, host:21. Accept all of it and reduce it to the
-          # bare host the FTP client needs.
+          # host/public_html, host:21. Reduce it to the bare host.
           clean="${v#*://}"
           clean="${clean%%/*}"
           clean="${clean%%:*}"
           clean="$(printf '%s' "$clean" | tr -d '[:space:]')"
+          [ "$clean" = "$v" ] || echo "Stripped a scheme, path or port from the stored host."
 
-          if [ "$clean" != "$v" ]; then
-            echo "Normalised the stored host (stripped a scheme, path or port)."
+          usable=""
+          # A bare IPv4 needs no lookup - many hosts have no reverse DNS.
+          if printf '%s' "$clean" | grep -Eq '^[0-9]{1,3}(\.[0-9]{1,3}){3}$'; then
+            echo "The stored value is an IP address; using it directly."
+            usable="$clean"
+          elif [ -n "$clean" ] && getent hosts "$clean" >/dev/null 2>&1; then
+            echo "The stored host resolves; using it."
+            usable="$clean"
+          else
+            echo "The stored host does not resolve."
+            for h in ftp.bestamerican.center bestamerican.center; do
+              if getent hosts "$h" >/dev/null 2>&1; then
+                echo "Falling back to $h, which does resolve."
+                usable="$h"
+                break
+              fi
+            done
           fi
 
-          if ! getent hosts "$clean" >/dev/null 2>&1; then
-            echo "The host still does not resolve after cleaning it up."
-            echo "Open hPanel -> Files -> FTP Accounts and copy the FTP IP or"
-            echo "hostname exactly as shown, with no ftp:// prefix, into"
-            echo "FTP_SERVER at Settings -> Secrets and variables -> Actions."
+          if [ -z "$usable" ]; then
+            echo "No usable FTP host. Copy the FTP hostname or IP from"
+            echo "hPanel -> Files -> FTP Accounts into FTP_SERVER."
             exit 1
           fi
-          echo "Host resolves. Connecting."
 
-          # Keep it masked in the log even though it is only a hostname.
-          echo "::add-mask::$clean"
-          echo "FTP_HOST=$clean" >> "$GITHUB_ENV"
+          echo "FTP_HOST=$usable" >> "$GITHUB_ENV"
 
       # Hostinger accepts FTPS on port 21. Try that first: the password never
       # crosses the wire in the clear. Some plans only answer plain FTP, so
