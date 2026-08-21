@@ -39,6 +39,17 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    # Accept the usual spellings, so one wrong secret name does not block a
+    # deploy. A secret that does not exist resolves to an empty string.
+    env:
+      FTP_SERVER: >-
+        ${{ secrets.FTP_SERVER || secrets.FTP_HOST || secrets.FTP_HOSTNAME }}
+      FTP_USERNAME: >-
+        ${{ secrets.FTP_USERNAME || secrets.FTP_USER || secrets.FTP_LOGIN }}
+      FTP_PASSWORD: >-
+        ${{ secrets.FTP_PASSWORD || secrets.FTP_PASS || secrets.FTP_PWD || secrets.FTP_SECRET }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -58,30 +69,33 @@ jobs:
           test -f dist/site/send.php   || { echo "send.php missing"; exit 1; }
           test -d dist/site/assets/photos || { echo "photos missing"; exit 1; }
 
-      - name: Check that all three FTP secrets arrived
-        env:
-          S: ${{ secrets.FTP_SERVER }}
-          U: ${{ secrets.FTP_USERNAME }}
-          P: ${{ secrets.FTP_PASSWORD }}
+      - name: Check that the FTP credentials arrived
         run: |
           miss=0
-          if [ -n "$S" ]; then echo "FTP_SERVER   : set"; else echo "FTP_SERVER   : MISSING"; miss=1; fi
-          if [ -n "$U" ]; then echo "FTP_USERNAME : set"; else echo "FTP_USERNAME : MISSING"; miss=1; fi
-          if [ -n "$P" ]; then echo "FTP_PASSWORD : set"; else echo "FTP_PASSWORD : MISSING"; miss=1; fi
+          if [ -n "$FTP_SERVER" ];   then echo "server   : set"; else echo "server   : MISSING"; miss=1; fi
+          if [ -n "$FTP_USERNAME" ]; then echo "username : set"; else echo "username : MISSING"; miss=1; fi
+          if [ -n "$FTP_PASSWORD" ]; then echo "password : set"; else echo "password : MISSING"; miss=1; fi
           if [ "$miss" != 0 ]; then
             echo ""
-            echo "Add the missing repository secrets under"
-            echo "Settings -> Secrets and variables -> Actions -> Secrets tab,"
-            echo "spelled exactly as above, then run this workflow again."
+            echo "Add the missing value as a REPOSITORY secret (not a variable,"
+            echo "not an environment secret) under Settings -> Secrets and"
+            echo "variables -> Actions -> Secrets, named FTP_SERVER,"
+            echo "FTP_USERNAME or FTP_PASSWORD, then run this workflow again."
             exit 1
           fi
 
-      - name: Upload to public_html
+      # Hostinger accepts FTPS on port 21. Try that first: the password never
+      # crosses the wire in the clear. Some plans only answer plain FTP, so
+      # fall back rather than leave the site unpublished.
+      - name: Publish to public_html over FTPS
+        id: ftps
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          server: ${{ env.FTP_SERVER }}
+          username: ${{ env.FTP_USERNAME }}
+          password: ${{ env.FTP_PASSWORD }}
+          protocol: ftps
           local-dir: ./dist/site/
           server-dir: /public_html/
           dangerous-clean-slate: false
@@ -91,3 +105,30 @@ jobs:
             **/form-inbox.log
             **/.git*
             **/node_modules/**
+
+      - name: Publish to public_html over plain FTP
+        if: steps.ftps.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ env.FTP_SERVER }}
+          username: ${{ env.FTP_USERNAME }}
+          password: ${{ env.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./dist/site/
+          server-dir: /public_html/
+          dangerous-clean-slate: false
+          dry-run: ${{ inputs.dry_run == true }}
+          exclude: |
+            **/form-inbox.log
+            **/.git*
+            **/node_modules/**
+
+      - name: Say where it went
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          if [ "${{ steps.ftps.outcome }}" = "failure" ]; then
+            echo "FTPS was refused; published over plain FTP instead."
+          else
+            echo "Published over FTPS."
+          fi
+          echo "The site should now answer at https://bestamerican.center"
