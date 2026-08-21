@@ -7,8 +7,8 @@
 #      password (use "Change account password" if you don't have it).
 #   2. GitHub -> this repo -> Settings -> Secrets and variables -> Actions ->
 #      "New repository secret", three times:
-#         FTP_SERVER     e.g. ftp.bestamericandiagnostics.com   (or the IP hPanel shows)
-#         FTP_USERNAME   e.g. u123456789.bestamericandiagnostics.com
+#         FTP_SERVER     e.g. ftp.bestamerican.center   (or the IP hPanel shows)
+#         FTP_USERNAME   e.g. u123456789.bestamerican.center
 #         FTP_PASSWORD   the FTP password
 #   3. GitHub -> Actions -> "Deploy to Hostinger" -> Run workflow.
 #
