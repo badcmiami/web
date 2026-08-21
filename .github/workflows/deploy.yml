@@ -58,6 +58,24 @@ jobs:
           test -f dist/site/send.php   || { echo "send.php missing"; exit 1; }
           test -d dist/site/assets/photos || { echo "photos missing"; exit 1; }
 
+      - name: Check that all three FTP secrets arrived
+        env:
+          S: ${{ secrets.FTP_SERVER }}
+          U: ${{ secrets.FTP_USERNAME }}
+          P: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          miss=0
+          if [ -n "$S" ]; then echo "FTP_SERVER   : set"; else echo "FTP_SERVER   : MISSING"; miss=1; fi
+          if [ -n "$U" ]; then echo "FTP_USERNAME : set"; else echo "FTP_USERNAME : MISSING"; miss=1; fi
+          if [ -n "$P" ]; then echo "FTP_PASSWORD : set"; else echo "FTP_PASSWORD : MISSING"; miss=1; fi
+          if [ "$miss" != 0 ]; then
+            echo ""
+            echo "Add the missing repository secrets under"
+            echo "Settings -> Secrets and variables -> Actions -> Secrets tab,"
+            echo "spelled exactly as above, then run this workflow again."
+            exit 1
+          fi
+
       - name: Upload to public_html
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
