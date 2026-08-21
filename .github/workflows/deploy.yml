@@ -101,7 +101,17 @@ jobs:
             echo "PROBLEM: the value contains a '/'. It must be just a hostname or IP."
             bad=1 ;;
           esac
-          echo "host length: ${#v} characters"
+          echo "host length: ${#v} characters (ftp.bestamerican.center would be 23)"
+          echo ""
+          echo "Which candidate hosts actually resolve from the internet:"
+          for h in ftp.bestamerican.center bestamerican.center www.bestamerican.center; do
+            if getent hosts "$h" >/dev/null 2>&1; then
+              echo "  $h  -> RESOLVES  ($(getent hosts "$h" | head -1 | awk '{print $1}'))"
+            else
+              echo "  $h  -> does not resolve"
+            fi
+          done
+          echo ""
           if getent hosts "$v" >/dev/null 2>&1; then
             echo "DNS: the host resolves - the address itself is fine."
           else
