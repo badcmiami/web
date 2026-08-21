@@ -84,6 +84,40 @@ jobs:
             exit 1
           fi
 
+      - name: Diagnose the FTP host before trying to connect
+        run: |
+          v="$FTP_SERVER"
+          bad=0
+          case "$v" in *://*)
+            echo "PROBLEM: the value contains '://'."
+            echo "         Store the bare hostname or IP - no ftp:// or https:// prefix."
+            bad=1 ;;
+          esac
+          case "$v" in *[[:space:]]*)
+            echo "PROBLEM: the value contains a space (often a stray one pasted at the end)."
+            bad=1 ;;
+          esac
+          case "$v" in */*)
+            echo "PROBLEM: the value contains a '/'. It must be just a hostname or IP."
+            bad=1 ;;
+          esac
+          echo "host length: ${#v} characters"
+          if getent hosts "$v" >/dev/null 2>&1; then
+            echo "DNS: the host resolves - the address itself is fine."
+          else
+            echo "DNS: the host does NOT resolve from the internet."
+            echo "     Open hPanel -> Files -> FTP Accounts and copy the FTP IP"
+            echo "     exactly as shown there (an IP address always works, even"
+            echo "     before the domain DNS has propagated)."
+            bad=1
+          fi
+          if [ "$bad" != 0 ]; then
+            echo ""
+            echo "Fix FTP_SERVER at Settings -> Secrets and variables -> Actions,"
+            echo "then run this workflow again."
+            exit 1
+          fi
+
       # Hostinger accepts FTPS on port 21. Try that first: the password never
       # crosses the wire in the clear. Some plans only answer plain FTP, so
       # fall back rather than leave the site unpublished.
